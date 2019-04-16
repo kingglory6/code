@@ -1,11 +1,19 @@
 package com.newer.mall.common.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class Admin {
 
 	private int id;
+	
 	private String account;
+	
+	@JsonIgnore
 	private String password;
-	private String adminName;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String name;
 
 	public int getId() {
 		return id;
@@ -31,12 +39,12 @@ public class Admin {
 		this.password = password;
 	}
 
-	public String getAdminName() {
-		return adminName;
+	public String getName() {
+		return name;
 	}
 
-	public void setAdminName(String adminName) {
-		this.adminName = adminName;
+	public void setAdminName(String name) {
+		this.name = name;
 	}
 
 }
