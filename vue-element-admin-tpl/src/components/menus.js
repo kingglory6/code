@@ -1,45 +1,54 @@
 const menus = [
-  {id: '0', label: '控制面板', path: '/', icon: 'fa fa-dashboard'},
   {
     id: 'components',
     icon: 'fa fa-microchip',
-    label: '组件',
+    label: '商品管理',
     submenu: [
       {
         id: 'test',
-        label: '二级测试',
+        label: '分类管理',
         icon: 'fa fa-hand-o-up',
         submenu: [
           {
             id: 'test',
-            label: '二级测试',
+            label: '类别',
+            icon: 'fa fa-hand-o-up'
+          },
+          {
+            id: 'test',
+            label: '品牌',
             icon: 'fa fa-hand-o-up'
           }
         ]
       },
-      ['Form 表单', [
-        {id: 'f1', name: 'c-button', label: 'Button 按钮', icon: 'fa fa-hand-o-up'},
-        {id: 'f2', name: 'c-switch', label: 'Switch 开关', icon: 'fa fa-square-o'},
-        {id: 'f3', name: 'c-checkbox', label: 'Checkbox 多选框', icon: 'fa fa-check-square'},
-        // {id: 'f4', label: 'Radio 单选框', icon: 'fa fa-dot-circle-o'},
-        {id: 'f5', name: 'c-input', label: 'Input 输入框', icon: 'fa fa-pencil'},
-        {id: 'f6', name: 'c-keyboard', label: '虚拟键盘', icon: 'fa fa-keyboard-o'}
-      ]],
-      ['Notice', [
-        {id: 'n1', name: 'c-alert', label: 'Alert 警告', icon: 'fa fa-info'},
-        {id: 'n2', name: 'c-loading', label: 'Loading 加载', icon: 'fa fa-circle-o-notch'}
-      ]],
-      ['Other', [
-        {id: 'c-dropdown', name: 'c-dropdown', label: 'Dropdown'},
-        {id: 'c-navbar', name: 'c-navbar', label: 'Navbar'},
-        {id: 'c-container', name: 'c-container', label: '栅格布局'}
-      ]]
+      {
+        id:'',
+        label:'商品活动',
+        icon:'fa fa-hand-o-up',
+        submenu: [
+          {
+            id:'',
+            label:'限时活动',
+            icon:'fa fa-hand-o-up'
+          },
+          {
+            id:'',
+            label:'秒杀活动',
+            icon:'fa fa-hand-o-up'
+          }
+        ]
+      }
+      ,{
+        id:'',
+        label:'商品显示',
+        icon: 'fa fa-hand-o-up'
+      }
     ]
   },
   {
     id: 'pages',
     icon: 'fa fa-circle-o',
-    label: 'Pages 页面',
+    label: 'page页面',
     submenu: [
       {id: 'p-data-table', name: 'p-data-table', label: 'Table 表格数据'},
       {id: 'cnode', name: 'cnode', label: 'Cnode社区'},
@@ -53,15 +62,26 @@ const menus = [
   {
     id: 'examples',
     icon: 'fa fa-paper-plane',
-    label: 'Examples',
+    label: '信息统计',
     submenu: [
-      {id: 'e1', path: '/500', label: 'Vuex 例子'}
+      {id: 'es', name:'', label: 'Vuex 例子'}
+    ]
+  },
+  {
+    id: 'orders',
+    icon: 'fa fa-paper-plane',
+    label: '订单管理',
+    submenu: [
+      {id: 'e1', name: '', label: '已发货'},
+      {id: 'e2', name: '', label: '未发货'},
+      {id: 'e3', name: '', label: '已收货'},
+      {id: 'e4', name: '', label: '待付款'},
     ]
   },
   {
     id: 'version',
     icon: 'fa fa-meetup',
-    label: '应用'
+    label: '日志统计'
   }
 ]
 export default menus
