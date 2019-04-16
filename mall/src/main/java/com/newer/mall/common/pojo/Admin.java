@@ -1,10 +1,18 @@
 package com.newer.mall.common.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class Admin {
 
 	private int id;
+	
 	private String account;
+	
+	@JsonIgnore
 	private String password;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String adminName;
 
 	public int getId() {
