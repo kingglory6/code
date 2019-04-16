@@ -29,11 +29,21 @@ export default new Router({
         {path: '/container', name: 'c-container', component: page('c-container')},
         {path: '/demo', name: 'demo', component: page('demo')},
         {path: '/404', name: '404', component: page('404')},
-        {path: '/500', name: '500', component: page('500')}
+        {path: '/500', name: '500', component: page('500')},
+        {path: '/commodity/add', name: 'commodity-add', component: page('commodity/add')},
+        {path: '/commodity/brand', name: 'commodity-list', component: page('commodity/brand')},
+        {path: '/commodity/category', name: 'commodity-spike', component: page('commodity/category')},
+        {path: '/commodity/discount', name: 'commodity-discount', component: page('commodity/discount')},
+        {path: '/commodity/list', name: 'commodity-brand', component: page('commodity/list')},
+        {path: '/commodity/spike', name: 'commodity-category', component: page('commodity/spike')},
+        {path: '/cnode', name: 'cnode', component: page('cnode/index')},
+        {path: '/shipped', name: 'shipped', component: page('orders/shipped')},
+        {path: '/unshipped', name: 'unshipped', component: page('orders/unshipped')},
+        {path: '/received', name: 'received', component: page('orders/received')},
+        {path: '/unreceived', name: 'unreceived', component: page('orders/unreceived')},
       ]
     },
     {path: '/login', name: 'login', component: page('login')},
-    {path: '/cnode', name: 'cnode', component: page('cnode')},
     // pages
     {path: '/home-login', name: 'p-login', component: page('home-login')},
     {path: '/register', name: 'p-register', component: page('register')},

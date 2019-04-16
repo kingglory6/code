@@ -28,7 +28,10 @@
       </m-dropdown>
     </m-nav-item>
     <m-nav-item padding="0 10px">
-      <el-badge is-dot class="item"><i class="fa fa-bell" style="font-size: 18px;vertical-align: middle;"></i></el-badge>
+      <i class="fa fa-bell" style="font-size: 18px;vertical-align: middle;">
+        <el-badge is-dot class="item"></el-badge>
+      </i>
+      
     </m-nav-item>
     <m-nav-item padding="0 5px">
       <a href="#" @click.stop.prevent="handleSwitchScreen">
@@ -135,4 +138,7 @@ export default {
   .side-switch:hover{
     color: #fff;
   }
+  .item {
+  margin-top: -10px;
+}
 </style>

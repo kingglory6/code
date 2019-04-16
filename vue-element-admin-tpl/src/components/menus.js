@@ -1,48 +1,60 @@
 const menus = [
+  {id:'',icon:'fa fa-hand-o-up',label:'首页'},
   {
-    id: 'components',
+    id: 'commodity',
     icon: 'fa fa-microchip',
     label: '商品管理',
     submenu: [
       {
-        id: 'test',
+        id:'list',
+        name:'commodity-list',
+        label:'商品列表',
+        icon: 'fa fa-hand-o-up'
+      },{
+        id:'add',
+        name:'commodity-add',
+        label:'添加商品',
+        icon: 'fa fa-hand-o-up'
+      },
+      {
+        id: 'type',
         label: '分类管理',
         icon: 'fa fa-hand-o-up',
         submenu: [
           {
-            id: 'test',
+            id: 'category',
+            name: 'commodity-category',
             label: '类别',
             icon: 'fa fa-hand-o-up'
           },
           {
-            id: 'test',
+            id: 'brand',
+            name:'commodity-brand',
             label: '品牌',
             icon: 'fa fa-hand-o-up'
           }
         ]
       },
       {
-        id:'',
+        id:'activity',
         label:'商品活动',
         icon:'fa fa-hand-o-up',
         submenu: [
           {
-            id:'',
-            label:'限时活动',
+            id:'discount',
+            name:'commodity-discount',
+            label:'折扣活动',
             icon:'fa fa-hand-o-up'
           },
           {
-            id:'',
+            id:'spike',
+            name:'commodity-spike',
             label:'秒杀活动',
             icon:'fa fa-hand-o-up'
           }
         ]
       }
-      ,{
-        id:'',
-        label:'商品显示',
-        icon: 'fa fa-hand-o-up'
-      }
+      
     ]
   },
   {
@@ -60,11 +72,12 @@ const menus = [
     ]
   },
   {
-    id: 'examples',
+    id: 'statistics',
     icon: 'fa fa-paper-plane',
     label: '信息统计',
     submenu: [
-      {id: 'es', name:'', label: 'Vuex 例子'}
+      {id: 'income', name:'', label: '收入统计'},
+      {id:'sales',name:'',label:'销量统计'}
     ]
   },
   {
@@ -72,14 +85,14 @@ const menus = [
     icon: 'fa fa-paper-plane',
     label: '订单管理',
     submenu: [
-      {id: 'e1', name: '', label: '已发货'},
-      {id: 'e2', name: '', label: '未发货'},
-      {id: 'e3', name: '', label: '已收货'},
-      {id: 'e4', name: '', label: '待付款'},
+      {id: 'shipped', name: 'shipped', label: '已发货'},
+      {id: 'unshipped', name: 'unshipped', label: '未发货'},
+      {id: 'received', name: 'received', label: '已收货'},
+      {id: 'unreceived', name: 'unreceived', label: '待付款'},
     ]
   },
   {
-    id: 'version',
+    id: 'log',
     icon: 'fa fa-meetup',
     label: '日志统计'
   }
