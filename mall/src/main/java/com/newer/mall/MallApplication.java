@@ -1,3 +1,4 @@
+
 package com.newer.mall;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -13,3 +14,4 @@ public class MallApplication {
 	}
 
 }
+

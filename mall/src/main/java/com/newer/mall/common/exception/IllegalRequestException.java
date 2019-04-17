@@ -1,5 +1,6 @@
 package com.newer.mall.common.exception;
 
+
 public class IllegalRequestException extends Exception{
 
 	/**
