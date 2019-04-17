@@ -1,56 +1,56 @@
 const menus = [
-  {id:'',icon:'fa fa-hand-o-up',label:'首页'},
+  {id:'home',name:'home',icon:'fa fa-home',label:'首页'},
   {
     id: 'commodity',
-    icon: 'fa fa-microchip',
+    icon: 'fa fa-shopping-bag',
     label: '商品管理',
     submenu: [
       {
-        id:'list',
+        id:'commodity-list',
         name:'commodity-list',
         label:'商品列表',
-        icon: 'fa fa-hand-o-up'
+        icon: 'fa fa-list-ul'
       },{
-        id:'add',
+        id:'commodity-add',
         name:'commodity-add',
         label:'添加商品',
-        icon: 'fa fa-hand-o-up'
+        icon: 'fa fa-plus-circle'
       },
       {
         id: 'type',
         label: '分类管理',
-        icon: 'fa fa-hand-o-up',
+        icon: 'fa fa-th-large',
         submenu: [
           {
-            id: 'category',
+            id: 'commodity-category',
             name: 'commodity-category',
             label: '类别',
-            icon: 'fa fa-hand-o-up'
+            icon: 'fa fa-th'
           },
           {
-            id: 'brand',
+            id: 'commodity-brand',
             name:'commodity-brand',
             label: '品牌',
-            icon: 'fa fa-hand-o-up'
+            icon: 'fa fa-tags'
           }
         ]
       },
       {
         id:'activity',
         label:'商品活动',
-        icon:'fa fa-hand-o-up',
+        icon:'fa fa-bookmark',
         submenu: [
           {
-            id:'discount',
+            id:'commodity-discount',
             name:'commodity-discount',
             label:'折扣活动',
-            icon:'fa fa-hand-o-up'
+            icon:'fa fa-usd'
           },
           {
-            id:'spike',
+            id:'commodity-spike',
             name:'commodity-spike',
             label:'秒杀活动',
-            icon:'fa fa-hand-o-up'
+            icon:'fa fa-clock-o'
           }
         ]
       }
@@ -73,27 +73,27 @@ const menus = [
   },
   {
     id: 'statistics',
-    icon: 'fa fa-paper-plane',
+    icon: 'fa fa-area-chart',
     label: '信息统计',
     submenu: [
-      {id: 'income', name:'', label: '收入统计'},
-      {id:'sales',name:'',label:'销量统计'}
+      {id: 'income', name:'income',  label: '收入统计',icon:'fa fa-circle-o'},
+      {id:'sales',name:'sales',label:'销量统计',icon:'fa fa-circle-o'}
     ]
   },
   {
     id: 'orders',
-    icon: 'fa fa-paper-plane',
+    icon: 'fa fa-calendar-minus-o',
     label: '订单管理',
     submenu: [
-      {id: 'shipped', name: 'shipped', label: '已发货'},
-      {id: 'unshipped', name: 'unshipped', label: '未发货'},
-      {id: 'received', name: 'received', label: '已收货'},
-      {id: 'unreceived', name: 'unreceived', label: '待付款'},
+      {id: 'shipped', name: 'shipped', label: '已发货', icon:'fa fa-circle-o'},
+      {id: 'unshipped', name: 'unshipped', label: '未发货', icon:'fa fa-circle-o'},
+      {id: 'received', name: 'received', label: '已收货', icon:'fa fa-circle-o'},
+      {id: 'unreceived', name: 'unreceived', label: '待付款', icon:'fa fa-circle-o'},
     ]
   },
   {
     id: 'log',
-    icon: 'fa fa-meetup',
+    icon: 'fa fa-file-o',
     label: '日志统计'
   }
 ]
