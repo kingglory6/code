@@ -13,7 +13,7 @@ export default [
     theme: {
       backgroundColor: '#333940',
       textColor: '#E0E0E0',
-      activeTextColor: '#fff',
+      activeTextColor: '#DAA520',
       headerTheme: 'dark'
     }
   },
@@ -32,8 +32,8 @@ export default [
     name: 'hongyan',
     theme: {
       backgroundColor: '#282C34',
-      textColor: '#F0F0F5',
-      activeTextColor: '#fff',
+      textColor: '#E0E0E0',
+      activeTextColor: '#CD5C5C',
       headerTheme: 'danger'
     }
   },
@@ -43,7 +43,7 @@ export default [
     theme: {
       backgroundColor: '#FFFFFF',
       textColor: '#303133',
-      activeTextColor: '#282C34',
+      activeTextColor: '#1E90FF',
       headerTheme: ''
     }
   }
