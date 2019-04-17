@@ -16,7 +16,7 @@ public class Commodity {
 	private Category category;
 	private Brand brand;
 	private List<Spec> specList;
-	private List<String> comment;
+	private List<Comment> comment;
 
 	public int getId() {
 		return id;
@@ -98,11 +98,11 @@ public class Commodity {
 		this.specList = specList;
 	}
 
-	public List<String> getComment() {
+	public List<Comment> getComment() {
 		return comment;
 	}
 
-	public void setComment(List<String> comment) {
+	public void setComment(List<Comment> comment) {
 		this.comment = comment;
 	}
 	

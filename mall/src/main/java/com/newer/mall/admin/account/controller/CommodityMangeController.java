@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newer.mall.admin.account.service.CommodityService;
+import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.pojo.Commodity;
+import com.newer.mall.common.utils.EmailTest;
 
 @RestController
 @RequestMapping("api/v1/admin")
@@ -25,6 +27,9 @@ public class CommodityMangeController {
 
 	@Autowired
 	CommodityService service;
+	
+	@Autowired
+	EmailTest test;
 
 	@GetMapping("/loadcommodity")
 	public Map<String, Object> loadCommodity(@RequestParam("key") String reqkey, HttpSession session) {
@@ -50,12 +55,25 @@ public class CommodityMangeController {
 				return map;
 			}
 			service.createCommodity(com);
+			map.put("code", "ok");
 		} catch (SQLException e) {
 			map.put("code", "error");
-			return map;
 		}
-		map.put("code", "ok");
 		return map;
 	}
 
+	@PostMapping("/state")
+	public Map<String, Object> commodityState(int id,int option) {
+		Map<String, Object> map = new HashMap<>();
+		try {
+			service.upDown(id, option);
+			map.put("code", "ok");
+		} catch (SQLException e) {
+			map.put("code", "error");
+		} catch (StateException e) {
+			map.put("code", "state error");
+		}
+		return map;
+	}
+	
 }

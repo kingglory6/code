@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.mapper.CommodityMangeMapper;
 import com.newer.mall.common.pojo.Commodity;
 
@@ -21,5 +22,12 @@ public class CommodityService {
 	
 	public void createCommodity(Commodity com) throws SQLException{
 		mapper.addCommodity(com);
+	}
+	
+	public void upDown(int id, int type) throws SQLException, StateException{
+		if(type != 0 && type != 1) {
+			throw new StateException();
+		}
+		mapper.updateShelf(id, type);
 	}
 }

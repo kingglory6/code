@@ -5,7 +5,6 @@ import java.sql.Date;
 public class Comment {
 
 	private int id;
-	private Commodity commodity;
 	private Customer customer;
 	private String content;
 	private Date time;
@@ -19,13 +18,6 @@ public class Comment {
 		this.id = id;
 	}
 
-	public Commodity getCommodity() {
-		return commodity;
-	}
-
-	public void setCommodity(Commodity commodity) {
-		this.commodity = commodity;
-	}
 
 	public Customer getCustomer() {
 		return customer;
