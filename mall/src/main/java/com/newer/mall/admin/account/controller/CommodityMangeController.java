@@ -6,30 +6,33 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newer.mall.admin.account.service.CommodityService;
+import com.newer.mall.admin.account.service.impl.CommodityServiceImpl;
 import com.newer.mall.common.exception.StateException;
+import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.pojo.Commodity;
-import com.newer.mall.common.utils.EmailTest;
+import com.newer.mall.common.utils.EmailSenderService;
 
 @RestController
-@RequestMapping("api/v1/admin")
+@RequestMapping("api/v1/admin/commodity")
 @CrossOrigin
 public class CommodityMangeController {
 
 	@Autowired
-	CommodityService service;
-	
+	CommodityServiceImpl service;
+
 	@Autowired
-	EmailTest test;
+	EmailSenderService mail;
 
 	@GetMapping("/loadcommodity")
 	public Map<String, Object> loadCommodity(@RequestParam("key") String reqkey, HttpSession session) {
@@ -63,17 +66,43 @@ public class CommodityMangeController {
 	}
 
 	@PostMapping("/state")
-	public Map<String, Object> commodityState(int id,int option) {
+	public Map<String, Object> commodityState(int id, int option) {
 		Map<String, Object> map = new HashMap<>();
 		try {
 			service.upDown(id, option);
 			map.put("code", "ok");
-		} catch (SQLException e) {
+		} catch (BindingException e) {
 			map.put("code", "error");
 		} catch (StateException e) {
 			map.put("code", "state error");
 		}
 		return map;
 	}
+
+	@PutMapping("/stock")
+	public Map<String, Object> stockMange(int id, int num) {
+		Map<String, Object> map = new HashMap<>();
+		try {
+			service.stockMange(id, num);
+			map.put("code", "ok");
+		} catch (BindingException e) {
+			map.put("code", "error");
+		} catch (DataException e) {
+			map.put("code", "data exception");
+		}
+		return map;
+	}
 	
+	@PostMapping("/recommend")
+	public Map<String, Object> recommendMange(int id, int type){
+		Map<String, Object> map = new HashMap<>();
+		try {
+			service.recommend(id, type);
+			map.put("code", "ok");
+		} catch (DataException e) {
+			map.put("code", "data exception");
+		}
+		return map;
+	}
+
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newer.mall.admin.account.service.AdminService;
+import com.newer.mall.admin.account.service.impl.AdminServiceImpl;
 import com.newer.mall.common.exception.AccountNotFoundException;
 import com.newer.mall.common.exception.PasswordErrorException;
 import com.newer.mall.common.pojo.Admin;
@@ -25,7 +25,7 @@ import com.newer.mall.common.utils.Password;
 public class AdminAccountController {
 	
 	@Autowired
-	AdminService service;
+	AdminServiceImpl service;
 	
 	@PostMapping("/login")
 	public Map<String,Object> login(@RequestParam("account") String account,@RequestParam("password") String password,HttpSession session){

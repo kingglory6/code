@@ -3,31 +3,24 @@ package com.newer.mall.admin.account.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.binding.BindingException;
 
+import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.exception.StateException;
-import com.newer.mall.common.mapper.CommodityMangeMapper;
 import com.newer.mall.common.pojo.Commodity;
 
-@Service
-public class CommodityService {
+public interface CommodityService {
 
-	@Autowired
-	CommodityMangeMapper mapper;
+	public List<Commodity> findCommodity();
+
+	public void createCommodity(Commodity com) throws SQLException;
+
+	public void upDown(int id, int type) throws BindingException, StateException;
+
+	public void stockMange(int id, int num) throws BindingException, DataException;
+
+	public void stockMangeAppen(int id, int num) throws BindingException;
 	
-	public List<Commodity> findCommodity(){
-		return mapper.getCommodityAll();
-	}
-	
-	public void createCommodity(Commodity com) throws SQLException{
-		mapper.addCommodity(com);
-	}
-	
-	public void upDown(int id, int type) throws SQLException, StateException{
-		if(type != 0 && type != 1) {
-			throw new StateException();
-		}
-		mapper.updateShelf(id, type);
-	}
+	public void recommend(int id,int type) throws DataException;
+
 }
