@@ -11,9 +11,9 @@
 export default {
   data () {
     return {
-      author: window.APP_INFO.author,
-      version: window.APP_INFO.version,
-      appName: window.APP_INFO.appName
+      author: '进击的咸鱼',
+      version: '0.0.1',
+      appName: '自营电商'
     }
   }
 }
