@@ -1,5 +1,6 @@
 package com.newer.mall.admin.account.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,9 @@ public class CommodityService {
 	
 	public List<Commodity> findCommodity(){
 		return mapper.getCommodityAll();
+	}
+	
+	public void createCommodity(Commodity com) throws SQLException{
+		mapper.addCommodity(com);
 	}
 }

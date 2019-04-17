@@ -2,7 +2,7 @@ package com.newer.mall.common.pojo;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale.Category;
+
 
 public class Commodity {
 
@@ -16,6 +16,7 @@ public class Commodity {
 	private Category category;
 	private Brand brand;
 	private List<Spec> specList;
+	private List<String> comment;
 
 	public int getId() {
 		return id;
@@ -96,5 +97,15 @@ public class Commodity {
 	public void setSpecList(List<Spec> specList) {
 		this.specList = specList;
 	}
+
+	public List<String> getComment() {
+		return comment;
+	}
+
+	public void setComment(List<String> comment) {
+		this.comment = comment;
+	}
+	
+	
 
 }
