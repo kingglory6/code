@@ -6,11 +6,22 @@ import java.sql.Date;
 public class Activity {
 
 	private int id;
+	private int type;
 	private Commodity commodity;
 	private Date startTime;
 	private Date endTime;
 	private int stock;
 	private BigDecimal price;
+	
+	
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;

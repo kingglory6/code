@@ -12,6 +12,7 @@ import com.newer.mall.admin.account.thread.EmailRunnable;
 import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.mapper.CommodityMangeMapper;
+import com.newer.mall.common.pojo.Activity;
 import com.newer.mall.common.pojo.Commodity;
 import com.newer.mall.common.pojo.Notice;
 import com.newer.mall.common.utils.EmailSenderService;
@@ -71,5 +72,19 @@ public class CommodityServiceImpl implements CommodityService {
 		mapper.updateRecommend(id, type);
 		
 	}
+
+	@Override
+	public void activity(Activity activity) throws DataException {
+		if(activity.getType() != 1 && activity.getType() != 2) {
+			throw new DataException();
+		}
+		if(activity.getType() == 1) {
+			mapper.addSpikeActivity(activity);
+		}else {
+			mapper.addDiscountActivity(activity);
+		}
+		
+	}
+
 
 }

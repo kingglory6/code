@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.newer.mall.common.pojo.Activity;
 import com.newer.mall.common.pojo.Commodity;
 import com.newer.mall.common.pojo.Notice;
 
@@ -36,5 +37,10 @@ public interface CommodityMangeMapper {
 	@Update("update commodity set recommend = #{type} where id = #{id}")
 	public void updateRecommend(@Param("id") int id,@Param("type") int type);
 	
+	@Insert("insert into spike(commodity_id,strat_time,end_time,stock,price) values(#{commodity.id},#{startTime},#{endTime},#{stock},#{price})")
+	public void addSpikeActivity(Activity activity);
+	
+	@Insert("insert into discount(commodity_id,strat_time,end_time,price) values(#{commodity.id},#{startTime},#{endTime},#{price})")
+	public void addDiscountActivity(Activity activity);
 
 }

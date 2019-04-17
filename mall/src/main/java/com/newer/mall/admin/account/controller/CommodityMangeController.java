@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newer.mall.admin.account.service.impl.CommodityServiceImpl;
-import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.exception.DataException;
+import com.newer.mall.common.exception.StateException;
+import com.newer.mall.common.pojo.Activity;
 import com.newer.mall.common.pojo.Commodity;
 import com.newer.mall.common.utils.EmailSenderService;
 
@@ -102,6 +103,18 @@ public class CommodityMangeController {
 		} catch (DataException e) {
 			map.put("code", "data exception");
 		}
+		return map;
+	}
+	
+	public Map<String, Object> activityMange(@RequestBody Activity activity){
+		Map<String, Object> map = new HashMap<>();
+		try {
+			service.activity(activity);
+			map.put("code", "ok");
+		} catch (DataException e) {
+			map.put("code", "type exception");
+		}
+		
 		return map;
 	}
 
