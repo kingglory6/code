@@ -40,7 +40,7 @@ public interface CartService {
 	 * @param pagenum(页面页码)
 	 * @param conditions (搜索条件)
 	 * @return
-	 */
+	 */	
 	public PageInfo<CartItem> findCart(int uid , String conditions ,int pagenum);
 	
 	
