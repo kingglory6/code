@@ -13,7 +13,7 @@ public class Admin {
 	private String password;
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private String adminName;
+	private String name;
 
 	public int getId() {
 		return id;
@@ -39,12 +39,12 @@ public class Admin {
 		this.password = password;
 	}
 
-	public String getAdminName() {
-		return adminName;
+	public String getName() {
+		return name;
 	}
 
-	public void setAdminName(String adminName) {
-		this.adminName = adminName;
+	public void setAdminName(String name) {
+		this.name = name;
 	}
 
 }

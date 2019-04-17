@@ -1,6 +1,7 @@
 package com.newer.mall.common.exception;
 
-public class PasswordError extends Exception{
+
+public class IllegalRequestException extends Exception{
 
 	/**
 	 * 
