@@ -1,6 +1,7 @@
 package com.newer.mall.commodity.service;
 
 import com.github.pagehelper.PageInfo;
+import com.newer.mall.common.pojo.Activity;
 import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Commodity;
 
@@ -29,7 +30,7 @@ public interface CommodityService {
 	 * @param pageNum 查询的页码
 	 * @return
 	 */
-	public PageInfo<Commodity> queryCommoditySpike(int pageNum);
+	public PageInfo<Activity> queryCommoditySpike(int pageNum);
 
 	/**
 	 * 查看限时活动
@@ -37,7 +38,7 @@ public interface CommodityService {
 	 * @param pageNum 查看页码
 	 * @return
 	 */
-	public PageInfo<Commodity> queryCommodityDiscount(int pageNum);
+	public PageInfo<Activity> queryCommodityDiscount(int pageNum);
 
 	/**
 	 * 查看该品牌对应的商品
@@ -60,11 +61,10 @@ public interface CommodityService {
 	/**
 	 * 商品详情
 	 * 
-	 * @param pageNum     查看页码
 	 * @param commodityid 商品关键字
 	 * @return
 	 */
-	public Commodity queryCommodity(int pageNum, int commodityid);
+	public Commodity queryCommodity(int commodityid);
 
 	/**
 	 * 添加购物车
@@ -73,7 +73,7 @@ public interface CommodityService {
 	 * @param quantity添加的数量
 	 * @param param商品参数
 	 */
-	public void addCart(int commodityid, int quantity, String param);
+	public void addCart(int uid,int commodityid, int quantity, String param);
 
 	/**
 	 * 查看商品评论

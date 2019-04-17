@@ -11,6 +11,7 @@ public class Activity {
 	private Date endTime;
 	private int stock;
 	private BigDecimal price;
+	private int type;
 
 	public int getId() {
 		return id;
@@ -60,4 +61,13 @@ public class Activity {
 		this.price = price;
 	}
 
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+	
+	
 }
