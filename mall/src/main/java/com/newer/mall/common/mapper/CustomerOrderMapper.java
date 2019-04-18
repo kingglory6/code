@@ -41,7 +41,7 @@ public interface CustomerOrderMapper {
 	public int findoid(@Param("uid")int uid);
 	
 	// 查询订单,sendstatus 订单状态
-	@Select("select * from orders where uid =#{uid} and sendstatus =#{sendstatus} ")
+	@Select("select * from orders where uid =#{uid} and sendstatus =#{sendstatus} and hidden =1}  ")
 	@Results(
 			{
 				@Result(
@@ -52,7 +52,7 @@ public interface CustomerOrderMapper {
 						)
 			}
 			)
-	public List<Orders> findOrders(int uid,int sendstatus);
+	public List<Orders> findOrders(@Param("uid")int uid,@Param("sendstatus")int sendstatus);
 	
 	//查询订单项
 	@Select("select*from item where order_id =#{oid}")

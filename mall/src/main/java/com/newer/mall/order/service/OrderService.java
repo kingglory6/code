@@ -41,7 +41,7 @@ public interface OrderService {
 	 * @param conditions(搜索条件)
 	 * @return
 	 */
-	public PageInfo<Orders> findOrders(int uid, int pagenum,String conditions);
+	public PageInfo<Orders> searchOrders(int uid, int pagenum,String conditions);
 	
 	/**
 	 *  删除订单

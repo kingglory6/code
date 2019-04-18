@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class OrderController {
 	//添加订单
 	@PostMapping("/add")
 	public void addOrder(@RequestParam int uid,
-			             @RequestParam Orders orders ,
+			             @RequestBody Orders orders ,
 			             @RequestParam List<CartItem> cartitems,
 			             @RequestParam String remark) throws NoStockException {
 
@@ -42,16 +43,23 @@ public class OrderController {
 	}
     //删除订单
     @PostMapping("/dlt")
-    public void dltOrder(int oid) {
+    public void dltOrder(@RequestParam int oid) {
     	
     	oservice.dltOrder(oid);
     }
     
     //添加评论
     @PostMapping("/addcment")
-    public void addComment(Comment comment) {
+    public void addComment(@RequestBody Comment comment) {
     	
     	oservice.addComment(comment);
+    }
+    
+    //搜索订单
+    @PostMapping("/search")
+    public PageInfo<Orders> search(int uid ,int pagenum, String conditions){
+    	
+		return oservice.searchOrders(uid, pagenum, conditions);
     	
     }
 

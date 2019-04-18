@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public PageInfo<Orders> findOrders(int uid, int pagenum, String conditions) {
+	public PageInfo<Orders> searchOrders(int uid, int pagenum, String conditions) {
 		// 根据条件查询
 		
 		PageHelper.startPage(pagenum, 10);
