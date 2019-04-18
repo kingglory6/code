@@ -1,4 +1,4 @@
-package com.newer.mall.admin.account.service.impl;
+package com.newer.mall.admin.commodity.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,8 +7,9 @@ import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.newer.mall.admin.account.service.CommodityService;
 import com.newer.mall.admin.account.thread.EmailRunnable;
+import com.newer.mall.admin.commodity.service.CommodityService;
+import com.newer.mall.admin.commodity.thread.ActivityRunnable;
 import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.mapper.CommodityMangeMapper;
@@ -78,11 +79,9 @@ public class CommodityServiceImpl implements CommodityService {
 		if(activity.getType() != 1 && activity.getType() != 2) {
 			throw new DataException();
 		}
-		if(activity.getType() == 1) {
-			mapper.addSpikeActivity(activity);
-		}else {
-			mapper.addDiscountActivity(activity);
-		}
+
+			activity.setId(mapper.addActivity(activity));
+		new Thread(new ActivityRunnable(activity,mapper)).start();
 		
 	}
 

@@ -3,14 +3,24 @@ package com.newer.mall.common.pojo;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Activity {
 
 	private int id;
+	
 	private int type;
+	
 	private Commodity commodity;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") 
 	private Date startTime;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") 
 	private Date endTime;
+	
 	private int stock;
+	
 	private BigDecimal price;
 	
 	
@@ -70,5 +80,13 @@ public class Activity {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+
+	@Override
+	public String toString() {
+		return "Activity [id=" + id + ", type=" + type + ", commodity=" + commodity + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", stock=" + stock + ", price=" + price + "]";
+	}
+	
+	
 
 }

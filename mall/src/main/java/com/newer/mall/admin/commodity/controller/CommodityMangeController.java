@@ -1,5 +1,6 @@
-package com.newer.mall.admin.account.controller;
+package com.newer.mall.admin.commodity.controller;
 
+import java.util.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newer.mall.admin.account.service.impl.CommodityServiceImpl;
+import com.newer.mall.admin.commodity.service.impl.CommodityServiceImpl;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.pojo.Activity;
@@ -106,6 +107,7 @@ public class CommodityMangeController {
 		return map;
 	}
 	
+	@PostMapping("/activity")
 	public Map<String, Object> activityMange(@RequestBody Activity activity){
 		Map<String, Object> map = new HashMap<>();
 		try {
@@ -116,6 +118,11 @@ public class CommodityMangeController {
 		}
 		
 		return map;
+	}
+	
+	@GetMapping("/aa")
+	public Date aaa() {
+		return new Date();
 	}
 
 }

@@ -3,7 +3,6 @@ package com.newer.mall.common.pojo;
 import java.math.BigDecimal;
 import java.util.List;
 
-
 public class Commodity {
 
 	private int id;
@@ -105,7 +104,5 @@ public class Commodity {
 	public void setComment(List<Comment> comment) {
 		this.comment = comment;
 	}
-	
-	
 
 }

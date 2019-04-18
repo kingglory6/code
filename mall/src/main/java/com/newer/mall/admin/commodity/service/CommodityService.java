@@ -1,4 +1,4 @@
-package com.newer.mall.admin.account.service;
+package com.newer.mall.admin.commodity.service;
 
 import java.sql.SQLException;
 import java.util.List;
