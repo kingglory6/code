@@ -12,12 +12,21 @@ public class Orders {
 	private String phone;
 	private String address;
 	private Date time;
+	private int  num;
 	private int payStatus;
 	private int payway;
 	private int sendStatus;
 	private int hidden;
 	private BigDecimal total;
 	private List<Item> item;
+    
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 
 	public int getId() {
 		return id;

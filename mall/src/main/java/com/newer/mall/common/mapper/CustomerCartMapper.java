@@ -28,21 +28,25 @@ public interface CustomerCartMapper {
 				@Result(
 						column = "commodity_id",
 						property = "commodity",
-						javaType = com.newer.mall.common.mapper.CustomerCartMapper.class,
-						one = @One(select = "")
+						javaType = com.newer.mall.common.mapper.CommodityMapper.class,
+						one = @One(select = "selectCommodity")
 						),
 				@Result(
 						column = "spec_id",
 						property = "spec",
 						javaType = com.newer.mall.common.mapper.CustomerCartMapper.class,
-						one = @One(select = "")
+						one = @One(select = "findSpec")
 						)
 			}
 			)
 	public List<CartItem> checkCart(@Param("uid") int uid);
 	
+	//查询购物车里的商品规格
+	@Select("select * from spec where id =#{sid}")
+	public String findSpec(@Param("sid") int sid);
+	
 	//修改数量
-	@Update("update cart set quantity = quantity + #{quantity} where uid = #{uid} and commodity_id = #{cid} and spec_id = #{sid}")
+	@Update("update cart set quantity = #{quantity} where uid = #{uid} and commodity_id = #{cid} and spec_id = #{sid}")
     public void changeQuantity(@Param("uid") int uid ,
     		                   @Param("cid") int cid ,
     		                   @Param("sid") int sid ,
@@ -56,10 +60,27 @@ public interface CustomerCartMapper {
 	
 	
 	//根据id 查询购物车项
-	@Select("")
-    public List<CartItem> fcart(int uid,int cid);
+	@Select("select * from cart where uid = #{uid} and commodity_id = #{cid}")
+	@Results(
+			{
+				@Result(
+						column = "commodity_id",
+						property = "commodity",
+						javaType = com.newer.mall.common.mapper.CommodityMapper.class,
+						one =@One(select = "selectCommodity")
+						),
+				@Result(
+						column = "spec_id",
+						property = "spec",
+						javaType = com.newer.mall.common.mapper.CustomerCartMapper.class,
+						one = @One(select = "findspec")
+						)
+			}
+			
+			)
+    public List<CartItem> fcart(@Param("uid")int uid,@Param("cid")int cid);
 	
-	//根据条件搜索购物车项
+	//根据条件搜索购物车项 
 	@Select("")
 	public List<CartItem>  findcart(int uid , String conditions);
 	

@@ -2,7 +2,6 @@ package com.newer.mall.order.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.NoStockException;
@@ -14,7 +13,6 @@ import com.newer.mall.common.pojo.Orders;
  * @author LiuLinJie
  *
  */
-@Service
 public interface OrderService {
 	
     /**
@@ -22,17 +20,19 @@ public interface OrderService {
      * @param orders(订单详细信息)
      * @param cartItems(购物车项，可以有多个)
      * @param uid(客户id)
+     * @param remark(备注)
      * @return
      */
-	public void addOrder(Orders orders , List<CartItem> cartItems,int uid) throws NoStockException;
+	public void addOrder(Orders orders , List<CartItem> cartItems,int uid,String remark) throws NoStockException;
 	
 	/**
 	  * 查询订单
 	 * @param uid(客户id)
 	 * @param pagenum(页面页码)
+	 * @param sendstatus(订单状态)
 	 * @return
 	 */
-	public PageInfo<Orders> findOrders(int uid, int pagenum);
+	public PageInfo<Orders> findOrders(int uid, int pagenum,int sendstatus);
 	
 	/**
 	  *  搜索订单

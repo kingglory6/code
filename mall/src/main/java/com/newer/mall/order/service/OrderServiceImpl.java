@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -14,20 +15,25 @@ import com.newer.mall.common.pojo.CartItemParam;
 import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Orders;
 
+@Service
 public class OrderServiceImpl implements OrderService {
  
 	@Autowired
 	CustomerOrderMapper ordermapper;
 	
 	@Override
-	public void addOrder(Orders orders, List<CartItem> cartItems,int uid) throws NoStockException {
+	public void addOrder(Orders orders, List<CartItem> cartItems,int uid,String remark) throws NoStockException {
 		
 		for(CartItem cartitem : cartItems) {
 		   for(Map.Entry<Integer, CartItemParam> entry : cartitem.getParam().entrySet()) {
 			   //进行是否库存充足的判断
 			   if(ordermapper.findstock(entry.getKey())>= entry.getValue().getQuantity()) {
-				   ordermapper.addOrder(orders,uid);
-				   ordermapper.addItme(cartitem, ordermapper.findoid(uid));
+				   ordermapper.addOrder(orders);
+				   ordermapper.addItme(cartitem.getCommodity().getId(), 
+						               ordermapper.findoid(uid), 
+						               entry.getValue().getSpec().getParam(), 
+						               entry.getValue().getQuantity(), 
+						               remark);
 			   }else {
 				  throw new NoStockException("库存不足");
 			   }
@@ -37,10 +43,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public PageInfo<Orders> findOrders(int uid, int pagenum) {
+	public PageInfo<Orders> findOrders(int uid, int pagenum, int sendstatus) {
 		// 进行分页
 		PageHelper.startPage(pagenum, 10);
-	    List<Orders> orders = ordermapper.findOrders(uid);	
+	    List<Orders> orders = ordermapper.findOrders(uid,sendstatus);	
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
 		
 		return pageorders;
