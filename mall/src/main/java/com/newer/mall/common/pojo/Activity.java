@@ -1,9 +1,8 @@
 package com.newer.mall.common.pojo;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Activity {
 
@@ -11,12 +10,10 @@ public class Activity {
 	
 	private int type;
 	
-	private Commodity commodity;
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") 
+	private Commodity commodity;	
+
 	private Date startTime;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") 
 	private Date endTime;
 	
 	private int stock;

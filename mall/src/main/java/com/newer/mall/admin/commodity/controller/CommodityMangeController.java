@@ -1,6 +1,5 @@
 package com.newer.mall.admin.commodity.controller;
 
-import java.util.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.newer.mall.admin.commodity.service.impl.CommodityServiceImpl;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.exception.StateException;
-import com.newer.mall.common.pojo.Activity;
 import com.newer.mall.common.pojo.Commodity;
 import com.newer.mall.common.utils.EmailSenderService;
 
@@ -58,10 +57,11 @@ public class CommodityMangeController {
 			if (key == null) {
 				map.put("code", "未登录");
 				return map;
+				
 			}
 			service.createCommodity(com);
 			map.put("code", "ok");
-		} catch (SQLException e) {
+		} catch (SQLException e) { 
 			map.put("code", "error");
 		}
 		return map;
@@ -107,22 +107,22 @@ public class CommodityMangeController {
 		return map;
 	}
 	
-	@PostMapping("/activity")
-	public Map<String, Object> activityMange(@RequestBody Activity activity){
+	
+	
+	@PutMapping("/modifycommodity")
+	public Map<String,Object> putCommodity(@RequestBody Commodity com){
 		Map<String, Object> map = new HashMap<>();
-		try {
-			service.activity(activity);
-			map.put("code", "ok");
-		} catch (DataException e) {
-			map.put("code", "type exception");
-		}
-		
+		service.saveCommodity(com);
+		map.put("code", "ok");
 		return map;
 	}
 	
-	@GetMapping("/aa")
-	public Date aaa() {
-		return new Date();
+	@DeleteMapping("/removecommodity")
+	public Map<String,Object> dropCommodity(int id){
+		Map<String, Object> map = new HashMap<>();
+		service.dropCommodity(id);
+		map.put("code", "ok");
+		return map;
 	}
 
 }

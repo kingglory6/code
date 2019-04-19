@@ -3,18 +3,18 @@ package com.newer.mall.admin.commodity.thread;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.newer.mall.common.mapper.CommodityMangeMapper;
+import com.newer.mall.common.mapper.ActivityMangeMapper;
 import com.newer.mall.common.pojo.Activity;
 
 public class ActivityRunnable implements Runnable {
 
 	private Activity act;
 
-	private CommodityMangeMapper mapper;
+	private ActivityMangeMapper mapper;
 
 	private Timer timer = new Timer();;
 
-	public ActivityRunnable(Activity act, CommodityMangeMapper mapper) {
+	public ActivityRunnable(Activity act, ActivityMangeMapper mapper) {
 		this.act = act;
 		this.mapper = mapper;
 
@@ -22,44 +22,36 @@ public class ActivityRunnable implements Runnable {
 
 	@Override
 	public void run() {
-		activityStart();
+		if(act.getEndTime().getTime()>System.currentTimeMillis()) {
+			activityStart();
+		}
 		activityEnd();
 	}
 
 	public void activityStart() {
-			
+		
 		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
+				if (mapper.getActivity(act.getId()) == null)
+					return;
+				
 				if (act.getType() == 1) {
 					mapper.activitySpikeStrat(act);
+					System.out.println("活动开始");
 				} else {
 					mapper.activityDiscountStrat(act);
+					System.out.println("活动开始");
 				}
 
 			}
 		}, act.getStartTime());
-		
-		System.out.println(act);
-		
-		//服务器启动时,将已过活动开始时间,尚未结束的活动开始
-		if (act.getStartTime().getTime() > System.currentTimeMillis()
-				&& act.getStartTime().getTime() < act.getEndTime().getTime()) {
-			if (act.getType() == 1) {
-				mapper.activitySpikeStrat(act);
-			} else {
-				mapper.activityDiscountStrat(act);
-			}
-		}
+
 	}
 
 	public void activityEnd() {
-		
-		if(System.currentTimeMillis()>act.getEndTime().getTime()) {
-			mapper.activityEnd(act.getCommodity().getId());
-			mapper.activityStatu(act.getId());
-		}
+
 
 		timer.schedule(new TimerTask() {
 
@@ -67,6 +59,7 @@ public class ActivityRunnable implements Runnable {
 			public void run() {
 				mapper.activityEnd(act.getCommodity().getId());
 				mapper.activityStatu(act.getId());
+				System.out.println("活动结束");
 			}
 		}, act.getEndTime());
 

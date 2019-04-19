@@ -9,6 +9,7 @@ public class Commodity {
 	private String title;
 	private String description;
 	private BigDecimal price;
+	private BigDecimal discount;
 	private int shelf;
 	private int recommed;
 	private int stock;
@@ -104,5 +105,15 @@ public class Commodity {
 	public void setComment(List<Comment> comment) {
 		this.comment = comment;
 	}
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+	
+	
 
 }

@@ -9,13 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.newer.mall.admin.account.thread.EmailRunnable;
 import com.newer.mall.admin.commodity.service.CommodityService;
-import com.newer.mall.admin.commodity.thread.ActivityRunnable;
-import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.exception.DataException;
+import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.mapper.CommodityMangeMapper;
-import com.newer.mall.common.pojo.Activity;
 import com.newer.mall.common.pojo.Commodity;
 import com.newer.mall.common.pojo.Notice;
+import com.newer.mall.common.pojo.Spec;
 import com.newer.mall.common.utils.EmailSenderService;
 
 @Service
@@ -55,35 +54,47 @@ public class CommodityServiceImpl implements CommodityService {
 		if (stock == 0) {
 			List<Notice> email = mapper.getEmail(id);
 
-			new Thread(new EmailRunnable(email,mail)).start();
+			new Thread(new EmailRunnable(email, mail)).start();
 		}
 
 	}
 
 	@Override
 	public void stockMangeAppen(int id, int num) throws BindingException {
-		
+
 	}
 
 	@Override
 	public void recommend(int id, int type) throws DataException {
-		if(type != 0 && type != 1) {
+		if (type != 0 && type != 1) {
 			throw new DataException();
 		}
 		mapper.updateRecommend(id, type);
-		
+
+	}
+
+	
+
+	@Override
+	public void saveCommodity(Commodity com) {
+		mapper.updateCommodity(com);
 	}
 
 	@Override
-	public void activity(Activity activity) throws DataException {
-		if(activity.getType() != 1 && activity.getType() != 2) {
-			throw new DataException();
-		}
-
-			activity.setId(mapper.addActivity(activity));
-		new Thread(new ActivityRunnable(activity,mapper)).start();
-		
+	public void dropCommodity(int id) {
+		mapper.deleteCommodity(id);
 	}
 
+	@Override
+	public void createSpec(Spec spec) {
+		mapper.addSpec(spec);
+	}
+
+	@Override
+	public void createSpecList(List<Spec> spec) {
+		mapper.addSpecList(spec);
+	}
+
+	
 
 }
