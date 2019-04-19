@@ -62,7 +62,7 @@ public interface CustomerOrderMapper {
 						column = "commodity_id",
 						property = "commodity",
 						javaType = com.newer.mall.common.mapper.CommodityMapper.class,
-						one = @One(select = "selectCommodity")
+						one = @One(select = "com.newer.mall.common.mapper.CommodityMapper.selectCommodity")
 						)
 			}
 			)
@@ -86,6 +86,11 @@ public interface CustomerOrderMapper {
 	//修改hidden字段,已完成删除订单
 	@Update("update orders set hidden = 1 where id = #{oid}")
 	public void updtOrder(@Param("oid")int oid);
+	
+	
+	//修改商品库存
+	@Update("update commodity set stock = stock - #{qtity} where id =#{cid} ")
+	public void upstock(@Param("cid")int cid,@Param("qtity") int quantity );
 	
 	
 	//插入评论

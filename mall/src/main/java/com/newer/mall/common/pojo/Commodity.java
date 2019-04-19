@@ -2,7 +2,7 @@ package com.newer.mall.common.pojo;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale.Category;
+
 
 public class Commodity {
 
@@ -10,7 +10,7 @@ public class Commodity {
 	private String title;
 	private String description;
 	private BigDecimal price;
-	private int shelf;
+	private boolean shelf;
 	private int recommed;
 	private int stock;
 	private Category category;
@@ -49,11 +49,11 @@ public class Commodity {
 		this.price = price;
 	}
 
-	public int getShelf() {
+	public boolean getShelf() {
 		return shelf;
 	}
 
-	public void setShelf(int shelf) {
+	public void setShelf(boolean shelf) {
 		this.shelf = shelf;
 	}
 

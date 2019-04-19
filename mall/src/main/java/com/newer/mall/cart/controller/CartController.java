@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.cart.service.CartService;
+import com.newer.mall.common.mapper.CommodityMapper;
 import com.newer.mall.common.pojo.CartItem;
+import com.newer.mall.common.pojo.Commodity;
  
 @RestController
-@RequestMapping("api/v1/cart")
+@RequestMapping("/api/v1/cart")
 @CrossOrigin
 public class CartController {
 	
@@ -32,10 +34,11 @@ public class CartController {
 	 */
 	@PostMapping("/check")
 	public PageInfo<CartItem> checkCart(@RequestParam int uid , @RequestParam int pagenum){
-		
 		return cartservice.checkCart(uid, pagenum);
 		
 	}
+	
+	
 	/**
 	  * 修改商品中的数量
 	 * @param uid
@@ -44,7 +47,11 @@ public class CartController {
 	 */
 	
 	@PostMapping("/change")
-	public void changeQuantity(@RequestParam int uid ,@RequestParam int sid ,@RequestParam int quantity) {
+	public void changeQuantity(@RequestParam int uid ,
+			                   @RequestParam int sid ,
+			                   @RequestParam int cid,
+			                   @RequestParam int quantity) {
+		cartservice.changeQuantity(uid, sid, cid, quantity);
 		
 	}
 	/**
@@ -81,7 +88,7 @@ public class CartController {
 			                           @RequestParam String conditions ,
 			                           @RequestParam int pagenum){
 		
-		return null;
+		return cartservice.findCart(uid, conditions, pagenum);
 		
 	}
 	

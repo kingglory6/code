@@ -1,10 +1,12 @@
 package com.newer.mall.order.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -16,30 +18,25 @@ import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Orders;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
- 
+   
+   
 	@Autowired
 	CustomerOrderMapper ordermapper;
 	
 	@Override
-	public void addOrder(Orders orders, List<CartItem> cartItems,int uid,String remark) throws NoStockException {
+	public void addOrder(Orders orders, List<CartItem> cartItems,int uid,String remark)  {
 		
-		for(CartItem cartitem : cartItems) {
-		   for(Map.Entry<Integer, CartItemParam> entry : cartitem.getParam().entrySet()) {
-			   //进行是否库存充足的判断
-			   if(ordermapper.findstock(entry.getKey())>= entry.getValue().getQuantity()) {
-				   ordermapper.addOrder(orders);
-				   ordermapper.addItme(cartitem.getCommodity().getId(), 
-						               ordermapper.findoid(uid), 
-						               entry.getValue().getSpec().getParam(), 
-						               entry.getValue().getQuantity(), 
-						               remark);
-			   }else {
-				  throw new NoStockException("库存不足");
-			   }
-			   
-		   }
+		
+		for(CartItem item : cartItems) {
+			BigDecimal qtity = new BigDecimal(item.getQuantity());
+			orders.setTotal(orders.getTotal().add(item.getCommodity().getPrice().multiply(qtity)));		
+			ordermapper.addOrder(orders);
+			ordermapper.addItme(item.getCommodity().getId(), ordermapper.findoid(uid), item.getSpec().getParam(),item.getQuantity(), remark);
 		}
+	
+
 	}
 
 	@Override
@@ -76,5 +73,25 @@ public class OrderServiceImpl implements OrderService {
 		ordermapper.addComment(comment);
 		
 	}
+
+	@Override
+	public boolean nostock(List<CartItem> cartitem) throws NoStockException {
+		// TODO Auto-generated method stub
+		
+	   for(CartItem item : cartitem) {
+		   if(ordermapper.findstock(item.getCommodity().getId())>=item.getQuantity()) {
+			   
+			   ordermapper.upstock(item.getCommodity().getId(), item.getQuantity());
+			   return true;
+			   
+		   }
+		   else {
+			   throw new NoStockException("库存不足");
+		   }
+	   }
+		
+		return false;
+	}
+
 
 }

@@ -18,17 +18,30 @@ import com.newer.mall.common.pojo.Orders;
 import com.newer.mall.order.service.OrderService;
 
 @RestController
-@RequestMapping("api/v1/order")
+@RequestMapping("/api/v1/order")
 @CrossOrigin
 public class OrderController {
      
 	@Autowired
 	OrderService oservice;
+	
+	//判断下单时库存是否充足
+	@PostMapping("/stock")
+	public boolean nostock(@RequestBody List<CartItem> cartItems) throws NoStockException {
+		
+		for(CartItem item : cartItems) {
+			System.out.println(item.getCommodity().getTitle());
+		}
+		
+		return oservice.nostock(cartItems);
+	}
+	
+	
 	//添加订单
 	@PostMapping("/add")
 	public void addOrder(@RequestParam int uid,
 			             @RequestBody Orders orders ,
-			             @RequestParam List<CartItem> cartitems,
+			             @RequestBody List<CartItem> cartitems,
 			             @RequestParam String remark) throws NoStockException {
 
 		oservice.addOrder(orders, cartitems, uid,remark);

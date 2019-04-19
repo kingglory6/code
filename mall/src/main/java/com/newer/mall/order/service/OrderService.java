@@ -1,5 +1,6 @@
 package com.newer.mall.order.service;
 
+
 import java.util.List;
 
 
@@ -15,6 +16,14 @@ import com.newer.mall.common.pojo.Orders;
  */
 public interface OrderService {
 	
+	/**
+	 * 判断是否还有库存
+	 * @param cartitem(购物车项)
+	 * @return
+	 */
+	public boolean nostock(List<CartItem> cartitem) throws NoStockException;
+	
+	
     /**
          * 下单
      * @param orders(订单详细信息)
@@ -23,7 +32,7 @@ public interface OrderService {
      * @param remark(备注)
      * @return
      */
-	public void addOrder(Orders orders , List<CartItem> cartItems,int uid,String remark) throws NoStockException;
+	public void addOrder(Orders orders , List<CartItem> cartItems,int uid,String remark);
 	
 	/**
 	  * 查询订单

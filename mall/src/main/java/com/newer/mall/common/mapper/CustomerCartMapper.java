@@ -11,7 +11,9 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.newer.mall.common.pojo.CartItem;
+import com.newer.mall.common.pojo.Spec;
 
 /**
   *  用户购物车mapper
@@ -28,13 +30,13 @@ public interface CustomerCartMapper {
 				@Result(
 						column = "commodity_id",
 						property = "commodity",
-						javaType = com.newer.mall.common.mapper.CommodityMapper.class,
-						one = @One(select = "selectCommodity")
+						javaType = com.newer.mall.common.pojo.Commodity.class,
+						one = @One(select = "com.newer.mall.common.mapper.CommodityMapper.selectCommodity")
 						),
 				@Result(
 						column = "spec_id",
 						property = "spec",
-						javaType = com.newer.mall.common.mapper.CustomerCartMapper.class,
+						javaType = com.newer.mall.common.pojo.Spec.class,
 						one = @One(select = "findSpec")
 						)
 			}
@@ -43,7 +45,7 @@ public interface CustomerCartMapper {
 	
 	//查询购物车里的商品规格
 	@Select("select * from spec where id =#{sid}")
-	public String findSpec(@Param("sid") int sid);
+	public Spec findSpec(@Param("sid") int sid);
 	
 	//修改数量
 	@Update("update cart set quantity = #{quantity} where uid = #{uid} and commodity_id = #{cid} and spec_id = #{sid}")
@@ -66,13 +68,13 @@ public interface CustomerCartMapper {
 				@Result(
 						column = "commodity_id",
 						property = "commodity",
-						javaType = com.newer.mall.common.mapper.CommodityMapper.class,
-						one =@One(select = "selectCommodity")
+						javaType = com.newer.mall.common.pojo.Commodity.class,
+						one =@One(select = "com.newer.mall.common.mapper.CommodityMapper.selectCommodity")
 						),
 				@Result(
 						column = "spec_id",
 						property = "spec",
-						javaType = com.newer.mall.common.mapper.CustomerCartMapper.class,
+						javaType = com.newer.mall.common.pojo.Spec.class,
 						one = @One(select = "findspec")
 						)
 			}
@@ -81,8 +83,26 @@ public interface CustomerCartMapper {
     public List<CartItem> fcart(@Param("uid")int uid,@Param("cid")int cid);
 	
 	//根据条件搜索购物车项 
-	@Select("")
-	public List<CartItem>  findcart(int uid , String conditions);
+	@Select("select c.* , cdity.title from cart c , commodity cdity where c.commodity_id = cdity.id "
+			                                                            + "and  cdity.title like '%${ctions}%' "
+			                                                            + "and  c.uid =#{uid}")
+	@Results(
+			{
+				@Result(
+						column = "commodity_id",
+						property = "commodity",
+						javaType = com.newer.mall.common.pojo.Commodity.class,
+						one =  @One(select = "com.newer.mall.common.mapper.CommodityMapper.selectCommodity")
+						),
+				@Result(
+						column = "spec_id",
+						property = "spec",
+						javaType = com.newer.mall.common.pojo.Spec.class,
+						one = @One(select = "findSpec")
+						)
+			}	
+			)
+	public List<CartItem>  findcart(@Param("uid")int uid ,@Param("ctions") String conditions);
 	
 	
 }
