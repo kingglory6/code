@@ -57,7 +57,11 @@
       </div>
       <!-- card body -->
       <!-- 显示数据列表 -->
-      <el-table border stripe>
+      <el-table border stripe tooltip-effect="dark"  @selection-change="handleSelectionChange">
+          <el-table-column
+            type="selection"
+            width="55">
+          </el-table-column>
           <el-table-column
               :prop="1"
               label="编号">
@@ -129,7 +133,7 @@
 export default {
     data(){
         return{
-            
+
         }
     },
     methods:{
