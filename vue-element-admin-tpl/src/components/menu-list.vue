@@ -2,11 +2,9 @@
 <el-menu-item-group>
 <template v-for="item in menus">
   <template v-if="isArr(item)">
-  <el-menu-item-group 
-  :title="typeof item[0] === 'string' ? item[0] : ''"
-  >
+  <el-menu-item-group :key="item">
     <el-menu-item
-      v-for="(val, index) in item"
+      v-for="val in item"
       :key="val.id"
       :index="val.id + ''"
       :route="toRoute(val)"

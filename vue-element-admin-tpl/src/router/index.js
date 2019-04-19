@@ -36,11 +36,6 @@ export default new Router({
         {path: '/commodity/discount', name: 'commodity-discount', component: page('commodity/discount')},
         {path: '/commodity/list', name: 'commodity-list', component: page('commodity/list')},
         {path: '/commodity/spike', name: 'commodity-spike', component: page('commodity/spike')},
-        {path: '/orders/cnode', name: 'cnode', component: page('cnode/index')},
-        {path: '/orders/shipped', name: 'shipped', component: page('orders/shipped')},
-        {path: '/orders/unshipped', name: 'unshipped', component: page('orders/unshipped')},
-        {path: '/orders/received', name: 'received', component: page('orders/received')},
-        {path: '/orders/unreceived', name: 'unreceived', component: page('orders/unreceived')},
         {path: '/statistics/income', name: 'income', component: page('statistics/income')},
         {path: '/statistics/unreceived', name: 'sales', component: page('statistics/sales')},
       ]
