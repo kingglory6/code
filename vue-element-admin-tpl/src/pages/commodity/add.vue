@@ -155,15 +155,6 @@ export default {
         prev(){
             this.step--;
         }
-    },
-    mounted(){
-        this.axios.get('https://www.baidu.com')
-        .then(res => {
-            console.log(res)
-        })
-        .catch(err => {
-            console.error(err); 
-        })
     }
 }
 </script>
