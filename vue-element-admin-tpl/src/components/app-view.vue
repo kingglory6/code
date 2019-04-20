@@ -53,7 +53,8 @@ export default {
       sideWidth: 200,
       footerHeight: 50,
       headerHeight: 50,
-      theme: {theme: {}}
+      theme: {theme: {}},
+      transitionName:''
     }
   },
   components: {
@@ -83,6 +84,16 @@ export default {
         this.transitionName = 'slide-right';
       }
     }
+  },
+  mounted() {
+    // 发送请求初始化公共的数据
+    this.axios.get(this.common.httpUrl)
+    .then(res => {
+      
+    })
+    .catch(err => {
+      console.error(err); 
+    }) 
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <script>
 // 这是一个全局的vue组件
-const httpUrl=""
+const httpUrl="http://192.168.31.35:8100/"
 const category=[
     {
         label:"类别1",
