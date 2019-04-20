@@ -17,6 +17,7 @@ import '@/assets/css/scrollbar.css'
 import '@/assets/css/reset.css'
 import 'nprogress/nprogress.css'
 import 'animate.css'
+import GlobalData from './pages/data/common.vue'
 
 
 import DropdownPlugin from './m/dropdown'
@@ -56,6 +57,7 @@ Vue.use(MContainer)
 
 
 var whiteList = ['demo', 'login']
+// 全局组件路由钩子（进度条）
 router.beforeEach((to, from, next) => {
   NProgress.start()
   var token = sessionStorage.getItem('token')
@@ -111,9 +113,11 @@ Axios.interceptors.response.use(res => {
   return Promise.reject(err)
 })
 
+// 引入axios
+Vue.prototype.axios = Axios
+// 引入全局组件
+Vue.prototype.common = GlobalData
 
-Vue.prototype.$http = Axios
-Vue.http = Axios
 
 
 Vue.config.productionTip = false

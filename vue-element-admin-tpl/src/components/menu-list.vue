@@ -2,7 +2,7 @@
 <el-menu-item-group>
 <template v-for="item in menus">
   <template v-if="isArr(item)">
-  <el-menu-item-group :key="item">
+  <el-menu-item-group :key="item.id">
     <el-menu-item
       v-for="val in item"
       :key="val.id"

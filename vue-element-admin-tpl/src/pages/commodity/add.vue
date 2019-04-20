@@ -3,7 +3,7 @@
         <!-- 添加商品 -->
         <el-card :body-style="{ padding: '0px' }" class="card">
             <div slot="header">
-                <el-steps :active="active" finish-status="success" align-center>
+                <el-steps :active="step" finish-status="success" align-center>
                     <el-step title="填写商品信息"></el-step>
                     <el-step title="填写商品规格"></el-step>
                     <el-step title="检查商品信息"></el-step>
@@ -11,12 +11,13 @@
             </div>
             <!-- card body -->
             <!-- 添加商品第一步>>填写商品基本信息 -->
-            <el-main height="" class="card-step">
+            <el-main height="" class="card-step" v-if="step==0">
                 <!-- 商品基本信息 -->
                 <el-form ref="form">
                     <el-form-item label="*商品分类:">
                         <el-select placeholder="请选择" size="small">
-                            <el-option>
+                            <el-option v-for="(item, index) in category" :key="index"
+                            :label="item.label">
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -40,13 +41,13 @@
                     <el-form-item label="商品售价:">
                         <el-input style="width:380px;" size="small"></el-input>
                     </el-form-item>
-                    <el-button type="primary" style="float:right;margin:auto 10px;">下一步</el-button>
+                    <el-button type="primary" style="float:right;margin:auto 10px;" @click="next()">下一步</el-button>
                 </el-form>
                 
             </el-main>
             
             <!-- 添加商品第二步>>填写商品规格 -->
-            <el-main height="" class="card-step">
+            <el-main height="" class="card-step" v-if="step==1">
                 <!-- Main content -->
                 <el-form ref="form">
                     <el-form-item label="添加商品规格:">
@@ -71,12 +72,12 @@
                     </el-table-column>
                 </el-table>
                 
-                <el-button type="primary" style="float:right;margin:10px;">下一步</el-button>
-                <el-button style="float:right;margin:10px auto;">上一步</el-button>
+                <el-button type="primary" style="float:right;margin:10px;" @click="next()">下一步</el-button>
+                <el-button style="float:right;margin:10px auto;" @click="prev()">上一步</el-button>
             </el-main>
             
             <!-- 填写商品第三步>>检查商品基本信息 -->
-            <el-main height="" class="card-step">
+            <el-main height="" class="card-step" v-if="step==2">
                 <!-- Main content -->
                 <!-- 商品信息列表 -->
                 <el-form>
@@ -126,8 +127,8 @@
                      </el-table>
                      
                 </el-card>
-                <el-button type="success" style="float:right;margin:10px;">完成</el-button>
-                <el-button style="float:right;margin:10px auto;">上一步</el-button>
+                <el-button type="success" style="float:right;margin:10px;" >完成</el-button>
+                <el-button style="float:right;margin:10px auto;" @click="prev()">上一步</el-button>
             </el-main>
             
         </el-card>
@@ -138,8 +139,31 @@
 export default {
     data(){
         return{
+            // 步骤变量
+            step:0,
+            // 需要添加的商品对象
+            commodity:{
 
+            },
+            category:this.common.category
         }
+    },
+    methods:{
+        next(){
+            this.step++;
+        },
+        prev(){
+            this.step--;
+        }
+    },
+    mounted(){
+        this.axios.get('https://www.baidu.com')
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.error(err); 
+        })
     }
 }
 </script>

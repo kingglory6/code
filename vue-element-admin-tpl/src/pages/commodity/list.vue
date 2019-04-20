@@ -6,7 +6,7 @@
       <div slot="header">
         <el-row>
           <el-col :span="12">
-            <span>筛选搜索</span>
+            <b style="font-size:18px;"><i class="fa fa-search"></i><span>筛选搜索</span></b>
           </el-col>
           <el-col :span="12">
             <el-button type="primary" style="float:right" size="small">查询结果</el-button>
@@ -48,7 +48,7 @@
       <div slot="header">
         <el-row>
           <el-col :span="12">
-            <span>数据列表</span>
+            <b style="font-size:18px;"><i class="fa fa-bars"></i><span>数据列表</span></b>
           </el-col>
           <el-col :span="12">
               <el-button size="small" style="float:right;" @click="addCommodity()">添加</el-button>
@@ -116,7 +116,22 @@
               </el-row>
           </el-table-column>
       </el-table>
-        <div class="block">
+    </el-card>
+      <el-row style="margin:10px;">
+        <el-col :span="12">
+          <el-form>
+            <el-form-item>
+              <el-select placeholder="批量操作" size="small">
+                <el-option>
+                </el-option>
+              </el-select>
+            <el-button type="primary" size="small">确定</el-button>
+            </el-form-item>
+            
+          </el-form>
+        </el-col>
+        <el-col :span="12" style="float:right;">
+          <div class="block">
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -126,7 +141,8 @@
             :total="1000">
           </el-pagination>
         </div>
-    </el-card>
+        </el-col>
+      </el-row>        
   </el-main>
 </template>
 <script>

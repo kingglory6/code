@@ -71,6 +71,8 @@ const menus = [
     icon:'fa fa-calendar-minus-o',
     label:'订单管理',
     submenu: [
+      {id:'order-list', name:'order-list',  label:'订单列表',icon:'fa fa-circle-o'},
+      {id:'order-back', name:'order-back',  label:'退货申请',icon:'fa fa-circle-o'},
     ]
   },
   {

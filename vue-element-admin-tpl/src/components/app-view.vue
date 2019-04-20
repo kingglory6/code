@@ -100,19 +100,19 @@ export default {
 }
 .slide-right-enter {
   opacity: 0;
-  transform: translate3d(0, -100%, 0);
+  transform: translate(0, -100%);
 }
 .slide-right-leave-active {
   opacity: 0;
-  transform: translate3d(0, 100%, 0);
+  transform: translate(0, 100%);
 }
 .slide-left-enter {
   opacity: 0;
-  transform: translate3d(0, 100%, 0);
+  transform: translate(0, 100%);
 }
 .slide-left-leave-active {
   opacity: 0;
-  transform: translate3d(0, -100%, 0);
+  transform: translate(0, -100%);
 }
   .app-container{
     margin: 0 auto;

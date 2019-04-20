@@ -4,7 +4,7 @@
         <el-card :body-style="{ padding: '0px' }">
             <div slot="header">
                 <el-row>
-                    <el-col :span="12"><span>筛选搜索</span></el-col>
+                    <el-col :span="12"><b style="font-size:18px;"><i class="fa fa-search"></i><span>筛选搜索</span></b></el-col>
                     <el-col :span="12"><el-button type="primary" size="small" style="float:right;">查询结果</el-button>
                     </el-col>
                 </el-row>
@@ -24,7 +24,7 @@
         <el-card :body-style="{ padding: '0px' }" style="margin-top:10px;">
             <div slot="header">
                 <el-row>
-                    <el-col :span="12"><span>数据列表</span></el-col>
+                    <el-col :span="12"><b style="font-size:18px;"><i class="fa fa-bars"></i><span>数据列表</span></b></el-col>
                     <el-col :span="12"><el-button size="small" style="float:right">添加</el-button>
                     </el-col>
                 </el-row>
@@ -50,6 +50,9 @@
                 <el-table-column
                     :prop="1"
                     label="操作">
+                    <el-button size="small">查看商品列表</el-button>
+                    <el-button size="small">编辑</el-button>
+                    <el-button size="small">删除</el-button>
                 </el-table-column>
             </el-table>
             
