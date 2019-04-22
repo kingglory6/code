@@ -15,7 +15,7 @@
                 <!-- 商品基本信息 -->
                 <el-form ref="form">
                     <el-form-item label="*商品分类:">
-                        <el-select placeholder="请选择" size="small">
+                        <el-select placeholder="请选择" size="small" clearable>
                             <el-option v-for="(item, index) in category" :key="index"
                             :label="item.label">
                             </el-option>
@@ -25,7 +25,7 @@
                         <el-input style="width:380px;" placeholder="请输入" size="small"></el-input>
                     </el-form-item>
                     <el-form-item label="*商品品牌:">
-                        <el-select placeholder="请选择" size="small">
+                        <el-select placeholder="请选择" size="small" clearable>
                             <el-option>
                             </el-option>
                         </el-select>

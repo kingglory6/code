@@ -39,7 +39,7 @@
                 <el-table-column 
                     :prop="1"
                     label="操作">
-                    <el-button type="text" size="small">设置商品</el-button>
+                    <el-button type="text" size="small" @click="setCommodity()">设置商品</el-button>
                     <el-button type="text" size="small">编辑</el-button>
                     <el-button type="text" size="small">删除</el-button>
                 </el-table-column>
@@ -56,7 +56,12 @@ export default {
         return{
 
         }
-    }
+    },
+    methods: {
+        setCommodity(){
+            this.$router.push('/commodity/active/splike');
+        }
+    },
 }
 </script>
 <style>
