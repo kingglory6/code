@@ -42,7 +42,7 @@ public interface ActivityMangeMapper {
 	@Select("select * from activity where statu = 0")
 	@Results({ @Result(property = "startTime", column = "start_time"),
 			@Result(property = "endTime", column = "end_time"),
-			@Result(property = "commodity", column = "commodity_id", one = @One(select = "getCommodity")) })
+			@Result(property = "commodity", column = "commodity_id", one = @One(select = "com.newer.mall.common.mapper.CommodityMangeMapper.getCommodity")) })
 	public List<Activity> getActivityList();
 
 	// 删除活动
@@ -53,7 +53,7 @@ public interface ActivityMangeMapper {
 	@Select("select * from activity where id = #{id}")
 	@Results({ @Result(property = "startTime", column = "start_time"),
 			@Result(property = "endTime", column = "end_time"),
-			@Result(property = "commodity", column = "commodity_id", one = @One(select = "getCommodity")) })
+			@Result(property = "commodity", column = "commodity_id", one = @One(select = "com.newer.mall.common.mapper.CommodityMangeMapper.getCommodity")) })
 	public Activity getActivity(@Param("id") int id);
 
 }

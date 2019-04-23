@@ -11,7 +11,7 @@ public class Commodity {
 	private BigDecimal price;
 	private BigDecimal discount;
 	private int shelf;
-	private int recommed;
+	private int recommend;
 	private int stock;
 	private Category category;
 	private Brand brand;
@@ -58,12 +58,12 @@ public class Commodity {
 		this.shelf = shelf;
 	}
 
-	public int getRecommed() {
-		return recommed;
+	public int getRecommend() {
+		return recommend;
 	}
 
-	public void setRecommed(int recommed) {
-		this.recommed = recommed;
+	public void setRecommed(int recommend) {
+		this.recommend = recommend;
 	}
 
 	public int getStock() {

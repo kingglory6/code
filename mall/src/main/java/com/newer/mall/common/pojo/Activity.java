@@ -10,6 +10,8 @@ public class Activity {
 	
 	private int type;
 	
+	private int statu;
+	
 	private Commodity commodity;	
 
 	private Date startTime;
@@ -82,6 +84,14 @@ public class Activity {
 	public String toString() {
 		return "Activity [id=" + id + ", type=" + type + ", commodity=" + commodity + ", startTime=" + startTime
 				+ ", endTime=" + endTime + ", stock=" + stock + ", price=" + price + "]";
+	}
+
+	public int getStatu() {
+		return statu;
+	}
+
+	public void setStatu(int statu) {
+		this.statu = statu;
 	}
 	
 	

@@ -1,21 +1,29 @@
 package com.newer.mall.admin.commodity.service.impl;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
 import com.newer.mall.admin.account.thread.EmailRunnable;
 import com.newer.mall.admin.commodity.service.CommodityService;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.mapper.CommodityMangeMapper;
+import com.newer.mall.common.pojo.Brand;
+import com.newer.mall.common.pojo.Category;
 import com.newer.mall.common.pojo.Commodity;
 import com.newer.mall.common.pojo.Notice;
 import com.newer.mall.common.pojo.Spec;
 import com.newer.mall.common.utils.EmailSenderService;
+import com.newer.mall.common.utils.HttpUtils;
 
 @Service
 public class CommodityServiceImpl implements CommodityService {
@@ -27,8 +35,8 @@ public class CommodityServiceImpl implements CommodityService {
 	EmailSenderService mail;
 
 	@Override
-	public List<Commodity> findCommodity() {
-		return mapper.getCommodityAll();
+	public Page<Commodity> findCommodity() {
+		return (Page<Commodity>) mapper.getCommodityAll();
 	}
 
 	@Override
@@ -73,8 +81,6 @@ public class CommodityServiceImpl implements CommodityService {
 
 	}
 
-	
-
 	@Override
 	public void saveCommodity(Commodity com) {
 		mapper.updateCommodity(com);
@@ -95,6 +101,50 @@ public class CommodityServiceImpl implements CommodityService {
 		mapper.addSpecList(spec);
 	}
 
-	
+	@Override
+	public Object wuliu(String no) {
+		String host = "https://wuliu.market.alicloudapi.com";
+		String path = "/kdi";
+		String method = "GET";
+		String appcode = "ea88d67e70754747bc4686681205a293"; // !!!替换填写自己的AppCode 在买家中心查看
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put("Authorization", "APPCODE " + appcode); // 格式为:Authorization:APPCODE
+															// 83359fd73fe11248385f570e3c139xxx
+		Map<String, String> querys = new HashMap<String, String>();
+		querys.put("no", no);// !!! 请求参数
+		// querys.put("type", "zto");// !!! 请求参数
+		try {
+			HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
+			// System.out.println(response.toString());如不输出json, 请打开这行代码，打印调试头部状态码。
+			// 状态码: 200 正常；400 URL无效；401 appCode错误； 403 次数用完； 500 API网管错误
+			// 获取response的body
+			String a = EntityUtils.toString(response.getEntity()); // 输出json
+			return a;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
+	@Override
+	public List<Category> findCategory() {
+		return mapper.getCategorys();
+	}
+
+	@Override
+	public List<Brand> findBrand() {
+		return mapper.getBrands();
+	}
+
+	@Override
+	public Page<Commodity> conditionalQuery(int shelf, int cid, int bid,String text) {
+		
+		return mapper.conditionalQuery(shelf, cid, bid,text);
+	}
+
+//	@Override
+//	public Page<Commodity> findUpCommodity(int num) {
+//		return (Page<Commodity>)mapper.getUpCommodity(num);
+//	}
 
 }

@@ -3,13 +3,14 @@ package com.newer.mall.admin.commodity.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 import com.newer.mall.admin.commodity.service.ActivityMangeService;
 import com.newer.mall.admin.commodity.thread.ActivityRunnable;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.mapper.ActivityMangeMapper;
 import com.newer.mall.common.pojo.Activity;
 
+@Service
 public class ActivityMangeServiceImpl implements ActivityMangeService {
 
 	@Autowired
