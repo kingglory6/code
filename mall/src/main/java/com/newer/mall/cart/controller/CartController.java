@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +35,8 @@ public class CartController {
 	 * @param pagenum
 	 * @return
 	 */
-	@PostMapping("/check")
-	public PageInfo<CartItem> checkCart(@SessionAttribute int uid , @RequestParam int pagenum){
+	@GetMapping("/check/{pagenum}")
+	public PageInfo<CartItem> checkCart(@SessionAttribute int uid , @PathVariable int pagenum){
 		
 		
 		return cartservice.checkCart(uid, pagenum);
@@ -89,10 +91,10 @@ public class CartController {
 	 * @param pagenum
 	 * @return
 	 */
-	@PostMapping("/serach")
+	@GetMapping("/serach/{conditions}/{pagenum}")
 	public PageInfo<CartItem> findCart(@SessionAttribute int uid ,
-			                           @RequestParam String conditions ,
-			                           @RequestParam int pagenum){
+			                           @PathVariable String conditions ,
+			                           @PathVariable int pagenum){
 		
 		
 		return cartservice.findCart(uid, conditions, pagenum);

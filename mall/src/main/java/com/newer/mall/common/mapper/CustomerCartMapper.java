@@ -73,7 +73,7 @@ public interface CustomerCartMapper {
 						column = "spec_id",
 						property = "spec",
 						javaType = com.newer.mall.common.pojo.Spec.class,
-						one = @One(select = "findspec")
+						one = @One(select = "findSpec")
 						)
 			}
 			)

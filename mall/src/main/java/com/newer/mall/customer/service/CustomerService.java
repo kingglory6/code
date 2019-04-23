@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.PasswordErrorException;
 import com.newer.mall.common.exception.RegisterException;
 import com.newer.mall.common.pojo.Address;
@@ -71,7 +72,7 @@ public interface CustomerService {
 	 * @param id 用户id
 	 * @return
 	 */
-	public List<Collection> showCollection(int uid);
+	public PageInfo<Collection> showCollection(int uid,int pagenum);
 	
 	
 }

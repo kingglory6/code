@@ -29,9 +29,6 @@ public class OrderServiceImpl implements OrderService {
 		PageHelper.startPage(pagenum, 10);
 		
 	    List<Orders> orders = ordermapper.findOrders(uid,sendstatus,paystatus);
-	    for(Orders o : orders) {
-	    	
-	    }
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
 		
 		return pageorders;
@@ -42,10 +39,10 @@ public class OrderServiceImpl implements OrderService {
 	
 	//根据条件查询订单
 	@Override
-	public PageInfo<Orders> searchOrders(int uid, int pagenum, String conditions) {
+	public PageInfo<Orders> searchOrders(int uid, int pagenum, String conditions,int sendstatus ,int paystatus) {
 		
 		PageHelper.startPage(pagenum, 10);
-		List<Orders> orders = ordermapper.serachOrders(uid, conditions);
+		List<Orders> orders = ordermapper.serachOrders(uid, conditions,sendstatus,paystatus);
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
 		
 		return pageorders;
@@ -89,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
 		   }
 	   }
 		 
-		ordermapper.addOrder(orders);
+		ordermapper.addOrder(uid,orders);
 		
        for(Item item : orders.getItem()) {
    	  

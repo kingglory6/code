@@ -2,6 +2,8 @@ package com.newer.mall.order.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,15 +27,16 @@ public class OrderController {
 	//添加订单
 	@PostMapping("/add")
 	public void addOrder(@SessionAttribute int uid,
-			             @RequestBody Orders orders) throws NoStockException {   	
+			             @RequestBody Orders orders) throws NoStockException {   
+		
 		oservice.addOrder(orders,uid);
 	}
 	//查询订单
-    @PostMapping("/find")
+    @GetMapping("/find/{pagenum}/{sendstatus}/{paystatus}")
 	public PageInfo<Orders> findOrders(@SessionAttribute int uid,
-			                           @RequestParam int pagenum,
-			                           @RequestParam int sendstatus,
-			                           @RequestParam int paystatus) {
+			                           @PathVariable int pagenum,
+			                           @PathVariable int sendstatus,
+			                           @PathVariable int paystatus) {
     	
 		return oservice.findOrders(uid, pagenum, sendstatus, paystatus);
 	}
@@ -52,10 +55,15 @@ public class OrderController {
     }
     
     //搜索订单
-    @PostMapping("/search")
-    public PageInfo<Orders> search(@SessionAttribute int uid ,@RequestParam int pagenum,@RequestParam String conditions){
+    @PostMapping("/search/{conditions}/{pagenum}/{sendstatus}/{paystatus}")
+    public PageInfo<Orders> search(@SessionAttribute int uid ,
+    		                       @PathVariable int pagenum,
+    		                       @PathVariable String conditions,
+    		                       @PathVariable int sendstatus,
+    		                       @PathVariable int paystatus
+    		){
     	
-		return oservice.searchOrders(uid, pagenum, conditions);
+		return oservice.searchOrders(uid, pagenum, conditions, sendstatus , paystatus);
     	
     }
     //查看已经删除的订单

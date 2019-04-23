@@ -119,17 +119,19 @@ public class CommodityServiceImpl implements CommodityService {
 		//判断是否有重复商品的标记
 		boolean flag=false;
 		//记录重复商品索引
-		int index=0;
+		int index=-1;
 		//购物车中是否有同种商品
 		if(fcart.isEmpty()){
-			commapper.addCart(uid, commodityid, quantity, commapper.selectSpec(param));
+			commapper.addCart(uid, commodityid, quantity, commapper.selectSpec(param,commodityid));
 		}else {
 			for(CartItem c:fcart) {
 				 String spec = c.getSpec().getParam();
 				 System.out.println(spec);
 				 index++;
 				//同种商品是否有同种规格
-				if(!spec.equals(param)) {
+				 
+				if(spec.equals(param)&&c.getCommodity().getId()==commodityid) {
+					System.out.println(c.getCommodity().getId());
 					flag=true;
 					break;
 					//cartmapper.changeQuantity(uid, commodityid, c.getSpec().getId(),c.getQuantity()+quantity);
@@ -140,6 +142,8 @@ public class CommodityServiceImpl implements CommodityService {
 			}
 			if(flag) {
 				cartmapper.changeQuantity(uid, commodityid, fcart.get(index).getSpec().getId(),fcart.get(index).getQuantity()+quantity);
+			}else {
+				commapper.addCart(uid, commodityid, quantity, commapper.selectSpec(param,commodityid));
 			}
 			
 		}

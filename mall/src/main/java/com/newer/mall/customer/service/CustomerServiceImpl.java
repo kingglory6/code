@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.PasswordErrorException;
 import com.newer.mall.common.exception.RegisterException;
 import com.newer.mall.common.mapper.CustomerMapper;
@@ -115,9 +117,12 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<Collection> showCollection(int uid) {
+	public PageInfo<Collection> showCollection(int uid,int pageNum) {
+		 
+		PageHelper.startPage(pageNum, 10);
+		PageInfo<Collection> page = new PageInfo<>(custmapper.showCollection(uid));
 		
-		return custmapper.showCollection(uid);
+		return  page ;
 	}
 
 }

@@ -21,8 +21,8 @@ import com.newer.mall.common.pojo.Orders;
 public interface CustomerOrderMapper {
     // 插入订单
 	@Insert("insert into orders(uid,name,phone,address,payway,total)"
-			+ "value(#{customer.id},#{name},#{phone},#{address},#{payway},#{total})")
-	public void addOrder(Orders orders);
+			+ "value(#{uid},#{orders.name},#{orders.phone},#{orders.address},#{orders.payway},#{orders.total})")
+	public void addOrder(@Param("uid")int uid,@Param("orders")Orders orders);
 	
 	// 插入订单项
 	@Insert("insert into item() value (#{oid},#{cid},#{qtity},#{param},#{remark})")
@@ -46,6 +46,12 @@ public interface CustomerOrderMapper {
 						javaType = java.util.List.class,
 						many =	 @Many(select = "finditem")					
 						),
+//				@Result(
+//						column =  "uid",
+//						property = "customer",
+//						javaType = com.newer.mall.common.pojo.Customer.class,
+//						one =@One (select ="com.newer.mall.common.mapper.showCustById" )
+//						),
 				@Result(
 						column = "id",
 						property = "id"
@@ -70,7 +76,13 @@ public interface CustomerOrderMapper {
 	public List<Item> finditem(@Param("oid")int oid);
 	
 	//搜索订单
-	@Select("select * from orders where uid =#{uid}")
+	@Select("select o.*,c.title from orders o , item i ,commodity c "
+			                                           + "where i.commodity_id = c.id "
+			                                           + "and o.id =i.order_id "
+			                                           + "and o.uid = #{uid} "
+			                                           + "and c.title like '%${citions}%' "
+			                                           + "and sendstatus =#{sendstatus} "
+			                                           + "and paystatus =#{paystatus}")
 	@Results(
 			{
 				@Result(
@@ -78,11 +90,14 @@ public interface CustomerOrderMapper {
 						property = "items",
 						javaType = com.newer.mall.common.pojo.Item.class,
 						many = @Many(select = "finditems")
-						)
+						) 
 			}
 			)
-	public List<Orders> serachOrders(@Param("uid")int uid , String conditions);
-	
+	public List<Orders> serachOrders(@Param("uid")int uid ,
+			                         @Param("citions") String conditions,
+			                         @Param("sendstatus")int sendstatus ,
+			                         @Param("paystatus") int paystatus);
+	 
 	
 	//修改hidden字段,已完成删除订单
 	@Update("update orders set hidden = 1 where id = #{oid}")

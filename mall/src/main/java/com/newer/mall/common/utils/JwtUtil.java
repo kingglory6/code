@@ -13,7 +13,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JwtUtil {
 	final static String base64EncodedSecretKey = "asdf";
-	final static long TOKEN_EXP = 1000 * 60 * 10;// token过期时间
+	final static long TOKEN_EXP = 1000 * 60 * 30;// token过期时间
 
 	/**
 	 * 加密

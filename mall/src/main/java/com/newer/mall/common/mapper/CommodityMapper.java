@@ -143,6 +143,6 @@ public interface CommodityMapper {
 	 * @param param
 	 * @return
 	 */
-	@Select("select id from spec where param=#{param}")
-	public int selectSpec(@Param("param")String param);
+	@Select("select id from spec where param=#{param} and commodity_id =#{commodityid}")
+	public int selectSpec(@Param("param")String param,@Param("commodityid")int commodityid);
 }
