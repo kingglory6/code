@@ -1,8 +1,13 @@
-package com.newer.mall.common.pojo;
+	package com.newer.mall.common.pojo;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+
+
 
 public class Orders {
 
@@ -11,14 +16,21 @@ public class Orders {
 	private String name;
 	private String phone;
 	private String address;
-	private Date time;
+	private  Date time;
 	private int payStatus;
 	private int payway;
 	private int sendStatus;
 	private int hidden;
 	private BigDecimal total;
+	private String remark;
 	private List<Item> item;
+	public String getRemark() {
+		return remark;
+	}
 
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public int getId() {
 		return id;
 	}
@@ -63,8 +75,9 @@ public class Orders {
 		return time;
 	}
 
-	public void setTime(Date time) {
-		this.time = time;
+	public void setTime(Date time) {	
+		   
+           this.time = time;
 	}
 
 	public int getPayStatus() {

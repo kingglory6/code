@@ -4,7 +4,7 @@ public class Item {
 
 	private Commodity commodity;
 	private int quantity;
-	private String param;
+	private Spec spec;
 	private String remark;
 
 	public Commodity getCommodity() {
@@ -23,12 +23,12 @@ public class Item {
 		this.quantity = quantity;
 	}
 
-	public String getParam() {
-		return param;
+	public Spec getSpec() {
+		return spec;
 	}
 
-	public void setParam(String param) {
-		this.param = param;
+	public void setSpec(Spec spec) {
+		this.spec = spec;
 	}
 
 	public String getRemark() {
