@@ -59,11 +59,11 @@ public class Commodity {
 		this.price = price;
 	}
 
-	public boolean getShelf() {
+	public int getShelf() {
 		return shelf;
 	}
 
-	public void setShelf(boolean shelf) {
+	public void setShelf(int shelf) {
 		this.shelf = shelf;
 	}
 

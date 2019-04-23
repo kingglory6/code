@@ -34,21 +34,6 @@ public class CartItem {
 		this.commodity = commodity;
 	}
 
-//	public Map<Integer, CartItemParam> getParam() {
-//		return param;
-//	}
-//
-//	public void setParam(Map<Integer, CartItemParam> param) {
-//		this.param = param;
-//	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 
 
 }

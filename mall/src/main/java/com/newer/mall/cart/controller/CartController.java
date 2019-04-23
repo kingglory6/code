@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.cart.service.CartService;
@@ -33,7 +34,7 @@ public class CartController {
 	 * @return
 	 */
 	@PostMapping("/check")
-	public PageInfo<CartItem> checkCart(@RequestParam int uid , @RequestParam int pagenum){
+	public PageInfo<CartItem> checkCart(@SessionAttribute int uid , @RequestParam int pagenum){
 		
 		
 		return cartservice.checkCart(uid, pagenum);
@@ -50,7 +51,7 @@ public class CartController {
 	 */
 	
 	@PostMapping("/change")
-	public void changeQuantity(@RequestParam int uid ,
+	public void changeQuantity(@SessionAttribute int uid ,
 			                   @RequestParam int sid ,
 			                   @RequestParam int cid,
 			                   @RequestParam int quantity) throws NoStockException {
@@ -65,7 +66,7 @@ public class CartController {
 	 */
 	
 	@PostMapping("/dlt")	
-	public void dltcart(@RequestParam int uid ,@RequestParam int sid , @RequestParam int cid) {
+	public void dltcart(@SessionAttribute int uid ,@RequestParam int sid , @RequestParam int cid) {
 	   cartservice.dltcart(uid, sid, cid);
 	}
 	
@@ -75,7 +76,7 @@ public class CartController {
 	 * @param dltmap
 	 */
 	@PostMapping("/dlts")
-	public void dltcarts(@RequestParam int uid, List<CartItem> cartItems) {
+	public void dltcarts(@SessionAttribute int uid, List<CartItem> cartItems) {
 		
 		
      	cartservice.dltcarts(uid, cartItems);
@@ -89,7 +90,7 @@ public class CartController {
 	 * @return
 	 */
 	@PostMapping("/serach")
-	public PageInfo<CartItem> findCart(@RequestParam int uid ,
+	public PageInfo<CartItem> findCart(@SessionAttribute int uid ,
 			                           @RequestParam String conditions ,
 			                           @RequestParam int pagenum){
 		

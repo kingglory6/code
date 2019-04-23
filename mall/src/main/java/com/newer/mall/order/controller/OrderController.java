@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.NoStockException;
@@ -23,14 +24,13 @@ public class OrderController {
 	
 	//添加订单
 	@PostMapping("/add")
-	public void addOrder(
+	public void addOrder(@SessionAttribute int uid,
 			             @RequestBody Orders orders) throws NoStockException {   	
-	    int uid =1;
 		oservice.addOrder(orders,uid);
 	}
 	//查询订单
     @PostMapping("/find")
-	public PageInfo<Orders> findOrders(@RequestParam int uid,
+	public PageInfo<Orders> findOrders(@SessionAttribute int uid,
 			                           @RequestParam int pagenum,
 			                           @RequestParam int sendstatus,
 			                           @RequestParam int paystatus) {
@@ -46,23 +46,24 @@ public class OrderController {
     
     //添加评论
     @PostMapping("/addcment")
-    public void addComment(@RequestParam int uid ,@RequestParam int cid ,@RequestParam String content , @RequestParam int score) {
+    public void addComment(@SessionAttribute int uid ,@RequestParam int cid ,@RequestParam String content , @RequestParam int score) {
     	
     	oservice.addComment(uid , cid , content , score);
     }
     
     //搜索订单
     @PostMapping("/search")
-    public PageInfo<Orders> search(@RequestParam int uid ,@RequestParam int pagenum,@RequestParam String conditions){
+    public PageInfo<Orders> search(@SessionAttribute int uid ,@RequestParam int pagenum,@RequestParam String conditions){
     	
 		return oservice.searchOrders(uid, pagenum, conditions);
     	
     }
     //查看已经删除的订单
     @PostMapping("/fdlt")
-    public PageInfo<Orders> fdlt(@RequestParam int uid ,@RequestParam  int pagenum){
+    public PageInfo<Orders> fdlt(@SessionAttribute int uid ,@RequestParam  int pagenum){
     	
     	return oservice.fdltOrders(uid, pagenum);
+    	
     }
     
 
