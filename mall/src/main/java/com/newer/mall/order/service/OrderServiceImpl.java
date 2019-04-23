@@ -1,10 +1,6 @@
 package com.newer.mall.order.service;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -34,18 +30,7 @@ public class OrderServiceImpl implements OrderService {
 		
 	    List<Orders> orders = ordermapper.findOrders(uid,sendstatus,paystatus);
 	    for(Orders o : orders) {
-//	       String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(o.getTime());
-//	    	DateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//	    	
-//	    	System.out.println(time);
 	    	
-//	    	try {
-//				o.setTime(date.parse(time));
-//				System.out.println(date.parseObject(time));
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
 	    }
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
 		
@@ -114,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
 
 
 
-
+    // 查询删除订单
 	@Override
 	public PageInfo<Orders> fdltOrders(int uid,int pagenum) {
 		// TODO Auto-generated method stub
