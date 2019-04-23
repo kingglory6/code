@@ -10,8 +10,9 @@ import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.mapper.CommodityMapper;
 import com.newer.mall.common.mapper.CustomerCartMapper;
 import com.newer.mall.common.pojo.Activity;
+import com.newer.mall.common.pojo.Brand;
 import com.newer.mall.common.pojo.CartItem;
-import com.newer.mall.common.pojo.CartItemParam;
+import com.newer.mall.common.pojo.Category;
 import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Commodity;
 
@@ -163,5 +164,22 @@ public class CommodityServiceImpl implements CommodityService {
 
 		return pageinfo;
 	}
+	
+	/**
+	 * 显示所有类别
+	 */
+	@Override
+	public List<Category> showCategory() {
+		return commapper.selectAllCategory();
+	}
+
+	/**
+	 * 显示所有品牌
+	 */
+	@Override
+	public List<Brand> showBrand() {
+		return commapper.selectAllBrand();
+	}
+
 
 }
