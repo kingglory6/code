@@ -39,20 +39,20 @@ public class Password {
 		return md5;
 	}
 
-	public static String toSHA2(String text) {
-		String md5 = null;
+	public static String toSHA2(String password) {
+		String sha256 = null;
 
 		try {
-			byte[] hash = MessageDigest.getInstance("SHA-256").digest(text.getBytes());
+			byte[] hash = MessageDigest.getInstance("SHA-256").digest(password.getBytes());
 			//System.out.println(Arrays.toString(hash));
 			// 1 参数全部转换为正数
-			md5 = new BigInteger(1, hash).toString(16);
+			sha256 = new BigInteger(1, hash).toString(16);
 			// String er = new BigInteger(1,hash).toString(2);
 			// System.out.println(er);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		return md5;
+		return sha256;
 	}
 
 	public static String toSHA2(File file) {

@@ -5,7 +5,8 @@ import java.util.Map;
 public class CartItem {
 
 	private Commodity commodity;
-	private Map<Integer, CartItemParam> param;
+	private Spec spec;
+	private int quantity;
 
 	public Commodity getCommodity() {
 		return commodity;
@@ -15,12 +16,21 @@ public class CartItem {
 		this.commodity = commodity;
 	}
 
-	public Map<Integer, CartItemParam> getParam() {
-		return param;
+	public Spec getSpec() {
+		return spec;
 	}
 
-	public void setParam(Map<Integer, CartItemParam> param) {
-		this.param = param;
+	public void setSpec(Spec spec) {
+		this.spec = spec;
 	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 
 }

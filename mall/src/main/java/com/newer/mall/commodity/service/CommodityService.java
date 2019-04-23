@@ -1,9 +1,16 @@
 package com.newer.mall.commodity.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.PageInfo;
+import com.newer.mall.common.pojo.Activity;
+import com.newer.mall.common.pojo.CartItem;
 import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Commodity;
 
+@Service
 public interface CommodityService {
 
 	/**
@@ -24,20 +31,20 @@ public interface CommodityService {
 	public PageInfo<Commodity> displayCommodityRecommed(int pageNum);
 
 	/**
-	 * 查看限量活动
+	 * 查看活动
 	 * 
 	 * @param pageNum 查询的页码
 	 * @return
 	 */
-	public PageInfo<Commodity> queryCommoditySpike(int pageNum);
+	public PageInfo<Activity> queryCommodityActivity(int pageNum);
 
-	/**
-	 * 查看限时活动
-	 * 
-	 * @param pageNum 查看页码
-	 * @return
-	 */
-	public PageInfo<Commodity> queryCommodityDiscount(int pageNum);
+//	/**
+//	 * 查看限时活动
+//	 * 
+//	 * @param pageNum 查看页码
+//	 * @return
+//	 */
+//	public PageInfo<Activity> queryCommodityDiscount(int pageNum);
 
 	/**
 	 * 查看该品牌对应的商品
@@ -60,11 +67,10 @@ public interface CommodityService {
 	/**
 	 * 商品详情
 	 * 
-	 * @param pageNum     查看页码
 	 * @param commodityid 商品关键字
 	 * @return
 	 */
-	public Commodity queryCommodity(int pageNum, int commodityid);
+	public Commodity queryCommodity(int commodityid);
 
 	/**
 	 * 添加购物车
@@ -73,7 +79,7 @@ public interface CommodityService {
 	 * @param quantity添加的数量
 	 * @param param商品参数
 	 */
-	public void addCart(int commodityid, int quantity, String param);
+	public List<CartItem> addCart(int uid,int commodityid, int quantity, String param);
 
 	/**
 	 * 查看商品评论

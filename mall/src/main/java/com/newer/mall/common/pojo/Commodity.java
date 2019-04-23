@@ -2,7 +2,6 @@ package com.newer.mall.common.pojo;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale.Category;
 
 public class Commodity {
 
@@ -10,12 +9,23 @@ public class Commodity {
 	private String title;
 	private String description;
 	private BigDecimal price;
+	private BigDecimal discount;
 	private int shelf;
 	private int recommed;
 	private int stock;
 	private Category category;
 	private Brand brand;
 	private List<Spec> specList;
+
+	
+	
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
 
 	public int getId() {
 		return id;
