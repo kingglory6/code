@@ -1,6 +1,7 @@
 package com.newer.mall.order.controller;
 
-import java.util.List;
+
+import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.NoStockException;
-import com.newer.mall.common.pojo.CartItem;
-import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Orders;
 import com.newer.mall.order.service.OrderService;
 
@@ -25,34 +24,21 @@ public class OrderController {
 	@Autowired
 	OrderService oservice;
 	
-	//判断下单时库存是否充足
-	@PostMapping("/stock")
-	public boolean nostock(@RequestBody List<CartItem> cartItems) throws NoStockException {
-		
-		for(CartItem item : cartItems) {
-			System.out.println(item.getCommodity().getTitle());
-		}
-		
-		return oservice.nostock(cartItems);
-	}
-	
-	
 	//添加订单
 	@PostMapping("/add")
-	public void addOrder(@RequestParam int uid,
-			             @RequestBody Orders orders ,
-			             @RequestBody List<CartItem> cartitems,
-			             @RequestParam String remark) throws NoStockException {
-
-		oservice.addOrder(orders, cartitems, uid,remark);
+	public void addOrder(
+			             @RequestBody Orders orders) throws NoStockException {   	
+	    int uid =1;
+		oservice.addOrder(orders,uid);
 	}
 	//查询订单
     @PostMapping("/find")
 	public PageInfo<Orders> findOrders(@RequestParam int uid,
 			                           @RequestParam int pagenum,
-			                           @RequestParam int sendstatus){
+			                           @RequestParam int sendstatus,
+			                           @RequestParam int paystatus) {
     	
-		return oservice.findOrders(uid, pagenum, sendstatus);
+		return oservice.findOrders(uid, pagenum, sendstatus, paystatus);
 	}
     //删除订单
     @PostMapping("/dlt")
@@ -63,17 +49,24 @@ public class OrderController {
     
     //添加评论
     @PostMapping("/addcment")
-    public void addComment(@RequestBody Comment comment) {
+    public void addComment(@RequestParam int uid ,@RequestParam int cid ,@RequestParam String content , @RequestParam int score) {
     	
-    	oservice.addComment(comment);
+    	oservice.addComment(uid , cid , content , score);
     }
     
     //搜索订单
     @PostMapping("/search")
-    public PageInfo<Orders> search(int uid ,int pagenum, String conditions){
+    public PageInfo<Orders> search(@RequestParam int uid ,@RequestParam int pagenum,@RequestParam String conditions){
     	
 		return oservice.searchOrders(uid, pagenum, conditions);
     	
     }
+    //查看已经删除的订单
+    @PostMapping("/fdlt")
+    public PageInfo<Orders> fdlt(@RequestParam int uid ,@RequestParam  int pagenum){
+    	
+    	return oservice.fdltOrders(uid, pagenum);
+    }
+    
 
 }

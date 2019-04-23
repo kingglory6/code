@@ -1,11 +1,10 @@
 package com.newer.mall.cart.controller;
 
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.cart.service.CartService;
-import com.newer.mall.common.mapper.CommodityMapper;
+import com.newer.mall.common.exception.NoStockException;
 import com.newer.mall.common.pojo.CartItem;
-import com.newer.mall.common.pojo.Commodity;
+
  
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -34,6 +33,8 @@ public class CartController {
 	 */
 	@PostMapping("/check")
 	public PageInfo<CartItem> checkCart(@RequestParam int uid , @RequestParam int pagenum){
+		
+		
 		return cartservice.checkCart(uid, pagenum);
 		
 	}
@@ -44,13 +45,15 @@ public class CartController {
 	 * @param uid
 	 * @param sid
 	 * @param quantity
+	 * @throws NoStockException 
 	 */
 	
 	@PostMapping("/change")
 	public void changeQuantity(@RequestParam int uid ,
 			                   @RequestParam int sid ,
 			                   @RequestParam int cid,
-			                   @RequestParam int quantity) {
+			                   @RequestParam int quantity) throws NoStockException {
+		
 		cartservice.changeQuantity(uid, sid, cid, quantity);
 		
 	}
@@ -61,8 +64,8 @@ public class CartController {
 	 */
 	
 	@PostMapping("/dlt")	
-	public void dltcart(@RequestParam int uid ,@RequestParam int sid) {
-		
+	public void dltcart(@RequestParam int uid ,@RequestParam int sid , @RequestParam int cid) {
+	   cartservice.dltcart(uid, sid, cid);
 	}
 	
 	/**
@@ -71,9 +74,10 @@ public class CartController {
 	 * @param dltmap
 	 */
 	@PostMapping("/dlts")
-	public void dltcarts(@RequestParam int uid , @RequestParam Map<Integer, Integer> dltmap) {
+	public void dltcarts(@RequestParam int uid, List<CartItem> cartItems) {
 		
-		cartservice.dltcarts(uid, dltmap);
+		
+     	cartservice.dltcarts(uid, cartItems);
 	}
 	
 	/**
@@ -87,6 +91,7 @@ public class CartController {
 	public PageInfo<CartItem> findCart(@RequestParam int uid ,
 			                           @RequestParam String conditions ,
 			                           @RequestParam int pagenum){
+		
 		
 		return cartservice.findCart(uid, conditions, pagenum);
 		

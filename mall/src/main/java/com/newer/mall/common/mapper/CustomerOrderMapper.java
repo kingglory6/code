@@ -10,9 +10,6 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
-import com.newer.mall.common.pojo.CartItem;
-import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Item;
 import com.newer.mall.common.pojo.Orders;
 
@@ -23,15 +20,14 @@ import com.newer.mall.common.pojo.Orders;
  */
 public interface CustomerOrderMapper {
     // 插入订单
-	@Insert("insert into orders(uid,name,phone,address,payway,total)  "
-			+ "value(#{orders.customer.id},#{orders.name},"
-			+ "#{orders.name},#{orders.phone},"
-			+ "#{orders.address},#{orders.total})")
+	@Insert("insert into orders(uid,name,phone,address,payway,total)"
+			+ "value(#{customer.id},#{name},#{phone},#{address},#{payway},#{total})")
 	public void addOrder(Orders orders);
 	
 	// 插入订单项
-	@Insert("insert into item() value (#{oid},#{cid},#{param},#{qtity},#{remark})")
-	public void addItme(@Param("cid")int cid,@Param("oid")int oid, 
+	@Insert("insert into item() value (#{oid},#{cid},#{qtity},#{param},#{remark})")
+	public void addItme(@Param("oid")int oid,
+			            @Param("cid")int cid, 
 			            @Param("param")String param , 
 			            @Param("qtity")int quantity ,
 			            @Param("remark")String remark );
@@ -40,33 +36,38 @@ public interface CustomerOrderMapper {
 	@Select("select max(id) from orders where uid =#{uid}")
 	public int findoid(@Param("uid")int uid);
 	
-	// 查询订单,sendstatus 订单状态
-	@Select("select * from orders where uid =#{uid} and sendstatus =#{sendstatus} and hidden =1}  ")
+	// 查询订单,sendstatus 订单状态 payway 支付状态
+	@Select("select * from orders where uid =#{uid} and sendstatus =#{sendstatus} and hidden =0  and paystatus =#{paystatus}")
 	@Results(
 			{
 				@Result(
 						column = "id",
-						property = "items",
-						javaType = com.newer.mall.common.mapper.CustomerOrderMapper.class,
-						many = @Many(select = "finditems")					
+						property = "item",
+						javaType = java.util.List.class,
+						many =	 @Many(select = "finditem")					
+						),
+				@Result(
+						column = "id",
+						property = "id"
 						)
 			}
 			)
-	public List<Orders> findOrders(@Param("uid")int uid,@Param("sendstatus")int sendstatus);
+	public List<Orders> findOrders(@Param("uid")int uid,@Param("sendstatus")int sendstatus ,@Param("paystatus") int paystatus);
+	
 	
 	//查询订单项
-	@Select("select*from item where order_id =#{oid}")
+	@Select("select * from item where order_id =#{oid}")
 	@Results(
 			{
 				@Result(
 						column = "commodity_id",
 						property = "commodity",
-						javaType = com.newer.mall.common.mapper.CommodityMapper.class,
+						javaType = com.newer.mall.common.pojo.Commodity.class,
 						one = @One(select = "com.newer.mall.common.mapper.CommodityMapper.selectCommodity")
 						)
 			}
 			)
-	public List<Item> finditems(@Param("oid")int oid);
+	public List<Item> finditem(@Param("oid")int oid);
 	
 	//搜索订单
 	@Select("select * from orders where uid =#{uid}")
@@ -75,7 +76,7 @@ public interface CustomerOrderMapper {
 				@Result(
 						column = "id",
 						property = "items",
-						javaType = com.newer.mall.common.mapper.CustomerOrderMapper.class,
+						javaType = com.newer.mall.common.pojo.Item.class,
 						many = @Many(select = "finditems")
 						)
 			}
@@ -95,11 +96,14 @@ public interface CustomerOrderMapper {
 	
 	//插入评论
 	@Insert("insert into comment(commodity_id,uid,content,score) value("
-			                                                            + "#{comment.commodity.id},"
-			                                                            + "#{comment.customer.id},"
-			                                                            + "#{comment.content},"
-			                                                            + "#{comment.score} ) ")
-	public void addComment (Comment comment);
+			                                                            + "#{cid},"
+			                                                            + "#{uid},"
+			                                                            + "#{ctent},"
+			                                                            + "#{score} ) ")
+	public void addComment (@Param("uid")int uid ,
+			                @Param("cid") int cid ,
+			                @Param("ctent")String content,
+			                @Param("score") int score);
 	
 	//查看商品库存
 	@Select("select stock from commodity where id=#{cid}")
@@ -109,4 +113,42 @@ public interface CustomerOrderMapper {
 	//修改订单状态
 	@Update("update orders set sendstatus=#{sendstatus} where id =#{oid}")
 	public void upsendstatus(@Param("oid")int oid ,@Param("sendstatus") int sendstatus); 
+	
+	//支付成功,修改支付状态
+	@Update("update orders set payway=1 where uid =#{uid} and oid=#{oid} ")
+	public void uppayway(@Param("uid")int uid ,@Param("oid") int oid);
+	
+	//查询当个订单
+	@Select("select * from  orders where id =#{oid} ")
+	@Results(
+			{
+			@Result(
+					column = "id",
+					property = "items",
+					javaType = com.newer.mall.common.pojo.Item.class,
+					many =  @Many(select = "finditems")
+					)	
+			} 
+			)
+	public Orders findOrder(@Param("oid")int oid);
+	
+	//查询已删除的订单
+	@Select("select * from orders where uid =#{uid} and hidden =1")
+	@Results(
+			{
+			@Result(
+					column = "id",
+					property = "item",
+					javaType =  java.util.List.class,
+					many = @Many(select = "finditems")
+					),
+			@Result(
+					column = "id",
+					property = "id"
+					
+					)
+			}
+			)
+	public List<Orders> fdltOrders(@Param("uid")int uid);
+	
 }

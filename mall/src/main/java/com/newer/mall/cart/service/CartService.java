@@ -1,11 +1,14 @@
 package com.newer.mall.cart.service;
 
+import java.util.List;
 import java.util.Map;
 
 
 
 import com.github.pagehelper.PageInfo;
+import com.newer.mall.common.exception.NoStockException;
 import com.newer.mall.common.pojo.CartItem;
+import com.newer.mall.common.pojo.Customer;
 
 public interface CartService {
 	/**
@@ -23,8 +26,9 @@ public interface CartService {
 	 * @param sid(商品规格id)
 	 * @param cid(商品id)
 	 * @param quantity(商品数量)
+	 * @throws NoStockException 
 	 */
-	public void changeQuantity(int uid , int sid ,int cid, int quantity);
+	public void changeQuantity(int uid , int sid ,int cid, int quantity) throws NoStockException ;
 	
 	/**
 	  *  删除购物车项
@@ -39,7 +43,7 @@ public interface CartService {
 	 * @param uid(客户id)
 	 * @param dltmap(包含规格id 商品id)
 	 */
-	public void dltcarts(int uid,Map<Integer, Integer>dltmap);
+	public void dltcarts(int uid,List<CartItem> cartItems);
 	
 	/**
 	  * 根据条件查询购物车项
@@ -49,4 +53,12 @@ public interface CartService {
 	 * @return
 	 */	
 	public PageInfo<CartItem> findCart(int uid , String conditions ,int pagenum);
+	
+	
+	/**
+	  *  结算
+	 * @param uid(客户id)
+	 * @return
+	 */
+	public Customer settlement(int uid);
 }

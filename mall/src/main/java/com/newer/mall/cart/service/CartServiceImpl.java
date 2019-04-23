@@ -8,14 +8,20 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.newer.mall.common.exception.NoStockException;
 import com.newer.mall.common.mapper.CustomerCartMapper;
+import com.newer.mall.common.mapper.CustomerOrderMapper;
 import com.newer.mall.common.pojo.CartItem;
+import com.newer.mall.common.pojo.Customer;
 
 @Service
 public class CartServiceImpl  implements CartService {
     
 	@Autowired
 	CustomerCartMapper cartMapper;
+	
+	@Autowired
+	CustomerOrderMapper oMapper;
 	
 	/**
 	  * 查询购物车列表
@@ -41,10 +47,18 @@ public class CartServiceImpl  implements CartService {
 	 * @param sid(商品规格id)
 	 * @param cid(商品id)
 	 * @param quantity(商品数量)
+	 * @throws NoStockException 
 	 */
 	@Override
-	public void changeQuantity(int uid , int sid ,int cid, int quantity) {
-		cartMapper.changeQuantity(uid, cid, sid, quantity);
+	public void changeQuantity(int uid , int sid ,int cid, int quantity) throws NoStockException {
+		
+		if(oMapper.findstock(cid)>=quantity) {
+			cartMapper.changeQuantity(uid, cid, sid, quantity);
+		}
+		else {
+			throw new NoStockException("库存不足");
+		}
+		
 	}
 	
 	/**
@@ -62,14 +76,15 @@ public class CartServiceImpl  implements CartService {
 	/**
 	  * 购物车多项删除
 	 * @param uid
-	 * @param dltmap
+	 * @param cartItems
 	 */
 	@Override
-	public void dltcarts(int uid,Map<Integer, Integer>dltmap) {
-		//循环遍历出map里面商品id 和规格id
-		for(Map.Entry<Integer, Integer> entry : dltmap.entrySet()) {
-		      cartMapper.dltCart(uid,entry.getKey() , entry.getValue());
+	public void dltcarts(int uid,List<CartItem> cartItems) {
+		
+		for(CartItem item :cartItems) {
+			cartMapper.dltCart(uid, item.getCommodity().getId(), item.getSpec().getId());
 		}
+		
 	}
 	
 	
@@ -87,6 +102,17 @@ public class CartServiceImpl  implements CartService {
 		List<CartItem> cartitem = cartMapper.findcart(uid, conditions);
 		PageInfo<CartItem> pageitem = new PageInfo<>(cartitem);
 		return pageitem;
+	}
+
+	/**
+	  *结算
+	 * @param uid(客户id)
+	 * @return
+	 */	 
+	@Override
+	public Customer settlement(int uid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

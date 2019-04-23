@@ -10,8 +10,6 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
-import com.fasterxml.jackson.databind.JavaType;
 import com.newer.mall.common.pojo.CartItem;
 import com.newer.mall.common.pojo.Spec;
 
@@ -78,7 +76,6 @@ public interface CustomerCartMapper {
 						one = @One(select = "findspec")
 						)
 			}
-			
 			)
     public List<CartItem> fcart(@Param("uid")int uid,@Param("cid")int cid);
 	
