@@ -44,6 +44,12 @@ public interface ActivityMangeMapper {
 			@Result(property = "endTime", column = "end_time"),
 			@Result(property = "commodity", column = "commodity_id", one = @One(select = "com.newer.mall.common.mapper.CommodityMangeMapper.getCommodity")) })
 	public List<Activity> getActivityList();
+	
+	@Select("select * from activity where type = #{type}")
+	@Results({ @Result(property = "startTime", column = "start_time"),
+			@Result(property = "endTime", column = "end_time"),
+			@Result(property = "commodity", column = "commodity_id", one = @One(select = "com.newer.mall.common.mapper.CommodityMangeMapper.getCommodity")) })
+	public List<Activity> getActivityAll(@Param("type") int type);
 
 	// 删除活动
 	@Delete("delete from activity where id = #{id}")

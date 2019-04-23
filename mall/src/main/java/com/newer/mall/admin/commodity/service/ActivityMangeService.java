@@ -11,6 +11,6 @@ public interface ActivityMangeService {
 	
 	public void dropActivity(int id);
 	
-	public List<Activity> findActivity();
+	public List<Activity> findActivity(int type);
 
 }

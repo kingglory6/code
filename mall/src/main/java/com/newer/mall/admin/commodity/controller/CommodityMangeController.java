@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,25 +13,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.admin.commodity.service.impl.CommodityServiceImpl;
+import com.newer.mall.admin.commodity.service.impl.ImageService;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.pojo.Commodity;
-import com.newer.mall.common.utils.EmailSenderService;
 
 @RestController
 @RequestMapping("api/v1/admin/commodity")
 public class CommodityMangeController {
 
 	@Autowired
-	CommodityServiceImpl service;
+	private CommodityServiceImpl service;
 
 	@Autowired
-	EmailSenderService mail;
+    private ImageService imageService;
+	
 
 //	@GetMapping("/loadcommodity/{page}")
 //	public Map<String, Object> loadCommodity(@PathVariable int page,@RequestParam("size") int size) {
@@ -51,18 +52,18 @@ public class CommodityMangeController {
 //	}
 
 	@PostMapping("/add")
-	public Map<String, Object> uploadCommodity(@RequestBody Commodity com, HttpSession session) {
+	public Map<String, Object> uploadCommodity(@RequestBody Commodity com) {
 		Map<String, Object> map = new HashMap<>();
-		String key = (String) session.getAttribute("key");
+//		String key = (String) session.getAttribute("key");
 		try {
-			if (key == null) {
-				map.put("code", "未登录");
-				return map;
-				
-			}
+//			if (key == null) {
+//				map.put("code", "未登录");
+//				return map;
+//				
+//			}
 			service.createCommodity(com);
 			map.put("code", "ok");
-		} catch (SQLException e) { 
+		} catch (SQLException e) {
 			map.put("code", "error");
 		}
 		return map;
@@ -95,9 +96,9 @@ public class CommodityMangeController {
 		}
 		return map;
 	}
-	
+
 	@PostMapping("/recommend")
-	public Map<String, Object> recommendMange(int id, int type){
+	public Map<String, Object> recommendMange(int id, int type) {
 		Map<String, Object> map = new HashMap<>();
 		try {
 			service.recommend(id, type);
@@ -107,44 +108,42 @@ public class CommodityMangeController {
 		}
 		return map;
 	}
-	
-	
-	
+
 	@PutMapping("/modifycommodity")
-	public Map<String,Object> putCommodity(@RequestBody Commodity com){
+	public Map<String, Object> putCommodity(@RequestBody Commodity com) {
 		Map<String, Object> map = new HashMap<>();
 		service.saveCommodity(com);
 		map.put("code", "ok");
 		return map;
 	}
-	
+
 	@DeleteMapping("/removecommodity")
-	public Map<String,Object> dropCommodity(int id){
+	public Map<String, Object> dropCommodity(int id) {
 		Map<String, Object> map = new HashMap<>();
 		service.dropCommodity(id);
 		map.put("code", "ok");
 		return map;
 	}
-	
+
 	@GetMapping("/wuliu")
 	public Object getWuliu(String on) {
 		return service.wuliu(on);
 	}
-	
+
 	@GetMapping("/category")
-	public Map<String,Object> loadCategory(){
+	public Map<String, Object> loadCategory() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", service.findCategory());
 		return map;
 	}
-	
+
 	@GetMapping("/brand")
-	public Map<String,Object> loadBrand(){
+	public Map<String, Object> loadBrand() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", service.findBrand());
 		return map;
 	}
-	
+
 //	@GetMapping("/upcommodity/{page}")
 //	public Map<String,Object> loadUpCommodity(@PathVariable int page,@RequestParam("size") int size,int num){
 //		Map<String, Object> map = new HashMap<>();
@@ -152,15 +151,33 @@ public class CommodityMangeController {
 //		map.put("data", new PageInfo<Commodity>(service.findUpCommodity(num)));
 //		return map;
 //	}
-	
-	
+
 	@GetMapping("/querycommodity/{page}")
-	public Map<String,Object> conditionalQuery(@PathVariable int page,int size,int shelf,int cid,int bid,String text){
+	public Map<String, Object> conditionalQuery(@PathVariable int page, int size, int shelf, int cid, int bid,
+			String text) {
 		Map<String, Object> map = new HashMap<>();
 		PageHelper.startPage(page, size);
-		map.put("data", new PageInfo<Commodity>(service.conditionalQuery(shelf, cid, bid,text)));
+		if("".equals(text))
+			text=null;
+		map.put("data", new PageInfo<Commodity>(service.conditionalQuery(shelf, cid, bid, text)));
 		return map;
 	}
+	
+	
+    // 上传图片到本地
+    @PostMapping("/images")
+    public String upload(@RequestParam("image") MultipartFile image) {
+    	
+        return imageService.upload(image);
+    }
+    
+    @GetMapping("/loadcomm")
+    public Map<String,Object> loadComm(int id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", service.findComm(id));
+    	return map;
+    }
+   
 
 
 }

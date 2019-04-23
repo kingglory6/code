@@ -46,9 +46,9 @@ public class ActivityMangeController {
 	}
 	
 	@GetMapping("/loadactivity")
-	public Map<String,Object> loadActivity(){
+	public Map<String,Object> loadActivity(int type){
 		Map<String, Object> map = new HashMap<>();
-		map.put("data", service.findActivity());
+		map.put("data", service.findActivity(type));
 		return map;
 	}
 

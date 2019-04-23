@@ -5,7 +5,6 @@ public class Spec {
 	private int id;
 	private String param;
 	private String img;
-	private Commodity commodity;
 
 	public int getId() {
 		return id;
@@ -31,12 +30,5 @@ public class Spec {
 		this.img = img;
 	}
 
-	public Commodity getCommodity() {
-		return commodity;
-	}
-
-	public void setCommodity(Commodity commodity) {
-		this.commodity = commodity;
-	}
 
 }

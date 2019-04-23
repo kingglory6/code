@@ -43,4 +43,6 @@ public interface CommodityService {
 	// public List<Commodity> findUpCommodity(int num);
 
 	public List<Commodity> conditionalQuery(int shelf, int cid, int bid,String text);
+	
+	public Commodity findComm(int id);
 }

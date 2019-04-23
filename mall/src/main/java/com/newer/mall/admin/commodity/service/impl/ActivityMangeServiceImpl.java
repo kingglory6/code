@@ -35,8 +35,8 @@ public class ActivityMangeServiceImpl implements ActivityMangeService {
 	}
 
 	@Override
-	public List<Activity> findActivity() {
-		return mapper.getActivityList();
+	public List<Activity> findActivity(int type) {
+		return mapper.getActivityAll(type);
 	}
 
 }

@@ -35,9 +35,12 @@ public interface CommodityMangeMapper {
 
 	@Select("select * from brand where id = #{id}")
 	public Brand getBrand(@Param("id") int id);
+	
+	@Select("select Last_insert_id()")
+	public int getId();
 
 	// 添加商品
-	@Insert("insert into Commodity(title,price,description,category_id,brand_id) values(#{title},#{price},#{description},#{category.id},#{brand.id})")
+	@Insert("insert into Commodity(title,price,discount,description,category_id,brand_id) values(#{title},#{price},#{price},#{description},#{category.id},#{brand.id})")
 	public void addCommodity(Commodity com);
 
 	@Delete("delete from commodity where id = #{id}")
@@ -81,8 +84,8 @@ public interface CommodityMangeMapper {
 	// 插入多个规格
 	@Insert({ "<script>", "insert into spec(commodity_id,param,img) values ",
 			"<foreach collection='spec' item='s' index='index' separator=','>",
-			"(#{s.commodity.id}, #{s.param}, #{s.img})", "</foreach>", "</script>" })
-	public void addSpecList(@Param("spec") List<Spec> spec);
+			"(#{id}, #{s.param}, #{s.img})", "</foreach>", "</script>" })
+	public void addSpecList(@Param("id")int id,@Param("spec") List<Spec> spec);
 
 	// 删除规格
 	@Delete("delete from spec where id = #{id}")

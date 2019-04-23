@@ -4,16 +4,20 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.Page;
 import com.newer.mall.admin.account.thread.EmailRunnable;
 import com.newer.mall.admin.commodity.service.CommodityService;
+import com.newer.mall.admin.commodity.thread.CopyFile;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.mapper.CommodityMangeMapper;
@@ -40,8 +44,15 @@ public class CommodityServiceImpl implements CommodityService {
 	}
 
 	@Override
+	@Transactional
 	public void createCommodity(Commodity com) throws SQLException {
 		mapper.addCommodity(com);
+		mapper.addSpecList(mapper.getId(),com.getSpecList());
+		ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+		for(Spec spec:com.getSpecList()) {
+			cachedThreadPool.execute(new CopyFile(spec.getImg()));
+		}
+		
 	}
 
 	@Override
@@ -98,7 +109,7 @@ public class CommodityServiceImpl implements CommodityService {
 
 	@Override
 	public void createSpecList(List<Spec> spec) {
-		mapper.addSpecList(spec);
+		// mapper.addSpecList(spec);
 	}
 
 	@Override
@@ -137,9 +148,15 @@ public class CommodityServiceImpl implements CommodityService {
 	}
 
 	@Override
-	public Page<Commodity> conditionalQuery(int shelf, int cid, int bid,String text) {
+	public Page<Commodity> conditionalQuery(int shelf, int cid, int bid, String text) {
+
+		return mapper.conditionalQuery(shelf, cid, bid, text);
+	}
+
+	@Override
+	public Commodity findComm(int id) {
 		
-		return mapper.conditionalQuery(shelf, cid, bid,text);
+		return mapper.getCommodity(id);
 	}
 
 //	@Override
