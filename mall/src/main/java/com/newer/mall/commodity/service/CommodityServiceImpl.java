@@ -3,6 +3,7 @@ package com.newer.mall.commodity.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -14,6 +15,7 @@ import com.newer.mall.common.pojo.CartItemParam;
 import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Commodity;
 
+@Service
 public class CommodityServiceImpl implements CommodityService {
 
 	@Autowired
@@ -50,27 +52,27 @@ public class CommodityServiceImpl implements CommodityService {
 	 * 显示限量折扣商品
 	 */
 	@Override
-	public PageInfo<Activity> queryCommoditySpike(int pageNum) {
+	public PageInfo<Activity> queryCommodityActivity(int pageNum) {
 		// 设置分页信息
 		PageHelper.startPage(pageNum, 10);
-		List<Activity> commlist = commapper.selectCommoditySpike();
+		List<Activity> commlist = commapper.selectCommodityActivity();
 		PageInfo<Activity> pageinfo = new PageInfo<>(commlist);
 
 		return pageinfo;
 	}
 
-	/**
-	 * 显示限时折扣商品
-	 */
-	@Override
-	public PageInfo<Activity> queryCommodityDiscount(int pageNum) {
-		// 设置分页信息
-		PageHelper.startPage(pageNum, 10);
-		List<Activity> commlist = commapper.selectCommodityDiscount();
-		PageInfo<Activity> pageinfo = new PageInfo<>(commlist);
-
-		return pageinfo;
-	}
+//	/**
+//	 * 显示限时折扣商品
+//	 */
+//	@Override
+//	public PageInfo<Activity> queryCommodityDiscount(int pageNum) {
+//		// 设置分页信息
+//		PageHelper.startPage(pageNum, 10);
+//		List<Activity> commlist = commapper.selectCommodityDiscount();
+//		PageInfo<Activity> pageinfo = new PageInfo<>(commlist);
+//
+//		return pageinfo;
+//	}
 
 	/**
 	 * 显示该品牌下所有商品
@@ -109,25 +111,40 @@ public class CommodityServiceImpl implements CommodityService {
 
 	/**
 	 * 商品添加入购物车
+	 * @return 
 	 */
 	@Override
-	public void addCart(int uid,int commodityid, int quantity, String param) {
-		List<CartItem> fcart = cartmapper.fcart(commodityid);
+	public List<CartItem> addCart(int uid,int commodityid, int quantity, String param) {
+		List<CartItem> fcart = cartmapper.fcart(uid,commodityid);
+		//判断是否有重复商品的标记
+		boolean flag=false;
+		//记录重复商品索引
+		int index=0;
 		//购物车中是否有同种商品
 		if(fcart.isEmpty()){
 			commapper.addCart(uid, commodityid, quantity, commapper.selectSpec(param));
 		}else {
 			for(CartItem c:fcart) {
-				CartItemParam cartItemParam = c.getParam().get(commodityid);
+				 String spec = c.getSpec().getParam();
+				 System.out.println(spec);
+				 index++;
 				//同种商品是否有同种规格
-				if(cartItemParam.getSpec().getParam().equals(param)) {
-					cartmapper.changeQuantity(uid, commodityid, cartItemParam.getSpec().getId(),cartItemParam.getQuantity()+quantity);
-				}else {
-					commapper.addCart(uid, commodityid, quantity, commapper.selectSpec(param));
+				if(!spec.equals(param)) {
+					flag=true;
+					break;
+					//cartmapper.changeQuantity(uid, commodityid, c.getSpec().getId(),c.getQuantity()+quantity);
 				}
+//				else {
+//					//commapper.addCart(uid, commodityid, quantity, commapper.selectSpec(param));
+//				}
 			}
+			if(flag) {
+				cartmapper.changeQuantity(uid, commodityid, fcart.get(index).getSpec().getId(),fcart.get(index).getQuantity()+quantity);
+			}
+			
 		}
-
+			
+		return cartmapper.checkCart(uid);
 	}
 
 	/**

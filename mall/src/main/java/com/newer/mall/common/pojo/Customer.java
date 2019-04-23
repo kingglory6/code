@@ -6,6 +6,7 @@ import java.util.Map;
 public class Customer {
 
 	private int id;
+	private String token;
 	private String name;
 	private String phone;
 	private String email;
@@ -17,6 +18,14 @@ public class Customer {
 	
 	
 	
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public List<History> getHistoryList() {
 		return historyList;
@@ -88,6 +97,13 @@ public class Customer {
 
 	public void setAddressList(List<Address> addressList) {
 		this.addressList = addressList;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + ", password="
+				+ password + ", addressList=" + addressList + ", cart=" + cart + ", collectionList=" + collectionList
+				+ ", historyList=" + historyList + "]";
 	}
 
 }

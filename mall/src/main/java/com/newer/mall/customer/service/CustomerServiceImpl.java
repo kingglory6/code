@@ -2,16 +2,24 @@ package com.newer.mall.customer.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.newer.mall.common.exception.PasswordErrorException;
 import com.newer.mall.common.exception.RegisterException;
 import com.newer.mall.common.mapper.CustomerMapper;
 import com.newer.mall.common.pojo.Address;
 import com.newer.mall.common.pojo.Collection;
 import com.newer.mall.common.pojo.Customer;
 import com.newer.mall.common.pojo.History;
+import com.newer.mall.common.utils.JwtUtil;
 import com.newer.mall.common.utils.Password;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	CustomerMapper custmapper;
@@ -20,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 	 * 注册
 	 */
 	@Override
-	public void register(Customer customer) {
+	public void register(Customer customer) throws RegisterException{
 		//判断邮箱是否被注册
 		Customer user = custmapper.showCust(customer.getEmail());
 		if(user==null) {
@@ -29,21 +37,26 @@ public class CustomerServiceImpl implements CustomerService {
 			customer.setPassword(newPWD);
 			custmapper.customer(customer);
 		}else {
-			new RegisterException("邮箱已被注册");
+			throw new RegisterException("邮箱已被注册");
 		}
 	}
 
 	/**
 	 * 用户登录
+	 * return true 登录成功，false登录失败
 	 */
 	@Override
-	public Customer login(String email, String password) {
-		String customer = custmapper.login(email);
-		boolean flag=customer.equals(password);
+	public Customer login(HttpSession session,String email, String password)throws PasswordErrorException {
+		String pwd = custmapper.login(email);
+		password=Password.toSHA2(password);
+		boolean flag=pwd.equals(password);
 		if(flag) {
-			return custmapper.showCust(email);
-		}else {			
-			return null;
+			Customer cust=custmapper.showCust(email);
+			cust.setToken(JwtUtil.getToken(email));
+			session.setAttribute("uid", cust.getId());
+			return cust;
+		}else {		
+			throw new PasswordErrorException();
 		}
 	}
 
@@ -51,10 +64,10 @@ public class CustomerServiceImpl implements CustomerService {
 	 * 修改信息
 	 */
 	@Override
-	public Customer info(Customer customer) {
+	public boolean info(Customer customer) {
 		custmapper.update(customer);
-
-		return custmapper.showCust(customer.getEmail());
+		System.out.println(customer);
+		return true;
 	}
 	/**
 	 * 添加地址

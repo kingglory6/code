@@ -2,19 +2,26 @@ package com.newer.mall.customer.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Service;
+
+import com.newer.mall.common.exception.PasswordErrorException;
+import com.newer.mall.common.exception.RegisterException;
 import com.newer.mall.common.pojo.Address;
 import com.newer.mall.common.pojo.Collection;
-import com.newer.mall.common.pojo.Commodity;
 import com.newer.mall.common.pojo.Customer;
 import com.newer.mall.common.pojo.History;
 
+@Service
 public interface CustomerService {
 	/**
 	 * 	注册方法
 	 * @param customer新注册用户
 	 * @return
+	 * @throws RegisterException 
 	 */
-	public void register(Customer customer);
+	public void register(Customer customer) throws RegisterException;
 	
 	/**
 	 * 	用户登录
@@ -22,12 +29,12 @@ public interface CustomerService {
 	 * @param password	用户密码
 	 * @return
 	 */
-	public Customer login(String email,String password);
+	public Customer login(HttpSession session,String email,String password)throws PasswordErrorException;
 	
 	/**
 	 * 	编辑用户信息
 	 */
-	public Customer info(Customer customer);
+	public boolean info(Customer customer);
 	
 	/**
 	 * 	添加收货地址

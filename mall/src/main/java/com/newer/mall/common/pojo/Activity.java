@@ -1,17 +1,36 @@
 package com.newer.mall.common.pojo;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
+
 
 public class Activity {
 
 	private int id;
-	private Commodity commodity;
-	private Date startTime;
-	private Date endTime;
-	private int stock;
-	private BigDecimal price;
+	
 	private int type;
+	
+	private int statu;
+	
+	private Commodity commodity;	
+
+	private Date startTime;
+	
+	private Date endTime;
+	
+	private int stock;
+	
+	private BigDecimal price;
+	
+	
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;
@@ -61,13 +80,20 @@ public class Activity {
 		this.price = price;
 	}
 
-	public int getType() {
-		return type;
+	@Override
+	public String toString() {
+		return "Activity [id=" + id + ", type=" + type + ", commodity=" + commodity + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", stock=" + stock + ", price=" + price + "]";
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public int getStatu() {
+		return statu;
+	}
+
+	public void setStatu(int statu) {
+		this.statu = statu;
 	}
 	
 	
+
 }
