@@ -145,4 +145,18 @@ public interface CommodityMapper {
 	 */
 	@Select("select id from spec where param=#{param}")
 	public int selectSpec(@Param("param")String param);
+	
+	/**
+	 * 查询所有分类
+	 * @return
+	 */
+	@Select("select * from category")
+	public List<Category> selectAllCategory();
+	
+	/**
+	 * 查询所有品牌
+	 * @return
+	 */
+	@Select("select * from brand")
+	public List<Brand> selectAllBrand();
 }

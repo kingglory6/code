@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.pojo.Activity;
+import com.newer.mall.common.pojo.Brand;
 import com.newer.mall.common.pojo.CartItem;
+import com.newer.mall.common.pojo.Category;
 import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Commodity;
 
@@ -88,5 +90,17 @@ public interface CommodityService {
 	 * @return
 	 */
 	public PageInfo<Comment> queryCommoditycomment(int pageNum, int commodityid);
+	
+	/**
+	 * 所有分类
+	 * @return
+	 */
+	public List<Category> showCategory();
+	
+	/**
+	 * 所有品牌
+	 * @return
+	 */
+	public List<Brand> showBrand();
 
 }
