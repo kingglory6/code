@@ -140,9 +140,14 @@ public interface CustomerOrderMapper {
 			@Result(
 					column = "id",
 					property = "items",
-					javaType = com.newer.mall.common.pojo.Item.class,
-					many =  @Many(select = "finditems")
-					)	
+					javaType = java.util.List.class,
+					many =  @Many(select = "finditem")
+					),	
+			@Result(
+					column = "id",
+					property = "id"
+					
+					)
 			} 
 			)
 	public Orders findOrder(@Param("oid")int oid);
@@ -155,7 +160,7 @@ public interface CustomerOrderMapper {
 					column = "id",
 					property = "item",
 					javaType =  java.util.List.class,
-					many = @Many(select = "finditems")
+					many = @Many(select = "finditem")
 					),
 			@Result(
 					column = "id",

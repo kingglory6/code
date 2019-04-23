@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import com.newer.mall.common.pojo.Address;
 import com.newer.mall.common.pojo.Collection;
-import com.newer.mall.common.pojo.Commodity;
 import com.newer.mall.common.pojo.Customer;
 import com.newer.mall.common.pojo.History;
 

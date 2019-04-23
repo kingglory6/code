@@ -55,7 +55,7 @@ public class OrderController {
     }
     
     //搜索订单
-    @PostMapping("/search/{conditions}/{pagenum}/{sendstatus}/{paystatus}")
+    @GetMapping("/search/{conditions}/{pagenum}/{sendstatus}/{paystatus}")
     public PageInfo<Orders> search(@SessionAttribute int uid ,
     		                       @PathVariable int pagenum,
     		                       @PathVariable String conditions,
@@ -67,8 +67,8 @@ public class OrderController {
     	
     }
     //查看已经删除的订单
-    @PostMapping("/fdlt")
-    public PageInfo<Orders> fdlt(@SessionAttribute int uid ,@RequestParam  int pagenum){
+    @GetMapping("/fdlt/{pagenum}")
+    public PageInfo<Orders> fdlt(@SessionAttribute int uid ,@PathVariable  int pagenum){
     	
     	return oservice.fdltOrders(uid, pagenum);
     	
