@@ -134,9 +134,15 @@ public interface CommodityMangeMapper {
 	public void addBrand(Brand brand);
 	
 	
-	@Delete("delete category where id = #{id}")
+	@Delete("delete from category where id = #{id}")
 	public void deleteCategory(@Param("id") int id);
 	
-	@Delete("delete brand where id = #{id}")
+	@Delete("delete from brand where id = #{id}")
 	public void deleteBrand(@Param("id") int id);
+	
+	@Select("select count(id) from commodity where category_id = #{id}")
+	public int getCategoryNumber(@Param("id") int id);
+	
+	@Select("select count(id) from commodity where brand_id = #{id}")
+	public int getBrandNumber(@Param("id") int id);
 }

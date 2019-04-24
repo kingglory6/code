@@ -1,11 +1,13 @@
 package com.newer.mall.admin.commodity.service;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import org.apache.ibatis.binding.BindingException;
 
 import com.newer.mall.common.exception.DataException;
+import com.newer.mall.common.exception.DeleteException;
 import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.pojo.Brand;
 import com.newer.mall.common.pojo.Category;
@@ -46,11 +48,11 @@ public interface CommodityService {
 	
 	public Commodity findComm(int id);
 	
-	public void dropCategory(int id) throws BindingException;
+	public void dropCategory(int id) throws BindingException, SQLIntegrityConstraintViolationException, DeleteException;
 	
 	public void createCategory(Category category);
 	
 	public void createBrand(Brand brand);
 	
-	public void dropBrand(int id) throws BindingException;
+	public void dropBrand(int id) throws BindingException,  DeleteException;
 }

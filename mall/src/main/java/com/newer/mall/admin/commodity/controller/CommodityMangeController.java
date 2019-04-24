@@ -22,6 +22,7 @@ import com.github.pagehelper.PageInfo;
 import com.newer.mall.admin.commodity.service.impl.CommodityServiceImpl;
 import com.newer.mall.admin.commodity.service.impl.ImageService;
 import com.newer.mall.common.exception.DataException;
+import com.newer.mall.common.exception.DeleteException;
 import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.pojo.Brand;
 import com.newer.mall.common.pojo.Category;
@@ -133,7 +134,9 @@ public class CommodityMangeController {
 			service.dropCategory(id);
 			map.put("code", "ok");
 		} catch (BindingException e) {
-			map.put("code", "id不存在");
+			map.put("code", "id not fount");
+		} catch (DeleteException e) {
+			map.put("code", "分类下面还有商品存在，无法删除");
 		}
 		return map;
 	}
@@ -145,7 +148,9 @@ public class CommodityMangeController {
 			service.dropBrand(id);
 			map.put("code", "ok");
 		} catch (BindingException e) {
-			map.put("code", "id不存在");
+			map.put("code", "id not found");
+		} catch (DeleteException e) {
+			map.put("code", "品牌下面还有商品存在，无法删除");
 		}
 		return map;
 	}

@@ -19,6 +19,7 @@ import com.newer.mall.admin.account.thread.EmailRunnable;
 import com.newer.mall.admin.commodity.service.CommodityService;
 import com.newer.mall.admin.commodity.thread.CopyFile;
 import com.newer.mall.common.exception.DataException;
+import com.newer.mall.common.exception.DeleteException;
 import com.newer.mall.common.exception.StateException;
 import com.newer.mall.common.mapper.CommodityMangeMapper;
 import com.newer.mall.common.pojo.Brand;
@@ -159,7 +160,10 @@ public class CommodityServiceImpl implements CommodityService {
 	}
 
 	@Override
-	public void dropCategory(int id) throws BindingException {
+	public void dropCategory(int id) throws BindingException, DeleteException {
+		if(mapper.getCategoryNumber(id)>0) {
+			throw new DeleteException();
+		}
 		mapper.deleteCategory(id);
 	}
 
@@ -174,7 +178,10 @@ public class CommodityServiceImpl implements CommodityService {
 	}
 
 	@Override
-	public void dropBrand(int id) throws BindingException {
+	public void dropBrand(int id) throws BindingException, DeleteException{
+		if(mapper.getCategoryNumber(id)>0) {
+			throw new DeleteException();
+		}
 		mapper.deleteBrand(id);
 	}
 	
