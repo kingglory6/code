@@ -16,7 +16,6 @@ export default new Router({
       component: AppView,
       children: [
         {path: '/', name: 'home', component: Home},
-        {path: '/demo', name: 'demo', component: page('demo')},
         {path: '/404', name: '404', component: page('404')},
         {path: '/500', name: '500', component: page('500')},
         {path: '/commodity/add', name: 'commodity-add', component: page('commodity/add')},

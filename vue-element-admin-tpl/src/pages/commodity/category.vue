@@ -45,11 +45,11 @@
     <!-- 添加商品分类dialog -->
     <el-dialog title="商品列表" :visible.sync="addDialogVisible" width="50%">
       <el-form>
-          <el-form-item label="分类名称">
-              <el-input v-model="categoryname" style="width:30%" size="small"></el-input>
-          </el-form-item>
+        <el-form-item label="分类名称">
+          <el-input v-model="categoryname" style="width:30%" size="small"></el-input>
+        </el-form-item>
       </el-form>
-      
+
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="sendCategory()">确 定</el-button>
@@ -61,25 +61,41 @@
 export default {
   data() {
     return {
-      addDialogVisible:false,  
+      addDialogVisible: false,
       listDialogVisible: false,
       // 分类商品列表
       categoryCommodity: [],
       // 单个分类对象
       category: {},
-      categoryname:''
+      categoryname: ""
     };
   },
   methods: {
     // 删除分类信息
     deleteCategory(i) {
-      this.axios.delete(this.common.httpAdminUrl+'')
-      .then(res => {
-          this.init();
-      })
-      .catch(err => {
-          console.error(err); 
-      })
+      let msg = "您真的确定要删除吗？"
+      if(confirm(msg)==true){
+        this.axios
+          .delete(
+            this.common.httpAdminUrl +
+              "/commodity/removecategory/" +
+              this.categoryCommodity[i].id
+          )
+          .then(res => {
+            if(res.code=='ok'){
+              this.init();
+            }else{
+              this.$message({
+              message: '分类下面还有商品存在，无法删除',
+              type: 'warning',
+              showClose: true,
+            });
+            }
+          })
+          .catch(err => {
+            
+          });
+      }
     },
     // 查看商品列表
     lookCommodity(i) {
@@ -87,9 +103,25 @@ export default {
       this.category = this.categoryCommodity[i];
     },
     // 添加分类
-    sendCategory(){
-        addDialogVisible = false;
-        
+    sendCategory() {
+      this.addDialogVisible = false;
+          this.axios
+            .post(this.common.httpAdminUrl + "/commodity/createcategory", {
+              name: this.categoryname
+            })
+            .then(res => {
+              if (res.code == "ok") {
+                this.$message({
+                  message: "添加成功",
+                  type: "success",
+                  showClose: true
+                });
+                this.init();
+              }
+            })
+            .catch(err => {
+              console.error(err);
+            });
     },
     // 初始化数据
     init() {

@@ -5,15 +5,29 @@ const httpAdminUrl="http://192.168.43.29:8080/api/v1/admin"
 const picTempUrl="http://192.168.43.29/temp/"
 // 真实路径
 const picTrueUrl="http://192.168.43.29/upload/"
-const orderStates=[
+const sendstatus=[
     {
         label:'未发货',
         id:0
     },{
-        id:'已发货',
+        label:'已发货',
         id:1
     },{
         label:'已收货',
+        id:2
+    }
+]
+const payStates=[
+    {
+        label:'已支付',
+        id:1
+    },
+    {
+        label:'未支付',
+        id:0
+    },
+    {
+        label:'待支付',
         id:2
     }
 ]
@@ -40,9 +54,10 @@ const option=[
 ]
 export default{
     httpAdminUrl,
-    orderStates,
+    sendstatus,
     shelfStates,
     picTempUrl,
-    picTrueUrl
+    picTrueUrl,
+    payStates
 }
 </script>
