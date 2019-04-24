@@ -1,11 +1,30 @@
 package com.newer.mall.common.pojo;
 
-import java.util.Map;
 
 public class CartItem {
 
 	private Commodity commodity;
-	private Map<Integer, CartItemParam> param;
+	private Spec spec;
+	private int quantity;
+//	private Map<Integer, CartItemParam> param;
+    
+	
+	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public Spec getSpec() {
+		return spec;
+	}
+
+	public void setSpec(Spec spec) {
+		this.spec = spec;
+	}
 
 	public Commodity getCommodity() {
 		return commodity;
@@ -15,12 +34,6 @@ public class CartItem {
 		this.commodity = commodity;
 	}
 
-	public Map<Integer, CartItemParam> getParam() {
-		return param;
-	}
 
-	public void setParam(Map<Integer, CartItemParam> param) {
-		this.param = param;
-	}
 
 }
