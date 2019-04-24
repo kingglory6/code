@@ -155,9 +155,29 @@ public class CommodityServiceImpl implements CommodityService {
 
 	@Override
 	public Commodity findComm(int id) {
-		
 		return mapper.getCommodity(id);
 	}
+
+	@Override
+	public void dropCategory(int id) throws BindingException {
+		mapper.deleteCategory(id);
+	}
+
+	@Override
+	public void createCategory(Category category) {
+		mapper.addCategory(category);
+	}
+
+	@Override
+	public void createBrand(Brand brand) {
+		mapper.addBrand(brand);
+	}
+
+	@Override
+	public void dropBrand(int id) throws BindingException {
+		mapper.deleteBrand(id);
+	}
+	
 
 //	@Override
 //	public Page<Commodity> findUpCommodity(int num) {

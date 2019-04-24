@@ -3,6 +3,8 @@ package com.newer.mall.admin.account.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.newer.mall.admin.account.service.AdminService;
 import com.newer.mall.common.exception.AccountNotFoundException;
 import com.newer.mall.common.exception.PasswordErrorException;
@@ -33,5 +35,18 @@ public class AdminServiceImpl implements AdminService{
 		}
 		return admin;
 		
+	}
+
+	@Override
+	public String getToken(Admin admin) {
+		String token = null;
+		token= JWT.create().withAudience(admin.getAccount())
+				.sign(Algorithm.HMAC256(admin.getPassword()));
+		return token;
+	}
+
+	@Override
+	public Admin findAdmin(String account) {
+		return adminMapper.login(account);
 	}
 }

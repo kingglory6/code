@@ -8,4 +8,7 @@ public interface AdminService {
 	
 	public Admin login(String account,String password) throws AccountNotFoundException, PasswordErrorException;
 
+	public String getToken(Admin admin);
+	
+	public Admin findAdmin(String account);
 }

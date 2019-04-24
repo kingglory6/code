@@ -23,6 +23,8 @@ import com.newer.mall.admin.commodity.service.impl.CommodityServiceImpl;
 import com.newer.mall.admin.commodity.service.impl.ImageService;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.exception.StateException;
+import com.newer.mall.common.pojo.Brand;
+import com.newer.mall.common.pojo.Category;
 import com.newer.mall.common.pojo.Commodity;
 
 @RestController
@@ -33,8 +35,7 @@ public class CommodityMangeController {
 	private CommodityServiceImpl service;
 
 	@Autowired
-    private ImageService imageService;
-	
+	private ImageService imageService;
 
 //	@GetMapping("/loadcommodity/{page}")
 //	public Map<String, Object> loadCommodity(@PathVariable int page,@RequestParam("size") int size) {
@@ -117,10 +118,50 @@ public class CommodityMangeController {
 		return map;
 	}
 
-	@DeleteMapping("/removecommodity")
-	public Map<String, Object> dropCommodity(int id) {
+	@DeleteMapping("/removecommodity/{id}")
+	public Map<String, Object> dropCommodity(@PathVariable int id) {
 		Map<String, Object> map = new HashMap<>();
 		service.dropCommodity(id);
+		map.put("code", "ok");
+		return map;
+	}
+
+	@DeleteMapping("/removecategory/{id}")
+	public Map<String, Object> dropCategory(@PathVariable int id) {
+		Map<String, Object> map = new HashMap<>();
+		try {
+			service.dropCategory(id);
+			map.put("code", "ok");
+		} catch (BindingException e) {
+			map.put("code", "id不存在");
+		}
+		return map;
+	}
+
+	@DeleteMapping("/removebrand/{id}")
+	public Map<String, Object> dropBrand(@PathVariable int id) {
+		Map<String, Object> map = new HashMap<>();
+		try {
+			service.dropBrand(id);
+			map.put("code", "ok");
+		} catch (BindingException e) {
+			map.put("code", "id不存在");
+		}
+		return map;
+	}
+
+	@PostMapping("/createbrand")
+	public Map<String, Object> createBrand(@RequestBody Brand brand) {
+		Map<String, Object> map = new HashMap<>();
+		service.createBrand(brand);
+		map.put("code", "ok");
+		return map;
+	}
+
+	@PostMapping("/createcategory")
+	public Map<String, Object> createCategory(@RequestBody Category category) {
+		Map<String, Object> map = new HashMap<>();
+		service.createCategory(category);
 		map.put("code", "ok");
 		return map;
 	}
@@ -157,27 +198,24 @@ public class CommodityMangeController {
 			String text) {
 		Map<String, Object> map = new HashMap<>();
 		PageHelper.startPage(page, size);
-		if("".equals(text))
-			text=null;
+		if ("".equals(text))
+			text = null;
 		map.put("data", new PageInfo<Commodity>(service.conditionalQuery(shelf, cid, bid, text)));
 		return map;
 	}
-	
-	
-    // 上传图片到本地
-    @PostMapping("/upimage")
-    public String upload(@RequestParam("file") MultipartFile image) {
-    	
-        return imageService.upload(image);
-    }
-    
-    @GetMapping("/loadcomm")
-    public Map<String,Object> loadComm(int id) {
+
+	// 上传图片到本地
+	@PostMapping("/upimage")
+	public String upload(@RequestParam("file") MultipartFile image) {
+
+		return imageService.upload(image);
+	}
+
+	@GetMapping("/loadcomm")
+	public Map<String, Object> loadComm(int id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", service.findComm(id));
-    	return map;
-    }
-   
-
+		return map;
+	}
 
 }

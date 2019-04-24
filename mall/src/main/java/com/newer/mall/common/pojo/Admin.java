@@ -47,4 +47,11 @@ public class Admin {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Admin [id=" + id + ", account=" + account + ", password=" + password + ", name=" + name + "]";
+	}
+	
+	
+
 }

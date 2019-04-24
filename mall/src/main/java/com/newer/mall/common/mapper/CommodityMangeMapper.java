@@ -126,5 +126,17 @@ public interface CommodityMangeMapper {
 	@Result(property = "category", column = "category_id", one = @One(select = "com.newer.mall.common.mapper.CommodityMangeMapper.getCategory")),
 	@Result(property = "brand", column = "brand_id", one = @One(select = "com.newer.mall.common.mapper.CommodityMangeMapper.getBrand")) })
 	public Page<Commodity> conditionalQuery(@Param("shelf") int shelf, @Param("cid") int cid, @Param("bid") int bid,@Param("text") String text);
-
+	
+	@Insert("insert into category(name) values(#{name})")
+	public void addCategory(Category category);
+	
+	@Insert("insert into brand(name) values(#{name})")
+	public void addBrand(Brand brand);
+	
+	
+	@Delete("delete category where id = #{id}")
+	public void deleteCategory(@Param("id") int id);
+	
+	@Delete("delete brand where id = #{id}")
+	public void deleteBrand(@Param("id") int id);
 }

@@ -45,4 +45,12 @@ public interface CommodityService {
 	public List<Commodity> conditionalQuery(int shelf, int cid, int bid,String text);
 	
 	public Commodity findComm(int id);
+	
+	public void dropCategory(int id) throws BindingException;
+	
+	public void createCategory(Category category);
+	
+	public void createBrand(Brand brand);
+	
+	public void dropBrand(int id) throws BindingException;
 }
