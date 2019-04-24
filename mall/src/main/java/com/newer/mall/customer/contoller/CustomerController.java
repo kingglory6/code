@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,20 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.PasswordErrorException;
 import com.newer.mall.common.exception.RegisterException;
 import com.newer.mall.common.pojo.Address;
 import com.newer.mall.common.pojo.Collection;
-import com.newer.mall.common.pojo.Commodity;
 import com.newer.mall.common.pojo.Customer;
 import com.newer.mall.common.pojo.History;
-import com.newer.mall.common.utils.JwtUtil;
 import com.newer.mall.customer.service.CustomerService;
 
-@RestController()
+@RestController
 @CrossOrigin
 @RequestMapping("/api/customer")
 public class CustomerController {
@@ -63,7 +59,6 @@ public class CustomerController {
 			Customer cust=custservice.login(session,email, password);
 			return cust;
 		} catch (PasswordErrorException e) {
-			// TODO Auto-generated catch block
 			e.getMessage();
 			return null;
 		}

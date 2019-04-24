@@ -56,6 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer cust=custmapper.showCust(email);
 			cust.setToken(JwtUtil.getToken(email));
 			session.setAttribute("uid", cust.getId());
+			session.setAttribute("customer", cust);
 			return cust;
 		}else {		
 			throw new PasswordErrorException();

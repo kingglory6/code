@@ -55,17 +55,15 @@ public class OrderController {
     }
     
     //搜索订单
-    @GetMapping("/search/{conditions}/{pagenum}/{sendstatus}/{paystatus}")
+    @GetMapping("/search/{conditions}/{pagenum}")
     public PageInfo<Orders> search(@SessionAttribute int uid ,
     		                       @PathVariable int pagenum,
-    		                       @PathVariable String conditions,
-    		                       @PathVariable int sendstatus,
-    		                       @PathVariable int paystatus
+    		                       @PathVariable String conditions
     		){
     	
-		return oservice.searchOrders(uid, pagenum, conditions, sendstatus , paystatus);
+		return oservice.searchOrders(uid, pagenum, conditions);
     	
-    }
+    }	
     //查看已经删除的订单
     @GetMapping("/fdlt/{pagenum}")
     public PageInfo<Orders> fdlt(@SessionAttribute int uid ,@PathVariable  int pagenum){
@@ -73,6 +71,12 @@ public class OrderController {
     	return oservice.fdltOrders(uid, pagenum);
     	
     }
+    //支付
+    @PostMapping("/pay")
+	public boolean pay(@SessionAttribute int uid ,@RequestParam int oid, @RequestParam String password) {
+		return oservice.pay(uid, oid, password);
+		
+	}
     
 
 }

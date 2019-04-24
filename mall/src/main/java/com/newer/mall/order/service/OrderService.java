@@ -44,7 +44,7 @@ public interface OrderService {
 	 * @param conditions(搜索条件)
 	 * @return
 	 */
-	public PageInfo<Orders> searchOrders(int uid, int pagenum,String conditions,int sendstatus ,int paystatus);
+	public PageInfo<Orders> searchOrders(int uid, int pagenum,String conditions);
 	
 	/**
 	 *  删除订单
@@ -63,12 +63,12 @@ public interface OrderService {
 	public void addComment(int uid , int cid ,String content, int score	);
 	
 	/**
-	  * 支付
-	 * @param uid(客户id)
-	 * @param oid(用户id)
-	 * @param pay(支付是否成功)
+	 * 支付
+	 * @param uid
+	 * @param password
+	 * @return
 	 */
-	public void paySuccess(int uid , int oid , int pay);
+	public boolean pay(int uid , int oid,  String password);
 	
 	/**
 	 * 查询已经删除的订单

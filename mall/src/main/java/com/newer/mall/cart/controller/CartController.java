@@ -30,7 +30,7 @@ public class CartController {
 	
 	
 	/**
-	  *  查询购物车项
+	 *  查询购物车项
 	 * @param uid
 	 * @param pagenum
 	 * @return
@@ -100,6 +100,9 @@ public class CartController {
 		return cartservice.findCart(uid, conditions, pagenum);
 		
 	}
+    
+	
+
 	
 	
 }
