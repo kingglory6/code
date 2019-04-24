@@ -16,7 +16,6 @@ export default new Router({
       component: AppView,
       children: [
         {path: '/', name: 'home', component: Home},
-        {path: '/demo', name: 'demo', component: page('demo')},
         {path: '/404', name: '404', component: page('404')},
         {path: '/500', name: '500', component: page('500')},
         {path: '/commodity/add', name: 'commodity-add', component: page('commodity/add')},
@@ -25,8 +24,6 @@ export default new Router({
         {path: '/commodity/discount', name: 'commodity-discount', component: page('commodity/discount')},
         {path: '/commodity/list', name: 'commodity-list', component: page('commodity/list')},
         {path: '/commodity/spike', name: 'commodity-spike', component: page('commodity/spike')},
-        {path: '/commodity/active/discount', name:'commodity-discount-active', component: page('commodity/active-discount')},
-        {path: '/commodity/active/spike', name:'commodity-spike-active', component: page('commodity/spike-discount')},
         {path: '/order/list', name: 'order-list', component: page('orders/list')},
         {path: '/order/back', name: 'order-back', component: page('orders/back')},
         {path: '/statistics/income', name: 'income', component: page('statistics/income')},

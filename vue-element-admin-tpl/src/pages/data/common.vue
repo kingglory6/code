@@ -1,16 +1,34 @@
 <script>
 // 这是一个全局的vue组件
 const httpAdminUrl="http://192.168.43.29:8080/api/v1/admin"
-const orderStates=[
+// 临时路径
+const picTempUrl="http://192.168.43.29/temp/"
+// 真实路径
+const picTrueUrl="http://192.168.43.29/upload/"
+const sendstatus=[
     {
         label:'未发货',
-        value:0
+        id:0
     },{
         label:'已发货',
-        value:1
+        id:1
     },{
         label:'已收货',
-        value:2
+        id:2
+    }
+]
+const payStates=[
+    {
+        label:'已支付',
+        id:1
+    },
+    {
+        label:'未支付',
+        id:0
+    },
+    {
+        label:'待支付',
+        id:2
     }
 ]
 const shelfStates=[
@@ -31,12 +49,15 @@ const shelfStates=[
 const option=[
     {
         label:'',
-        value:0
+        id:0
     }
 ]
 export default{
     httpAdminUrl,
-    orderStates,
-    shelfStates
+    sendstatus,
+    shelfStates,
+    picTempUrl,
+    picTrueUrl,
+    payStates
 }
 </script>
