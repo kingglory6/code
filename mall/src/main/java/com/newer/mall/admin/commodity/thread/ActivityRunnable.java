@@ -38,7 +38,7 @@ public class ActivityRunnable implements Runnable {
 					return;
 				if (act.getType() == 1) {
 					mapper.activitySpikeStrat(act);
-					System.out.println("活动开始");
+					System.out.println(act.getCommodity().getTitle()+"活动开始");
 				} else {
 					mapper.activityDiscountStrat(act);
 					System.out.println("活动开始");

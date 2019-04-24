@@ -165,8 +165,8 @@ public class CommodityMangeController {
 	
 	
     // 上传图片到本地
-    @PostMapping("/images")
-    public String upload(@RequestParam("image") MultipartFile image) {
+    @PostMapping("/upimage")
+    public String upload(@RequestParam("file") MultipartFile image) {
     	
         return imageService.upload(image);
     }

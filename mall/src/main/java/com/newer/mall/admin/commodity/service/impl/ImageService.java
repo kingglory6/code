@@ -28,7 +28,7 @@ public class ImageService {
         String imageName = UUID.randomUUID().toString().replace("-", "") + "." + imageExt;
         try {
             Files.copy(image.getInputStream(), new File(ImageUtil.IMAGE_DIR + imageName).toPath(), StandardCopyOption.REPLACE_EXISTING);
-            return ImageUtil.IMAGE_DOMAIN + imageName;
+            return imageName;
         } catch (IOException e) {
             System.err.println("本地图片上传失败：" + e.getMessage());
             //throw new MyException(ResultEnum.FAILED_UPLOAD);
