@@ -78,6 +78,7 @@ const menus = [
   {
     id:'log',
     icon:'fa fa-file-o',
+    name:'log',
     label:'日志统计'
   }
 ]
