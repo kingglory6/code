@@ -32,8 +32,8 @@ export default {
   name: 'login',
   data () {
     return {
-      username: 'Administrator',
-      password: '123456',
+      username: '',
+      password: '',
       isLoging: false,
       author: window.APP_INFO.author,
       version: window.APP_INFO.version,

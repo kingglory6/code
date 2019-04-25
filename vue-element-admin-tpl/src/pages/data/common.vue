@@ -5,19 +5,40 @@ const httpAdminUrl="http://192.168.43.29:8080/api/v1/admin"
 const picTempUrl="http://192.168.43.29/temp/"
 // 真实路径
 const picTrueUrl="http://192.168.43.29/upload/"
+
+const payWay=[
+    {
+        label:'微信',
+        id:0
+    },
+    {
+        label:'支付宝',
+        id:1
+    },
+    {
+        label:'全部',
+        id:-1
+    }
+]
 const sendstatus=[
     {
         label:'未发货',
         id:0
-    },{
+    },
+    {
         label:'已发货',
         id:1
-    },{
+    },
+    {
         label:'已收货',
         id:2
+    },
+    {
+        label:'全部',
+        id:-1
     }
 ]
-const payStates=[
+const payStatus=[
     {
         label:'已支付',
         id:1
@@ -29,6 +50,10 @@ const payStates=[
     {
         label:'待支付',
         id:2
+    },
+    {
+        label:'全部',
+        id:-1
     }
 ]
 const shelfStates=[
@@ -58,6 +83,7 @@ export default{
     shelfStates,
     picTempUrl,
     picTrueUrl,
-    payStates
+    payStatus,
+    payWay
 }
 </script>
