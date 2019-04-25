@@ -104,4 +104,9 @@ public interface CommodityService {
 	 */
 	public List<Category> showCategory();
 
+	/*
+	 * 显示所有商品
+	 */
+	public PageInfo<Commodity> showAllCommodity(int pageNum);
+
 }

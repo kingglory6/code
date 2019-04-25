@@ -18,6 +18,14 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+//		if(request.getMethod().equals("OPTIONS")) {
+//			System.out.println(1);
+//			return true;
+//		}
+		System.out.println(request.getMethod());
+		if(request.getMethod().equals("OPTIONS")) {
+			return true;
+		}
 		String authHeader = request.getHeader("Authorization");
 		System.out.println(authHeader);
 		if (authHeader == null || !authHeader.startsWith("Bearer")) {

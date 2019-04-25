@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
-
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.PasswordErrorException;
 import com.newer.mall.common.exception.RegisterException;
@@ -47,7 +45,7 @@ public class CustomerController {
 	}
 	
 	/**
-	 * 用户登录
+	  * 用户登录
 	 * @param session 获得会话
 	 * @param email	登录邮箱
 	 * @param password	登录密码
@@ -85,7 +83,7 @@ public class CustomerController {
 	 * @return
 	 */
 	@PostMapping("/addAddress")
-	public List<Address> addAddress(@SessionAttribute int uid,@RequestBody Address address){
+	public List<Address> addAddress(@RequestParam int uid,@RequestBody Address address){
 
 		return custservice.addAddress(uid, address);
 	}
@@ -96,7 +94,7 @@ public class CustomerController {
 	 * @return
 	 */
 	@GetMapping("/showAddress")
-	public List<Address> showAddress(@SessionAttribute int uid){
+	public List<Address> showAddress(@RequestParam int uid){
 		return custservice.showAddresses(uid);
 	}
 	
@@ -106,7 +104,7 @@ public class CustomerController {
 	 * @param history
 	 */
 	@PostMapping("/foot")
-	public void foot(@SessionAttribute int uid,@RequestBody History history){
+	public void foot(@RequestParam int uid,@RequestBody History history){
 		custservice.foot(uid, history);
 	}
 	
@@ -117,7 +115,7 @@ public class CustomerController {
 	 * @return
 	 */
 	@GetMapping("/showfoot")
-	public List<History> showFoot(@SessionAttribute int uid){
+	public List<History> showFoot(@RequestParam int uid){
 		return custservice.showFoot(uid);
 	}
 	
@@ -127,7 +125,7 @@ public class CustomerController {
 	 * @param collection
 	 */
 	@PostMapping("/collection")
-	public void collection(@SessionAttribute int uid, @RequestBody Collection collection) {
+	public void collection(@RequestParam int uid, @RequestBody Collection collection) {
 		custservice.collection(uid, collection);
 	}
 	
@@ -137,7 +135,7 @@ public class CustomerController {
 	 * @return
 	 */
 	@GetMapping("/showcol/{pageNum}")
-	public PageInfo<Collection> showCollection(@SessionAttribute int uid ,@PathVariable int pageNum){
+	public PageInfo<Collection> showCollection(@RequestParam int uid ,@PathVariable int pageNum){
 		return custservice.showCollection(uid,pageNum);
 	}
 	

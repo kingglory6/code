@@ -6,8 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -59,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
 			session.setAttribute("customer", cust);
 			return cust;
 		}else {		
-			throw new PasswordErrorException();
+			throw new PasswordErrorException("密码错误");
 		}
 	}
 

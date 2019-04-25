@@ -27,7 +27,7 @@ public class AdminService {
 		if(admin == null) {
 			throw new AccountNotFoundException();
 		}else if(!admin.getPassword().equals(Password.toSHA2(password))) {
-			throw new PasswordErrorException();
+			throw new PasswordErrorException("密码错误");
 		}
 		return admin;
 		
