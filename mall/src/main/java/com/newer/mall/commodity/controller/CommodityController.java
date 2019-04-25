@@ -118,7 +118,11 @@ public class CommodityController {
 	 * @return
 	 */
 	@PostMapping("/cart/addcart")
-	public  List<CartItem>  addCart(@RequestParam int uid,int commodityid,int quantity,String param){
+	public  List<CartItem>  addCart(@RequestParam int uid,
+									@RequestParam int commodityid,
+									@RequestParam int quantity,
+									@RequestParam String param)
+	{
 		return commservice.addCart(uid, commodityid, quantity, param);
 		
 	}
