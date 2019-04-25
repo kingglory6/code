@@ -111,7 +111,10 @@ public class CustomerServiceImpl implements CustomerService {
 	 */
 	@Override
 	public void collection(int uid, Collection collection) {
-		custmapper.collection(uid, collection);
+		
+		if(custmapper.getCollection(collection.getCommodity().getId())!=null) {
+			custmapper.collection(uid, collection);
+		}
 
 	}
 
