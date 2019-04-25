@@ -117,4 +117,13 @@ public interface CustomerMapper {
 				one=@One(select="com.newer.mall.common.mapper.CommodityMapper.selectCommodity"))
 	})
 	public List <Collection> showCollection (int uid);
+	
+	/**
+	 *  根据客户id查看密码
+	 * @param uid
+	 * @param password
+	 * @return
+	 */
+	@Select("select password from customer where id =#{uid}")
+	public String paypaword(@Param("uid")int uid );
 }

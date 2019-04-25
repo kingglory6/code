@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.NoStockException;
 import com.newer.mall.common.mapper.CustomerCartMapper;
+import com.newer.mall.common.mapper.CustomerMapper;
 import com.newer.mall.common.mapper.CustomerOrderMapper;
 import com.newer.mall.common.pojo.CartItem;
 import com.newer.mall.common.pojo.Customer;
@@ -22,6 +23,8 @@ public class CartServiceImpl  implements CartService {
 	
 	@Autowired
 	CustomerOrderMapper oMapper;
+	
+
 	
 	/**
 	  * 查询购物车列表
@@ -114,6 +117,8 @@ public class CartServiceImpl  implements CartService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 	
 	
 }

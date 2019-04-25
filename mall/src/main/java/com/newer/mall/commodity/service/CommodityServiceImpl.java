@@ -180,6 +180,12 @@ public class CommodityServiceImpl implements CommodityService {
 	public List<Brand> showBrand() {
 		return commapper.selectAllBrand();
 	}
-
+	@Override
+	public PageInfo<Commodity> showAllCommodity(int pageNum){
+		PageHelper.startPage(pageNum, 10);
+		List<Commodity> commlist = commapper.selectAllCommodity();
+		PageInfo<Commodity> pageinfo = new PageInfo<>(commlist);
+		return pageinfo;
+	}
 
 }

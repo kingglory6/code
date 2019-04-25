@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
-
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.NoStockException;
 import com.newer.mall.common.pojo.Orders;
@@ -26,14 +24,14 @@ public class OrderController {
 	
 	//添加订单
 	@PostMapping("/add")
-	public void addOrder(@SessionAttribute int uid,
+	public void addOrder(@RequestParam int uid,
 			             @RequestBody Orders orders) throws NoStockException {   
 		
 		oservice.addOrder(orders,uid);
 	}
 	//查询订单
     @GetMapping("/find/{pagenum}/{sendstatus}/{paystatus}")
-	public PageInfo<Orders> findOrders(@SessionAttribute int uid,
+	public PageInfo<Orders> findOrders(@RequestParam int uid,
 			                           @PathVariable int pagenum,
 			                           @PathVariable int sendstatus,
 			                           @PathVariable int paystatus) {
@@ -49,30 +47,31 @@ public class OrderController {
     
     //添加评论
     @PostMapping("/addcment")
-    public void addComment(@SessionAttribute int uid ,@RequestParam int cid ,@RequestParam String content , @RequestParam int score) {
+    public void addComment(@RequestParam int uid ,@RequestParam int cid ,@RequestParam String content , @RequestParam int score) {
     	
     	oservice.addComment(uid , cid , content , score);
     }
     
     //搜索订单
-    @GetMapping("/search/{conditions}/{pagenum}/{sendstatus}/{paystatus}")
-    public PageInfo<Orders> search(@SessionAttribute int uid ,
+    @GetMapping("/search/{conditions}/{pagenum}")
+    public PageInfo<Orders> search(@RequestParam int uid,
     		                       @PathVariable int pagenum,
-    		                       @PathVariable String conditions,
-    		                       @PathVariable int sendstatus,
-    		                       @PathVariable int paystatus
+    		                       @PathVariable String conditions
     		){
     	
-		return oservice.searchOrders(uid, pagenum, conditions, sendstatus , paystatus);
+		return oservice.searchOrders(uid, pagenum, conditions);
     	
-    }
+    }	
     //查看已经删除的订单
     @GetMapping("/fdlt/{pagenum}")
-    public PageInfo<Orders> fdlt(@SessionAttribute int uid ,@PathVariable  int pagenum){
+    public PageInfo<Orders> fdlt(@RequestParam int uid ,@PathVariable  int pagenum){
     	
     	return oservice.fdltOrders(uid, pagenum);
     	
     }
-    
-
+    //支付
+    @PostMapping("/pay")
+	public boolean pay(@RequestParam int uid,@RequestParam int oid, @RequestParam String password) {
+		return oservice.pay(uid, oid, password);		
+	}
 }

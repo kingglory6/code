@@ -16,9 +16,18 @@ public class Commodity {
 	private Category category;
 	private Brand brand;
 	private List<Spec> specList;
+	private int activity;
 
 	
 	
+	public int getActivity() {
+		return activity;
+	}
+
+	public void setActivity(int activity) {
+		this.activity = activity;
+	}
+
 	public BigDecimal getDiscount() {
 		return discount;
 	}

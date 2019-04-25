@@ -5,19 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.commodity.service.CommodityService;
 import com.newer.mall.common.pojo.Activity;
+import com.newer.mall.common.pojo.Brand;
 import com.newer.mall.common.pojo.CartItem;
+import com.newer.mall.common.pojo.Category;
 import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Commodity;
 
@@ -119,7 +118,7 @@ public class CommodityController {
 	 * @return
 	 */
 	@PostMapping("/cart/addcart")
-	public  List<CartItem>  addCart(@SessionAttribute int uid,int commodityid,int quantity,String param){
+	public  List<CartItem>  addCart(@RequestParam int uid,int commodityid,int quantity,String param){
 		return commservice.addCart(uid, commodityid, quantity, param);
 		
 	}
@@ -134,6 +133,34 @@ public class CommodityController {
 	public PageInfo<Comment> queryCommoditycomment(@PathVariable int pageNum,@PathVariable int commodityid){
 		return commservice.queryCommoditycomment(pageNum, commodityid);
 	}
-
 	
+	/**
+	 * 显示所有商品
+	 * @param pageNum
+	 * @return
+	 */
+	@GetMapping("/commodity/allcomm/{pageNum}")
+	public PageInfo<Commodity> queryAllCommodity(@PathVariable int pageNum){
+		
+		return commservice.showAllCommodity(pageNum);
+	}
+	/**
+	 * 显示所有类别
+	 * @return
+	 */
+	@GetMapping("/commodity/category")
+	public List<Category> queryCategory(){
+		return commservice.showCategory();
+	}
+	
+	
+	/**
+	 * 显示所有品牌
+	 * @return
+	 */
+	@GetMapping("/commodity/brand")
+	public List<Brand> queryBrand(){
+		return commservice.showBrand();
+	}
+
 }

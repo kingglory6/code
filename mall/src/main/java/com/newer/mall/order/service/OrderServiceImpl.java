@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.NoStockException;
+import com.newer.mall.common.mapper.CustomerMapper;
 import com.newer.mall.common.mapper.CustomerOrderMapper;
 import com.newer.mall.common.pojo.Item;
 import com.newer.mall.common.pojo.Orders;
+import com.newer.mall.common.utils.Password;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -19,6 +21,9 @@ public class OrderServiceImpl implements OrderService {
    
 	@Autowired
 	CustomerOrderMapper ordermapper;
+	
+	@Autowired
+	CustomerMapper cMapprt;
 	
 	BigDecimal add;
     
@@ -39,10 +44,10 @@ public class OrderServiceImpl implements OrderService {
 	
 	//根据条件查询订单
 	@Override
-	public PageInfo<Orders> searchOrders(int uid, int pagenum, String conditions,int sendstatus ,int paystatus) {
+	public PageInfo<Orders> searchOrders(int uid, int pagenum, String conditions) {
 		
 		PageHelper.startPage(pagenum, 10);
-		List<Orders> orders = ordermapper.serachOrders(uid, conditions,sendstatus,paystatus);
+		List<Orders> orders = ordermapper.serachOrders(uid, conditions);
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
 		
 		return pageorders;
@@ -63,13 +68,6 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	
-	
-    //支付
-	@Override
-	public void paySuccess(int uid, int oid, int pay) {
-		// TODO Auto-generated method stub
-		
-	}
    //下单
 	@Override
 	public void addOrder(Orders orders, int uid) throws NoStockException {
@@ -106,6 +104,22 @@ public class OrderServiceImpl implements OrderService {
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
 		
 		return pageorders;
+	}
+
+
+
+    
+	@Override
+	public boolean pay(int uid, int oid, String password) {
+		// TODO Auto-generated method stub
+		String pword = Password.toSHA2(password);
+
+		if(cMapprt.paypaword(uid).equals(pword)) {
+			ordermapper.uppayway(uid, oid);
+			return true;	
+		}else {
+			return false;
+		}
 	}
 
 

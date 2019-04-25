@@ -80,9 +80,7 @@ public interface CustomerOrderMapper {
 			                                           + "where i.commodity_id = c.id "
 			                                           + "and o.id =i.order_id "
 			                                           + "and o.uid = #{uid} "
-			                                           + "and c.title like '%${citions}%' "
-			                                           + "and sendstatus =#{sendstatus} "
-			                                           + "and paystatus =#{paystatus}")
+			                                           + "and c.title like '%${citions}%'")
 	@Results(
 			{
 				@Result(
@@ -90,13 +88,15 @@ public interface CustomerOrderMapper {
 						property = "items",
 						javaType = com.newer.mall.common.pojo.Item.class,
 						many = @Many(select = "finditems")
-						) 
+						) ,
+				@Result(
+						column = "id",
+						property = "id"
+						)
 			}
 			)
 	public List<Orders> serachOrders(@Param("uid")int uid ,
-			                         @Param("citions") String conditions,
-			                         @Param("sendstatus")int sendstatus ,
-			                         @Param("paystatus") int paystatus);
+			                         @Param("citions") String conditions);
 	 
 	
 	//修改hidden字段,已完成删除订单

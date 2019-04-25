@@ -3,6 +3,7 @@ package com.newer.mall.common.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Param;
@@ -16,6 +17,7 @@ import com.newer.mall.common.pojo.Brand;
 import com.newer.mall.common.pojo.Category;
 import com.newer.mall.common.pojo.Comment;
 import com.newer.mall.common.pojo.Commodity;
+import com.newer.mall.common.pojo.Spec;
 
 @Repository
 @Mapper
@@ -30,7 +32,9 @@ public interface CommodityMapper {
 	@Select("select * from v_commodity where category_id=#{categoryid}")
 	@Results({
 			@Result(column = "brand_id", property = "brand", javaType = com.newer.mall.common.pojo.Brand.class, one = @One(select = "selectBrand")),
-			@Result(column = "category_id", property = "category", javaType = com.newer.mall.common.pojo.Category.class, one = @One(select = "selectCategory")) })
+			@Result(column = "category_id", property = "category", javaType = com.newer.mall.common.pojo.Category.class, one = @One(select = "selectCategory")),
+			@Result(column = "id" , property = "specList",javaType = java.util.List.class , many = @Many(select = "showSpec")),
+	        @Result(column = "id" , property = "id")})
 	public List<Commodity> selectCommodityCategory(@Param("categoryid") int categoryid);
 
 	/**
@@ -41,7 +45,9 @@ public interface CommodityMapper {
 	@Select("select * from v_commodity where recommend=1")
 	@Results({
 			@Result(column = "brand_id", property = "brand", javaType = com.newer.mall.common.pojo.Brand.class, one = @One(select = "selectBrand")),
-			@Result(column = "category_id", property = "category", javaType = com.newer.mall.common.pojo.Category.class, one = @One(select = "selectCategory")) })
+			@Result(column = "category_id", property = "category", javaType = com.newer.mall.common.pojo.Category.class, one = @One(select = "selectCategory")),
+	        @Result(column = "id" , property = "specList",javaType = java.util.List.class , many = @Many(select = "showSpec")),
+	        @Result(column = "id" , property = "id")})
 	public List<Commodity> selectCommodityRecommed();
 
 	/**
@@ -51,7 +57,9 @@ public interface CommodityMapper {
 	 */
 	@Select("select * from activity")
 	@Results({
-			@Result(column = "commodity", property = "commodity", javaType = com.newer.mall.common.pojo.Commodity.class, one = @One(select = "selectCommodity")) })
+			@Result(column = "commodity", property = "commodity", javaType = com.newer.mall.common.pojo.Commodity.class, one = @One(select = "selectCommodity")),
+			@Result(column = "id" , property = "specList",javaType = java.util.List.class , many = @Many(select = "showSpec")),
+	        @Result(column = "id" , property = "id")})
 	public List<Activity> selectCommodityActivity();
 //
 //	/**
@@ -71,6 +79,11 @@ public interface CommodityMapper {
 	 * @return
 	 */
 	@Select("select * from commodity where brand_id=#{brandid}")
+	@Results({
+		@Result(column = "brand_id", property = "brand", javaType = com.newer.mall.common.pojo.Brand.class, one = @One(select = "selectBrand")),
+		@Result(column = "category_id", property = "category", javaType = com.newer.mall.common.pojo.Category.class, one = @One(select = "selectCategory")),
+        @Result(column = "id" , property = "specList",javaType = java.util.List.class , many = @Many(select = "showSpec")),
+        @Result(column = "id" , property = "id")})
 	public List<Commodity> selectCommodityByBrand(@Param("brandid") int brandid);
 
 	/**
@@ -79,6 +92,11 @@ public interface CommodityMapper {
 	 * @return
 	 */
 	@Select("select * from commodity where title like '%${name}%'")
+	@Results({
+		@Result(column = "brand_id", property = "brand", javaType = com.newer.mall.common.pojo.Brand.class, one = @One(select = "selectBrand")),
+		@Result(column = "category_id", property = "category", javaType = com.newer.mall.common.pojo.Category.class, one = @One(select = "selectCategory")),
+        @Result(column = "id" , property = "specList",javaType = java.util.List.class , many = @Many(select = "showSpec")),
+        @Result(column = "id" , property = "id")})
 	public List<Commodity> selectCommodityByName(@Param("name") String name);
 
 	/**
@@ -89,8 +107,10 @@ public interface CommodityMapper {
 	 */
 	@Select("select * from commodity where id=#{commodityid}")
 	@Results({
-			@Result(column = "brand_id", property = "brand", javaType = com.newer.mall.common.pojo.Brand.class, one = @One(select = "selectBrand")),
-			@Result(column = "category_id", property = "category", javaType = com.newer.mall.common.pojo.Category.class, one = @One(select = "selectCategory")) })
+		@Result(column = "brand_id", property = "brand", javaType = com.newer.mall.common.pojo.Brand.class, one = @One(select = "selectBrand")),
+		@Result(column = "category_id", property = "category", javaType = com.newer.mall.common.pojo.Category.class, one = @One(select = "selectCategory")),
+        @Result(column = "id" , property = "specList",javaType = java.util.List.class , many = @Many(select = "showSpec")),
+        @Result(column = "id" , property = "id")})
 	public Commodity selectCommodity(@Param("commodityid") int commodityid);
 
 	/**
@@ -159,5 +179,24 @@ public interface CommodityMapper {
 	 */
 	@Select("select * from brand")
 	public List<Brand> selectAllBrand();
-
+	
+	/**
+	 * 查询所有商品
+	 * @return
+	 */
+	@Select("select * from commodity")
+	@Results({
+		@Result(column = "brand_id", property = "brand", javaType = com.newer.mall.common.pojo.Brand.class, one = @One(select = "selectBrand")),
+		@Result(column = "category_id", property = "category", javaType = com.newer.mall.common.pojo.Category.class, one = @One(select = "selectCategory")),
+        @Result(column = "id" , property = "specList",javaType = java.util.List.class , many = @Many(select = "showSpec")),
+        @Result(column = "id" , property = "id")})
+	public List<Commodity> selectAllCommodity();
+    /**
+         * 查询规格
+     * @param commodityid
+     * @return
+     */
+	@Select("select * from spec where commodity_id = #{commodityid}")
+	public List<Spec> showSpec(@Param("commodityid")int commodityid);
+	
 }
