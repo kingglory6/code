@@ -126,4 +126,13 @@ public interface CustomerMapper {
 	 */
 	@Select("select password from customer where id =#{uid}")
 	public String paypaword(@Param("uid")int uid );
+	
+	/**
+	 *	 是否收藏
+	 * @param commid
+	 * @return
+	 */
+	@Select("select * from collection where commodity_id=#{commid}")
+	public Collection getCollection(@Param("commid") int commid);
+
 }

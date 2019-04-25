@@ -77,4 +77,11 @@ public interface OrderService {
 	 * @return
 	 */
 	public PageInfo<Orders> fdltOrders(int uid,int pagenum);
+	/**
+	 *  查询所有订单
+	 * @param uid
+	 * @param pagenum
+	 * @return
+	 */
+	public PageInfo<Orders> allOrders(int uid, int pagenum);
 }

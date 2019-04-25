@@ -1,5 +1,6 @@
 package com.newer.mall.order.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,4 +75,11 @@ public class OrderController {
 	public boolean pay(@RequestParam int uid,@RequestParam int oid, @RequestParam String password) {
 		return oservice.pay(uid, oid, password);		
 	}
+    
+    @GetMapping("/all/{pagenum}")
+    public PageInfo<Orders> allOrders(@RequestParam("uid")int uid ,@RequestParam int pagenum){
+    	
+    	return oservice.allOrders(uid, pagenum);
+    	
+    }
 }

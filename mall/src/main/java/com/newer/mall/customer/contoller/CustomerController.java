@@ -125,8 +125,8 @@ public class CustomerController {
 	 * @param collection
 	 */
 	@PostMapping("/collection")
-	public void collection(@RequestParam int uid, @RequestBody Collection collection) {
-		custservice.collection(uid, collection);
+	public void collection(@RequestBody Customer customer) {
+		custservice.collection(customer.getId(),customer.getCollectionList().get(0));
 	}
 	
 	/**

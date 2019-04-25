@@ -124,4 +124,17 @@ public class OrderServiceImpl implements OrderService {
 
 
 
+
+	@Override
+	public PageInfo<Orders> allOrders(int uid, int pagenum) {
+		// TODO Auto-generated method stub
+		
+		PageHelper.startPage(pagenum, 10);
+		PageInfo<Orders> page = new PageInfo<>(ordermapper.allOd(uid));
+		
+		return page;
+	}
+
+
+
 }
