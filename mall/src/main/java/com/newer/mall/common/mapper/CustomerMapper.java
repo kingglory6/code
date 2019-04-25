@@ -119,14 +119,6 @@ public interface CustomerMapper {
 	public List <Collection> showCollection (int uid);
 	
 	/**
-	 *	 是否收藏
-	 * @param commid
-	 * @return
-	 */
-	@Select("select * from collection where commodity_id=#{commid}")
-	public Collection getCollection(@Param("commid") int commid);
-	
-	/**
 	 *  根据客户id查看密码
 	 * @param uid
 	 * @param password
