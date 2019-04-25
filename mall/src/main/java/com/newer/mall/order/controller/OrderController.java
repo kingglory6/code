@@ -1,6 +1,5 @@
 package com.newer.mall.order.controller;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,9 +76,18 @@ public class OrderController {
 	}
     
     @GetMapping("/all/{pagenum}")
-    public PageInfo<Orders> allOrders(@RequestParam("uid")int uid ,@RequestParam int pagenum){
+    public PageInfo<Orders> allOrders(@RequestParam("uid")int uid ,@PathVariable int pagenum){
     	
     	return oservice.allOrders(uid, pagenum);
     	
     }
+    /**
+         * 修改订单状态
+     * @param oid
+     */
+    @PostMapping("/up")
+    public void upsay (@RequestParam int oid) {
+         oservice.upsay(oid);
+    }
+    
 }

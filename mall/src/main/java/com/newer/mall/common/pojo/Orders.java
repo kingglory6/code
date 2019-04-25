@@ -21,9 +21,20 @@ public class Orders {
 	private int payway;
 	private int sendStatus;
 	private int hidden;
+	private String zt;
 	private BigDecimal total;
 	private String remark;
 	private List<Item> item;
+	
+	
+	public String getZt() {
+		return zt;
+	}
+
+	public void setZt(String zt) {
+		this.zt = zt;
+	}
+
 	public String getRemark() {
 		return remark;
 	}

@@ -84,4 +84,9 @@ public interface OrderService {
 	 * @return
 	 */
 	public PageInfo<Orders> allOrders(int uid, int pagenum);
+	/**
+	  * 修改订单状态
+	 * @param oid
+	 */
+	public void upsay(int oid);
 }

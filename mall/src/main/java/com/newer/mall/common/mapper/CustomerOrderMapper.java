@@ -149,8 +149,8 @@ public interface CustomerOrderMapper {
 	
 	
 	//修改订单状态
-	@Update("update orders set sendstatus=#{sendstatus} where id =#{oid}")
-	public void upsendstatus(@Param("oid")int oid ,@Param("sendstatus") int sendstatus); 
+	@Update("update orders set sendstatus= 2 where id =#{oid}")
+	public void upsendstatus(@Param("oid")int oid ); 
 	
 	//支付成功,修改支付状态
 	@Update("update orders set payway=1 where uid =#{uid} and oid=#{oid} ")
