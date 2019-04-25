@@ -28,13 +28,10 @@ export default new Router({
         {path: '/order/back', name: 'order-back', component: page('orders/back')},
         {path: '/statistics/income', name: 'income', component: page('statistics/income')},
         {path: '/statistics/unreceived', name: 'sales', component: page('statistics/sales')},
+        {path: '/admin/log',name:'log',component:page('log')}
       ]
     },
     {path: '/login', name: 'login', component: page('login')},
-    // pages
-    {path: '/home-login', name: 'p-login', component: page('home-login')},
-    {path: '/register', name: 'p-register', component: page('register')},
-    {path: '/keyboard', name: 'p-keyboard', component: page('c-keyboard')},
     {path: '*', redirect: {name: '404'}}
   ]
 })

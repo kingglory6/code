@@ -14,7 +14,6 @@
           <input type="password" placeholder="Password" class="m-input" v-model="password">
         </div>
       </div>
-      <p class="text-tips">免密码，点击登录按钮进入</p>
       <button class="m-btn sub select-none" @click.prevent="handleLogin" v-loading="isLoging">登录</button>
     </form>
     <div style="margin-top: 50px"></div>
@@ -41,19 +40,29 @@ export default {
     }
   },
   methods: {
+    // 跳转页面
     ...mapActions(['login']),
     handleLogin () {
       if (!this.username || !this.password) {
         return this.$message.warning('用户名和密码不能为空')
       }
       this.isLoging = true
-      this.login({
-        username: this.username,
-        password: this.password
-      }).then(res => {
-        this.$message.success('登录成功')
-        this.$router.push({name: 'home'})
-        this.isLoging = false
+      const params = new URLSearchParams();
+      params.append('account',this.username);
+      params.append('password',this.password);
+      this.axios.post(this.common.httpAdminUrl+'/login',params)
+      .then(res => {
+        sessionStorage.setItem('token',res.token);
+        if(res.code==200){
+          this.$message.success('登录成功');
+          this.$router.push({name: 'home'});
+        }else{
+          this.$message.warning(`${res.code}`);
+        }
+          this.isLoging = false;
+      })
+      .catch(err => {
+        console.error(err); 
       })
     }
   }

@@ -134,13 +134,14 @@
                 <el-button size="small" @click="changeModify(scope.$index)">修改</el-button>
               </el-col>
               <el-col :span="12">
-                <el-button type="danger" size="small">删除</el-button>
+                <el-button type="danger" size="small" @click="deleteCommondity(scope.$index)">删除</el-button>
               </el-col>
             </el-row>
           </template>
         </el-table-column>
       </el-table>
     </el-card>
+    <!-- 批量操作 -->
     <el-row style="margin:10px;">
       <el-col :span="12">
         <el-form>
@@ -254,6 +255,25 @@ export default {
     };
   },
   methods: {
+    // 删除商品
+    deleteCommondity(i){
+      if(confirm('确认删除？')){
+        this.axios.delete(this.common.httpAdminUrl+'/commodity/removecommodity/'+this.commoditiesPageInfo.list[i].id)
+        .then(res => {
+          if(res.code='ok'){
+            this.$message({
+              message: '删除成功',
+              type: 'success',
+              showClose: true,
+            });
+            this.init();
+          }
+        })
+        .catch(err => {
+          console.error(err); 
+        })
+      }
+    },
     addCommodity() {
       this.$router.push("/commodity/add");
     },
