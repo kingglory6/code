@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
 	    		o.setZt("确认到货");
 	    	}
 	       	if(o.getPayStatus()==1 && o.getSendStatus()==2) {
-	    		o.setZt("进行评论");
+	    		o.setZt("	评论");
 	    	}
 	    }
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
@@ -131,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
 		    		o.setZt("确认到货");
 		    	}
 		       	if(o.getPayStatus()==1 && o.getSendStatus()==2) {
-		    		o.setZt("进行评论");
+		    		o.setZt("评论");
 		    	}
 		    }
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
@@ -176,7 +176,7 @@ public class OrderServiceImpl implements OrderService {
 	    		o.setZt("确认到货");
 	    	}
 	       	if(o.getPayStatus()==1 && o.getSendStatus()==2) {
-	    		o.setZt("进行评论");
+	    		o.setZt("评论");
 	    	}
 	    }
 		PageInfo<Orders> page = new PageInfo<>(allod);
