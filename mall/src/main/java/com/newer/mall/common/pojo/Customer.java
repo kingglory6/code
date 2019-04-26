@@ -3,12 +3,16 @@ package com.newer.mall.common.pojo;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Customer {
 
 	private int id;
 	private String name;
 	private String phone;
 	private String email;
+	
+	@JsonIgnore
 	private String password;
 	private List<Address> addressList;
 	private Map<Integer, CartItem> cart;

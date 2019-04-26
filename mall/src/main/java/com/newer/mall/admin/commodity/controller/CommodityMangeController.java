@@ -21,6 +21,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.admin.commodity.service.impl.CommodityServiceImpl;
 import com.newer.mall.admin.commodity.service.impl.ImageService;
+import com.newer.mall.common.Annotation.PassToken;
+import com.newer.mall.common.Annotation.UserLoginToken;
 import com.newer.mall.common.exception.DataException;
 import com.newer.mall.common.exception.DeleteException;
 import com.newer.mall.common.exception.StateException;
@@ -30,6 +32,7 @@ import com.newer.mall.common.pojo.Commodity;
 
 @RestController
 @RequestMapping("api/v1/admin/commodity")
+@UserLoginToken
 public class CommodityMangeController {
 
 	@Autowired
@@ -114,8 +117,12 @@ public class CommodityMangeController {
 	@PutMapping("/modifycommodity")
 	public Map<String, Object> putCommodity(@RequestBody Commodity com) {
 		Map<String, Object> map = new HashMap<>();
-		service.saveCommodity(com);
-		map.put("code", "ok");
+		try {
+			service.saveCommodity(com);
+			map.put("code", "ok");
+		} catch (DataException e) {
+			map.put("code", "库存不能小于0");
+		}
 		return map;
 	}
 
@@ -172,8 +179,9 @@ public class CommodityMangeController {
 	}
 
 	@GetMapping("/wuliu")
-	public Object getWuliu(String on) {
-		return service.wuliu(on);
+	@PassToken
+	public Object getWuliu(String no) {
+		return service.wuliu(no);
 	}
 
 	@GetMapping("/category")
@@ -211,6 +219,7 @@ public class CommodityMangeController {
 
 	// 上传图片到本地
 	@PostMapping("/upimage")
+	@PassToken
 	public String upload(@RequestParam("file") MultipartFile image) {
 
 		return imageService.upload(image);

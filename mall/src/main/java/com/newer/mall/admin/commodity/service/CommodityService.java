@@ -20,7 +20,7 @@ public interface CommodityService {
 
 	public void createCommodity(Commodity com) throws SQLException;
 
-	public void saveCommodity(Commodity com);
+	public void saveCommodity(Commodity com) throws DataException;
 
 	public void upDown(int id, int type) throws BindingException, StateException;
 

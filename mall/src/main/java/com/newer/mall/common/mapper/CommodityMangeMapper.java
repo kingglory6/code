@@ -53,6 +53,9 @@ public interface CommodityMangeMapper {
 	// 查询通知列表
 	@Select("select n.email,c.title from notice n left join commodity c on n.commodity_id = c.id and c.id = #{id}")
 	public List<Notice> getEmail(@Param("id") int id);
+	
+	@Update("update notice set iNotice = 1")
+	public void updateNotice(String email,int id);
 
 	// 查询库存
 	@Select("select stock from commodity where id = #{id}")
@@ -69,7 +72,7 @@ public interface CommodityMangeMapper {
 //	@Insert("insert into discount(commodity_id,start_time,end_time,price) values(#{commodity.id},#{startTime},#{endTime},#{price})")
 //	public void addDiscountActivity(Activity activity);
 
-	// 查询单个商品
+	// 查询单个商品 
 	@Select("select * from commodity where id = #{id}")
 	public Commodity getCommodity(@Param("id") int id);
 

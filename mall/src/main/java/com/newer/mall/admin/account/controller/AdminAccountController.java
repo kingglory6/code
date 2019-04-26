@@ -29,13 +29,14 @@ public class AdminAccountController {
 		try {
 			adminForBase = service.login(account, password);
 		} catch (AccountNotFoundException e) {
-			map.put("code", "AccountNotFound");
+			map.put("code", "账号不存在");
 			return map;
 		} catch (PasswordErrorException e) {
-			map.put("code", "PasswordError");
+			map.put("code", "密码错误");
 			return map;
 		}
 		String token = service.getToken(adminForBase);
+		map.put("code", "200");
 		map.put("token", token);
 		map.put("user", adminForBase);
 		return map;

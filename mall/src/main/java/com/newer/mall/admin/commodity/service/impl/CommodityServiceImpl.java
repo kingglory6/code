@@ -94,8 +94,16 @@ public class CommodityServiceImpl implements CommodityService {
 	}
 
 	@Override
-	public void saveCommodity(Commodity com) {
+	public void saveCommodity(Commodity com) throws DataException {
+		if(com.getStock()<0) {
+			throw new DataException();
+		}
+		int stock = mapper.getStock(com.getId());
 		mapper.updateCommodity(com);
+		if(stock==0&&com.getStock()>stock) {
+			List<Notice> email = mapper.getEmail(com.getId());
+			new Thread(new EmailRunnable(email, mail)).start();
+		}
 	}
 
 	@Override

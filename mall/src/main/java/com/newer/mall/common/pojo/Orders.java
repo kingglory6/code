@@ -18,6 +18,7 @@ public class Orders {
 	private int hidden;
 	private BigDecimal total;
 	private List<Item> item;
+	private String wuliu;
 
 	public int getId() {
 		return id;
@@ -114,5 +115,22 @@ public class Orders {
 	public void setItem(List<Item> item) {
 		this.item = item;
 	}
+
+	public String getWuliu() {
+		return wuliu;
+	}
+
+	public void setWuliu(String wuliu) {
+		this.wuliu = wuliu;
+	}
+
+	@Override
+	public String toString() {
+		return "Orders [id=" + id + ", customer=" + customer + ", name=" + name + ", phone=" + phone + ", address="
+				+ address + ", time=" + time + ", payStatus=" + payStatus + ", payway=" + payway + ", sendStatus="
+				+ sendStatus + ", hidden=" + hidden + ", total=" + total + ", item=" + item + ", wuliu=" + wuliu + "]";
+	}
+	
+	
 
 }
