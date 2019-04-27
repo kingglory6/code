@@ -82,7 +82,7 @@
                                         </el-upload>
                                     </el-col>
                                     <el-col :span="12">
-                                        <el-button type="danger" size="small">删除</el-button>
+                                        <el-button type="danger" size="small" @click="removeitem(scope.$index)">删除</el-button>
                                     </el-col>
                             </el-row>
                         </template>
@@ -183,6 +183,10 @@ export default {
         }
     },
     methods:{
+        // 移除规格选项
+        removeitem(i){
+            this.commodity.specList.splice(i,1);
+        },
         uploading(i){
             this.uploadItem=i;
         },

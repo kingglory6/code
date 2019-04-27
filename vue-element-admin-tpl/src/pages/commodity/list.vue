@@ -97,7 +97,7 @@
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="id" label="编号" width="55"></el-table-column>
         <el-table-column prop="title" label="商品名称"></el-table-column>
-        <el-table-column prop="price" label="商品价格"></el-table-column>
+        <el-table-column prop="discount" label="商品价格"></el-table-column>
         <el-table-column prop="description" label="描述"></el-table-column>
         <el-table-column label="上架" prop="shelf">
           <template scope="scope">

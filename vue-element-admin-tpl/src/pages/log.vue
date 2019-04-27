@@ -39,6 +39,7 @@
             </el-table-column>
             <el-table-column 
                 prop="result"
+                :formatter="formatResult"
                 label="结果">
             </el-table-column>
             <el-table-column 
@@ -48,11 +49,11 @@
         </el-table>
         
         <el-pagination style="float:right"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        @size-change="pageSizeChange()"
+        @current-change="pageCurrentChange()"
+        :current-page.sync="logInfo.pageNum"
+        :page-sizes="[50, 100, 200, 400]"
+        :page-size.sync="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="logInfo.total">
         </el-pagination>
@@ -96,19 +97,41 @@ export default {
                 }]
                 },
             // 页面数据
-            pageSize:5
+            pageSize:50
         }
     },
     methods:{
-        handleCurrentChange(){
-
+        // 格式化结果
+        formatResult(row, column, cellValue, index){
+            return cellValue === true ? '成功':'失败';
         },
-        handleSizeChange(){
-
+        pageSizeChange(){
+            this.init();
+        },
+        // 当前页面改变
+        pageCurrentChange(){
+            this.axios.get(
+            this.common.httpAdminUrl +
+                "/log/loadlog/" +
+                this.logInfo.pageNum,
+            {
+                params: {
+                size: this.pageSize,
+                startTime:this.dataTimeRange[0],
+                endTime:this.dataTimeRange[1]
+                }
+            }
+            )
+            .then(res => {
+            this.logInfo = res.data;
+            })
+            .catch(err => {
+            console.error(err);
+            });
         },
         // 检索数据
         search(){
-            console.log(this.dataTimeRange);
+            this.init();
         },
         // 初始化数据
         init(){

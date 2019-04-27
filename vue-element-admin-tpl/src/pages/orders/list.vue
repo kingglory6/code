@@ -89,7 +89,7 @@
         <el-table-column label="操作" width="320">
           <template scope="scope">
             <el-button size="small" @click="lookOrder(scope.$index)">查看订单</el-button>
-            <el-button size="small" @click="changeOrder(scope.$index)" v-if="ordersInfo.list[scope.$index].sendStatus==0&&ordersInfo.list[scope.$index].payStatus==0">订单发货</el-button>
+            <el-button size="small" @click="changeOrder(scope.$index)" v-if="ordersInfo.list[scope.$index].sendStatus==0&&ordersInfo.list[scope.$index].payStatus==1">订单发货</el-button>
             <el-button size="small" @click="lookwl(scope.$index)" v-if="ordersInfo.list[scope.$index].sendStatus>=1">查看物流</el-button>
           </template>
         </el-table-column>
@@ -390,7 +390,7 @@ export default {
     },
     // 格式化支付方式
     formatPayway(row, column, cellValue, index){
-      return cellValue === 1 ? '支付宝' : '微信';
+      return cellValue === 1 ? '支付宝' : cellValue === 0 ? '微信' : '未支付';
     },
     // 格式化订单状态 
     formatsendStatus(row, column, cellValue, index){
