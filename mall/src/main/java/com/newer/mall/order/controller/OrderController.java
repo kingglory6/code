@@ -74,4 +74,20 @@ public class OrderController {
 	public boolean pay(@RequestParam int uid,@RequestParam int oid, @RequestParam String password) {
 		return oservice.pay(uid, oid, password);		
 	}
+    
+    @GetMapping("/all/{pagenum}")
+    public PageInfo<Orders> allOrders(@RequestParam("uid")int uid ,@PathVariable int pagenum){
+    	
+    	return oservice.allOrders(uid, pagenum);
+    	
+    }
+    /**
+         * 修改订单状态
+     * @param oid
+     */
+    @PostMapping("/up")
+    public void upsay (@RequestParam int oid) {
+         oservice.upsay(oid);
+    }
+    
 }

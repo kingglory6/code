@@ -104,8 +104,8 @@ public class CustomerController {
 	 * @param history
 	 */
 	@PostMapping("/foot")
-	public void foot(@RequestParam int uid,@RequestBody History history){
-		custservice.foot(uid, history);
+	public void foot(@RequestBody Customer customer){
+		custservice.foot(customer.getId(), customer.getHistoryList().get(0));
 	}
 	
 	
@@ -125,8 +125,8 @@ public class CustomerController {
 	 * @param collection
 	 */
 	@PostMapping("/collection")
-	public void collection(@RequestParam int uid, @RequestBody Collection collection) {
-		custservice.collection(uid, collection);
+	public void collection(@RequestBody Customer customer) {
+		custservice.collection(customer.getId(),customer.getCollectionList().get(0));
 	}
 	
 	/**

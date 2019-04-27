@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.ls.LSInput;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newer.mall.common.exception.NoStockException;
@@ -34,6 +36,22 @@ public class OrderServiceImpl implements OrderService {
 		PageHelper.startPage(pagenum, 10);
 		
 	    List<Orders> orders = ordermapper.findOrders(uid,sendstatus,paystatus);
+	    
+	    for(Orders o : orders) {
+	    	if(o.getPayStatus()==2 && o.getSendStatus()==0) {
+	    		o.setZt("支付");
+	    		System.out.println(o.getZt());
+	    	}
+	    	if(o.getPayStatus()==1 && o.getSendStatus()==0) {
+	    		o.setZt("提醒发货");
+	    	}
+	    	if(o.getPayStatus()==1 && o.getSendStatus()==1) {
+	    		o.setZt("确认到货");
+	    	}
+	       	if(o.getPayStatus()==1 && o.getSendStatus()==2) {
+	    		o.setZt("	评论");
+	    	}
+	    }
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
 		
 		return pageorders;
@@ -101,6 +119,21 @@ public class OrderServiceImpl implements OrderService {
 		
 		PageHelper.startPage(pagenum, 10);
 		List<Orders> orders = ordermapper.fdltOrders(uid);
+		   for(Orders o : orders) {
+		    	if(o.getPayStatus()==2 && o.getSendStatus()==0) {
+		    		o.setZt("支付");
+		    		System.out.println(o.getZt());
+		    	}
+		    	if(o.getPayStatus()==1 && o.getSendStatus()==0) {
+		    		o.setZt("提醒发货");
+		    	}
+		    	if(o.getPayStatus()==1 && o.getSendStatus()==1) {
+		    		o.setZt("确认到货");
+		    	}
+		       	if(o.getPayStatus()==1 && o.getSendStatus()==2) {
+		    		o.setZt("评论");
+		    	}
+		    }
 		PageInfo<Orders> pageorders = new PageInfo<>(orders);
 		
 		return pageorders;
@@ -120,6 +153,45 @@ public class OrderServiceImpl implements OrderService {
 		}else {
 			return false;
 		}
+	}
+
+
+
+
+	@Override
+	public PageInfo<Orders> allOrders(int uid, int pagenum) {
+		// TODO Auto-generated method stub
+		
+		PageHelper.startPage(pagenum, 10);
+		List<Orders> allod = ordermapper.allOd(uid);
+	    for(Orders o : allod) {
+	    	if(o.getPayStatus()==2 && o.getSendStatus()==0) {
+	    		o.setZt("支付");
+	    		System.out.println(o.getZt());
+	    	}
+	    	if(o.getPayStatus()==1 && o.getSendStatus()==0) {
+	    		o.setZt("提醒发货");
+	    	}
+	    	if(o.getPayStatus()==1 && o.getSendStatus()==1) {
+	    		o.setZt("确认到货");
+	    	}
+	       	if(o.getPayStatus()==1 && o.getSendStatus()==2) {
+	    		o.setZt("评论");
+	    	}
+	    }
+		PageInfo<Orders> page = new PageInfo<>(allod);
+		
+		return page;
+	}
+
+
+
+
+	@Override
+	public void upsay(int oid) {
+		// TODO Auto-generated method stub
+		ordermapper.upsendstatus(oid);
+		
 	}
 
 

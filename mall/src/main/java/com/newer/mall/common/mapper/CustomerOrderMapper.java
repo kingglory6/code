@@ -36,6 +36,29 @@ public interface CustomerOrderMapper {
 	@Select("select max(id) from orders where uid =#{uid}")
 	public int findoid(@Param("uid")int uid);
 	
+	@Select("select * from orders where uid =#{uid} and hidden =0")
+	@Results(
+			{
+				@Result(
+						column = "id",
+						property = "item",
+						javaType = java.util.List.class,
+						many =	 @Many(select = "finditem")					
+						),
+//				@Result(
+//						column =  "uid",
+//						property = "customer",
+//						javaType = com.newer.mall.common.pojo.Customer.class,
+//						one =@One (select ="com.newer.mall.common.mapper.showCustById" )
+//						),
+				@Result(
+						column = "id",
+						property = "id"
+						)
+			}
+			)
+	public List<Orders> allOd(@Param("uid")int uid);
+	
 	// 查询订单,sendstatus 订单状态 payway 支付状态
 	@Select("select * from orders where uid =#{uid} and sendstatus =#{sendstatus} and hidden =0  and paystatus =#{paystatus}")
 	@Results(
@@ -126,8 +149,8 @@ public interface CustomerOrderMapper {
 	
 	
 	//修改订单状态
-	@Update("update orders set sendstatus=#{sendstatus} where id =#{oid}")
-	public void upsendstatus(@Param("oid")int oid ,@Param("sendstatus") int sendstatus); 
+	@Update("update orders set sendstatus= 2 where id =#{oid}")
+	public void upsendstatus(@Param("oid")int oid ); 
 	
 	//支付成功,修改支付状态
 	@Update("update orders set payway=1 where uid =#{uid} and oid=#{oid} ")
