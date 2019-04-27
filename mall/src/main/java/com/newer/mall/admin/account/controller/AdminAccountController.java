@@ -4,11 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.newer.mall.admin.account.service.impl.AdminServiceImpl;
 import com.newer.mall.common.exception.AccountNotFoundException;
 import com.newer.mall.common.exception.PasswordErrorException;
@@ -16,7 +14,6 @@ import com.newer.mall.common.pojo.Admin;
 
 @RestController
 @RequestMapping("api/v1/admin")
-@CrossOrigin
 public class AdminAccountController {
 	
 	@Autowired
